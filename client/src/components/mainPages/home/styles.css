@@ -1,0 +1,30 @@
+.swiper {
+    margin-top: 80px;
+  }
+  
+ .swiper-pagination{
+    display: none;
+ }
+
+ .swiper-button-prev{
+    color: #c00000;
+ }
+ .swiper-button-prev:hover{
+    color: crimson;
+ }
+ .swiper-button-next{
+    color: #c00000;
+ }
+ .swiper-button-next:hover{
+    color: crimson;
+ }
+
+ @media only screen and (max-width:550px){
+    .swiper-button-prev{
+        top: 50px;
+     }
+     .swiper-button-next{
+        top: 50px;
+     }
+ }
+  
