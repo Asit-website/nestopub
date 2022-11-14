@@ -374,12 +374,12 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                   </div>
                   
                 <div id="myForm" className="dance">
-                  <div className="form">
+                  <div className="form form-steps">
                    <div className="top-forms">
                    {
                     tabIndex === 1 && <>
                     <div className="top-form">
-                      <div className="inner-form">
+                      <div className="inner-form int-form2">
                         <input
                           type="text"
                           placeholder="Name of the firm"
@@ -389,7 +389,7 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="inner-form">
+                      <div className="inner-form int-form2">
                         <input
                           type="text"
                           placeholder="Name of  Authorized Person"
@@ -401,7 +401,7 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                       </div>
                     </div>
                     <div className="top-form">
-                      <div className="inner-form">
+                      <div className="inner-form int-form2">
                         <input
                           type="text"
                           placeholder="city"
@@ -411,7 +411,7 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="inner-form">
+                      <div className="inner-form int-form2">
                         <input
                           type="text"
                           placeholder="Mobile No."
@@ -428,7 +428,7 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                    {
                     tabIndex === 2 && <>
                     <div className="top-form">
-                      <div className="inner-form">
+                      <div className="inner-form int-form2">
                         <input
                           type="text"
                           placeholder="Name"
@@ -438,7 +438,7 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                           onChange={handleChange}
                         />
                       </div>
-                      <div className="inner-form">
+                      <div className="inner-form int-form2">
                         <input
                           type="text"
                           placeholder="City"
@@ -450,7 +450,7 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                       </div>
                     </div>
                     <div className="top-form">
-                      <div className="inner-form">
+                      <div className="inner-form int-form2">
                         <input
                           type="text"
                           placeholder="Mobile"
@@ -773,7 +773,7 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                 </div>
               </div>
             )} */}
-            <Box style={{padding:'0 35px'}} sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box  style={{padding:'30px 35px'}} sx={{ display: "flex", flexDirection: "row", pt: 2, justifyContent:'space-between' }}>
               <Button
                 style={stylepeer}
                 color="inherit"
