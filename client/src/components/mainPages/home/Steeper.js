@@ -56,6 +56,7 @@ export default function Steeper({ type, setType, ty }) {
     height: "60px",
     color: "#1B84C9",
     opacity: "1",
+    fontFamily:"Bold"
   };
 
   var secondCss = {
@@ -64,6 +65,7 @@ export default function Steeper({ type, setType, ty }) {
     width: "220px",
     height: "60px",
     color: "#101010",
+    fontFamily: "Regular",
   };
 
   const tabChange = (e) => {
@@ -316,7 +318,7 @@ export default function Steeper({ type, setType, ty }) {
   const stylepeer = {
     backgroundColor: "#c00000",
     color: "#ffffff",
-    width: "150px",
+    width: "180px",
     maxWidth: "100%",
     height: "45px",
   };
@@ -492,9 +494,7 @@ export default function Steeper({ type, setType, ty }) {
                   <h2 className="step123">Mobile Verification</h2>
                 </div>
                 <p className="wrap-para">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente quas natus optio dicta, impedit minus eum blanditiis
-                  ex adipisci{" "}
+                Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
                 </p>
                 <div id="myForm" className="dance">
                   <div className="form">
@@ -786,6 +786,7 @@ export default function Steeper({ type, setType, ty }) {
                 justifyContent: "space-between",
               }}
             >
+            <div className="next-btn">
               <Button
                 style={stylepeer}
                 color="inherit"
@@ -795,6 +796,7 @@ export default function Steeper({ type, setType, ty }) {
               >
                 Back
               </Button>
+              </div>
               <Box sx={{ flex: "1 1 auto" }} />
 
               {/* {isStepOptional(activeStep) && (
@@ -804,18 +806,21 @@ export default function Steeper({ type, setType, ty }) {
             )} */}
 
               {activeStep === steps.length - 1 ? (
+                <div className="next-btn">
                 <Button type="submit" style={stylepeer} className="next-btn">
                   Submit
                 </Button>
+                </div>
               ) : (
-                <Button
-                  type={"button"}
-                  style={stylepeer}
-                  className="next-btn"
-                  onClick={handleNext}
-                >
-                  Next
-                </Button>
+                <div className="next-btn">
+                  <Button
+                    type={"button"}
+                    style={stylepeer}
+                    onClick={handleNext}
+                  >
+                    Next
+                  </Button>
+                </div>
               )}
             </Box>
           </form>

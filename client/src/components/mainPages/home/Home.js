@@ -204,6 +204,7 @@ const Home = ({setPop}) => {
                 <div className="first-red-women">
                    <div className="first-red-heading">
                       <h2>Need Something ? We are here, contact us anytime.</h2>
+                      
                    </div>
                    <button className="enquiry-btn">Enqire now</button>
                 </div>

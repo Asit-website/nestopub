@@ -128,9 +128,7 @@ export default function LoginSteeper() {
                 <h2 className='wrap-header' style={{textAlign:'center'}}>Enter The Otp</h2>
               </div>
                 <p className='wrap-para' style={{padding:'0 30px',textAlign:'center'}}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente quas natus optio dicta, impedit minus eum blanditiis
-                  ex adipisci{" "}
+                Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
                 </p>
                 <div id="myForm" className="dance">
                   <div className="form">
@@ -194,9 +192,7 @@ export default function LoginSteeper() {
                 <h2 className='wrap-header' style={{textAlign:'center'}}>Reset password</h2>
               </div>
                 <p className='wrap-para' style={{padding:'0 30px',textAlign:'center'}}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente quas natus optio dicta, impedit minus eum blanditiis
-                  ex adipisci{" "}
+                Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
                 </p>
                 <div className="reset-input">
                 <input required type="text" placeholder='New Password' />
