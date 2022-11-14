@@ -1,22 +1,17 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import axios  from "axios";
+import axios from "axios";
 // import { GlobalState } from "../../../GlobalState";
 import { Alert } from "@mui/material";
 
+const steps = ["Create Account", "Mobile,Email OTP Verification"];
 
-
-const steps = [
-  "Create Account",
-  "Mobile,Email OTP Verification",
-];
-
-export default function Steeper({type,setType,ty}) {
+export default function Steeper({ type, setType, ty }) {
   const [details, setDetails] = useState({
     firstName: "",
     lastName: "",
@@ -42,91 +37,110 @@ export default function Steeper({type,setType,ty}) {
     whatsapp: "",
   });
 
-
   // const state = useContext(GlobalState);
   // const [brok] = state.BrokerApi.brok;
   // const [callback,setCallback] = state.BrokerApi.callback;
 
-  const [tabIndex,setTabIndex] = useState(1);
+  const [tabIndex, setTabIndex] = useState(1);
   // const [isActive, setIsActive] = useState(false);
 
-  const [images,setImages] = useState(false);
-  const [images1,setImages1] = useState(false);
-  const [images2,setImages2] = useState(false);
-  const [images3,setImages3] = useState(false);
+  const [images, setImages] = useState(false);
+  const [images1, setImages1] = useState(false);
+  const [images2, setImages2] = useState(false);
+  const [images3, setImages3] = useState(false);
 
- var css = { "background": "#EBF7FF", "border": "1.5px solid #0678C4", "width": "220px",
-"height": "60px", "color": "#1B84C9", "opacity": "1" };
+  var css = {
+    background: "#EBF7FF",
+    border: "1.5px solid #0678C4",
+    width: "220px",
+    height: "60px",
+    color: "#1B84C9",
+    opacity: "1",
+  };
 
-var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "220px", "height": "60px", "color": "#101010"}
-
-
+  var secondCss = {
+    border: "1.5px solid #000000",
+    opacity: "0.6",
+    width: "220px",
+    height: "60px",
+    color: "#101010",
+  };
 
   const tabChange = (e) => {
     e.preventDefault();
-    setTabIndex(1);  
-    for(var prop in secondCss){
+    setTabIndex(1);
+    for (var prop in secondCss) {
       document.getElementById("camp").style[prop] = secondCss[prop];
     }
-    for(var prop in css){
+    for (var prop in css) {
       document.getElementById("barier").style[prop] = css[prop];
     }
-  }
+  };
 
-  const tabAnother = (e) =>{
+  const tabAnother = (e) => {
     e.preventDefault();
     setTabIndex(2);
-    for(var prop in css) {
+    for (var prop in css) {
       document.getElementById("camp").style[prop] = css[prop];
     }
-    for(var prop in secondCss){
+    for (var prop in secondCss) {
       document.getElementById("barier").style[prop] = secondCss[prop];
     }
-  }
+  };
 
-  
- const handleUplaod = async(e) =>{
+  const handleUplaod = async (e) => {
     e.preventDefault();
     try {
       const file = e.target.files[0];
       const file1 = e.target.files[0];
       const file2 = e.target.files[0];
       const file3 = e.target.files[0];
-      if(!file || !file1 || !file2 || !file3)  return alert("Files doesnt exit");
-      if(file.size > 1024*1024 || file1.size > 1024*1024 || file2.size > 1024*1024 || file3.size > 1024*1024 ) 
-       return alert("size to large");
+      if (!file || !file1 || !file2 || !file3)
+        return alert("Files doesnt exit");
+      if (
+        file.size > 1024 * 1024 ||
+        file1.size > 1024 * 1024 ||
+        file2.size > 1024 * 1024 ||
+        file3.size > 1024 * 1024
+      )
+        return alert("size to large");
 
-       if((file.type!=='image/jpeg' && file.type!=='image/png') || (file1.type!=='image/jpeg' && file1.type!=='image/png') || (file2.type!=='image/jpeg' && file2.type!=='image/png') || (file3.type!=='image/jpeg' && file3.type!=='image/png'))
-       return alert("File Format is incorrect");
-       let formData = new FormData();
-       let formData1 = new FormData();
-       let formData2 = new FormData();
-       let formData3 = new FormData();
-       formData.append('file',file);
-       formData1.append('file1',file1);
-       formData2.append('file2',file2);
-       formData3.append('file3',file3);
-       const res = await axios.post('/api/upload',formData,formData1,formData2,formData3,{
-        headers: {'Content-Type': 'multipart/form-data'}
-       })
+      if (
+        (file.type !== "image/jpeg" && file.type !== "image/png") ||
+        (file1.type !== "image/jpeg" && file1.type !== "image/png") ||
+        (file2.type !== "image/jpeg" && file2.type !== "image/png") ||
+        (file3.type !== "image/jpeg" && file3.type !== "image/png")
+      )
+        return alert("File Format is incorrect");
+      let formData = new FormData();
+      let formData1 = new FormData();
+      let formData2 = new FormData();
+      let formData3 = new FormData();
+      formData.append("file", file);
+      formData1.append("file1", file1);
+      formData2.append("file2", file2);
+      formData3.append("file3", file3);
+      const res = await axios.post(
+        "/api/upload",
+        formData,
+        formData1,
+        formData2,
+        formData3,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-       setImages(res.data);
-       setImages1(res.data);
-       setImages2(res.data);
-       setImages3(res.data);
-    } 
-    
-    catch (error) {
-       console.log(error.message);
+      setImages(res.data);
+      setImages1(res.data);
+      setImages2(res.data);
+      setImages3(res.data);
+    } catch (error) {
+      console.log(error.message);
     }
-      
- }
+  };
 
- 
-
- 
   const handleChange = (e) => {
-
     if (document.getElementsByName(e.target.name)[0].nextElementSibling) {
       document.getElementsByName(e.target.name)[0].nextElementSibling.remove();
     }
@@ -155,8 +169,6 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
     //     formData.append("file1", e.target.files[0]);
     //     formData.append("file2", e.target.files[0]);
     //     formData.append("file3", e.target.files[0]);
-       
-
 
     //     const res = await axios.post('/api/upload',formData,{
     //       headers: {'Content-Type': 'multipart/form-data', 'Authorization': ''}
@@ -164,14 +176,12 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
 
     //   console.log(res.data);
     //   setImages(res.data);
-    //   } 
+    //   }
     //   catch (error) {
     //     alert(error.response.data.msg)
     //   }
-      setDetails({ ...details, [e.target.name]: e.target.value });
+    setDetails({ ...details, [e.target.name]: e.target.value });
   };
-
- 
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -184,8 +194,8 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
   //       t.style.display="none";
   //     }, 5000);
   //     setCallback(!callback);
-  //   } 
-    
+  //   }
+
   //   catch (error) {
   //     let t = document.getElementById("fit");
   //     t.style.display="block"
@@ -199,11 +209,10 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
-
   const styleUpload = {
-    opacity: activeStep === 1 ? '0' : '1',
-  }
-  
+    opacity: activeStep === 1 ? "0" : "1",
+  };
+
   const isStepOptional = (step) => {
     return step === 1;
   };
@@ -213,16 +222,12 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
   };
 
   const handleNext = () => {
-    
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
 
-    
-
-    
     // if(activeStep===0){
     //   if(details.firstName.length ===0 || details.lastName.length===0 || details.mobile.length===0 || details.email.length === 0){
     //     alert("plz fill all the data");
@@ -266,31 +271,28 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
       }
     }
 
-  
     if (flag) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
     }
 
-    if(activeStep === 0){
+    if (activeStep === 0) {
       setType("popup-container1");
       let tyr = document.getElementById(ty);
-      tyr.classList.remove("popup-container")
+      tyr.classList.remove("popup-container");
     }
-    
   };
 
   const handleBack = () => {
     let tyr = document.getElementById(ty);
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-      setType("popup-container");
-      tyr.classList.remove("popup-container1");
+    setType("popup-container");
+    tyr.classList.remove("popup-container1");
   };
 
   const deepStyle = {
-    backgroundColor:'#D9D9D9',
-  }
-
+    backgroundColor: "#D9D9D9",
+  };
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
@@ -320,11 +322,15 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
   };
 
   return (
-    <Box  sx={{ width: "100%" }}>
-    <Alert id="git" style={{display:'none'}} severity="success">This is a success alert — check it </Alert>
-    <Alert id="fit" style={{display:'none'}}  severity="error"> </Alert>
-     
-      <Stepper style={styleUpload}  className="stoper"  activeStep={activeStep}>
+    <Box sx={{ width: "100%" }}>
+      <Alert id="git" style={{ display: "none" }} severity="success">
+        This is a success alert — check it{" "}
+      </Alert>
+      <Alert id="fit" style={{ display: "none" }} severity="error">
+        {" "}
+      </Alert>
+
+      <Stepper style={styleUpload} className="stoper" activeStep={activeStep}>
         {steps.map((label, index) => {
           console.log(index);
           const stepProps = {};
@@ -357,110 +363,111 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
       ) : (
         <>
           {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
-        
-          <form >
+
+          <form>
             {activeStep === 0 && (
               <div className="wrapper">
                 <div className="shadow">
-                <h2>Create Account</h2>
+                  <h2>Create Account</h2>
                 </div>
                 <div className="hr">
-                <hr className="small-hr" />
-                <hr className="step-hr" />
+                  <hr className="small-hr" />
+                  <hr className="step-hr" />
                 </div>
-                  <div className="steeper-button">
-                      <button id="barier" onClick={tabChange} className="broking">Broking Firm </button>
-                      <button id="camp" onClick={tabAnother} className="broker-individual">Individual broker</button>
-                  </div>
-                  
+                <div className="steeper-button">
+                  <button id="barier" onClick={tabChange} className="broking">
+                    Broking Firm{" "}
+                  </button>
+                  <button
+                    id="camp"
+                    onClick={tabAnother}
+                    className="broker-individual"
+                  >
+                    Individual broker
+                  </button>
+                </div>
+
                 <div id="myForm" className="dance">
                   <div className="form form-steps">
-                   <div className="top-forms">
-                   {
-                    tabIndex === 1 && <>
-                    <div className="top-form">
-                      <div className="inner-form int-form2">
-                        <input
-                          type="text"
-                          placeholder="Name of the firm"
-                          name="firstName"
-                        
-                          value={details.firstName}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="inner-form int-form2">
-                        <input
-                          type="text"
-                          placeholder="Name of  Authorized Person"
-                          name="lastName"
-                          value={details.lastName}
-                          onChange={handleChange}
-                          
-                        />
-                      </div>
-                    </div>
-                    <div className="top-form">
-                      <div className="inner-form int-form2">
-                        <input
-                          type="text"
-                          placeholder="city"
-                          name="mobile"
-                         
-                          value={details.mobile}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="inner-form int-form2">
-                        <input
-                          type="text"
-                          placeholder="Mobile No."
-                          name="email"
-                          value={details.email}
-                          onChange={handleChange}
-                         
-                        />
-                      </div>
-                    </div>
-                    </>
-                   }
+                    <div className="top-forms">
+                      {tabIndex === 1 && (
+                        <>
+                          <div className="top-form">
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="Name of the firm"
+                                name="firstName"
+                                value={details.firstName}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="Name of  Authorized Person"
+                                name="lastName"
+                                value={details.lastName}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          </div>
+                          <div className="top-form">
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="city"
+                                name="mobile"
+                                value={details.mobile}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="Mobile No."
+                                name="email"
+                                value={details.email}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          </div>
+                        </>
+                      )}
 
-                   {
-                    tabIndex === 2 && <>
-                    <div className="top-form">
-                      <div className="inner-form int-form2">
-                        <input
-                          type="text"
-                          placeholder="Name"
-                          name="firstName"
-                        
-                          value={details.firstName}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="inner-form int-form2">
-                        <input
-                          type="text"
-                          placeholder="City"
-                          name="lastName"
-                          value={details.lastName}
-                          onChange={handleChange}
-                          
-                        />
-                      </div>
-                    </div>
-                    <div className="top-form">
-                      <div className="inner-form int-form2">
-                        <input
-                          type="text"
-                          placeholder="Mobile"
-                          name="mobile"
-                         
-                          value={details.mobile}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      {/* <div className="inner-form">
+                      {tabIndex === 2 && (
+                        <>
+                          <div className="top-form">
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="Name"
+                                name="firstName"
+                                value={details.firstName}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="City"
+                                name="lastName"
+                                value={details.lastName}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          </div>
+                          <div className="top-form">
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="Mobile"
+                                name="mobile"
+                                value={details.mobile}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            {/* <div className="inner-form">
                         <input
                           type="text"
                           placeholder="Mobile No."
@@ -470,12 +477,10 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                          
                         />
                       </div> */}
+                          </div>
+                        </>
+                      )}
                     </div>
-                    </>
-                   }
-                    
-                    </div>
-
                   </div>
                 </div>
               </div>
@@ -483,9 +488,9 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
 
             {activeStep === 1 && (
               <div className="wrapper">
-              <div className="shadow">
-                <h2 className="step123">Mobile Verification</h2>
-              </div>
+                <div className="shadow">
+                  <h2 className="step123">Mobile Verification</h2>
+                </div>
                 <p className="wrap-para">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Sapiente quas natus optio dicta, impedit minus eum blanditiis
@@ -538,7 +543,6 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                           style={deepStyle}
                         />
                       </div>
-                     
                     </div>
                     <span className="resend">Resend</span>
                     {/* <div className="top-form">
@@ -773,7 +777,15 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                 </div>
               </div>
             )} */}
-            <Box  style={{padding:'30px 35px'}} sx={{ display: "flex", flexDirection: "row", pt: 2, justifyContent:'space-between' }}>
+            <Box
+              style={{ padding: "30px 35px" }}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                pt: 2,
+                justifyContent: "space-between",
+              }}
+            >
               <Button
                 style={stylepeer}
                 color="inherit"
@@ -806,12 +818,9 @@ var secondCss = {"border": "1.5px solid #000000", "opacity": "0.6", "width": "22
                 </Button>
               )}
             </Box>
-
           </form>
-         
         </>
       )}
     </Box>
-   
   );
 }
