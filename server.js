@@ -15,7 +15,7 @@ app.use(fileUpload({
     useTempFiles:true
 }))
 
-app.use('/api',require('./Router/brokerRouter'));
+app.use('/api',require('./Router/authRouter'));
 app.use('/api',require('./Router/upload'));
 
 

@@ -26,7 +26,7 @@ body {
 .next-btn button{
   /* color: black !important; */
   font-family: "Bold" !important;
-  font-size: 17px !important;
+  font-size: 16.5px !important;
 }
 .btn-form-contact {
   width: 160px;
@@ -80,6 +80,21 @@ body {
   object-fit: cover;
   margin: auto;
 }
+.header .nav-item1{
+  background: #0170C1;
+  padding: 0rem 1rem !important;
+  width: 130px;
+  height: 40px;
+  max-width: 100%;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.nav-item1 a{
+  color: #ffffff !important;
+ 
+}
 
 .header .nav-menu {
   display: flex;
@@ -93,7 +108,7 @@ body {
 
 .header .nav-item a:hover {
   padding-bottom: 12px;
-  border-bottom: 3px solid black;
+  /* border-bottom: 3px solid black; */
 }
 
 .hamburger {

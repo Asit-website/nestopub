@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -12,29 +13,19 @@ import { Alert } from "@mui/material";
 const steps = ["Create Account", "Mobile,Email OTP Verification"];
 
 export default function Steeper({ type, setType, ty }) {
+  const navigate = useNavigate();
   const [details, setDetails] = useState({
-    firstName: "",
-    lastName: "",
-    mobile: "",
-    email: "",
-    mobileOtp: "",
-    mobileOtp2: "",
-    mobileOtp3: "",
-    mobileOtp4: "",
-    emailOtp: "",
-    emailOtp2: "",
-    emailOtp3: "",
-    emailOtp4: "",
-    experience: "",
-    builderList: "",
-    registrationNumber: "",
-    certificationCopy: "",
-    address: "",
-    state: "",
-    pinCode: "",
-    city: "",
-    area: "",
-    whatsapp: "",
+      firmName:"",
+      authorizedName:"",
+      city:"",
+      mobile:"",
+      mobileOtp1:"",
+      mobileOtp2:"",
+      mobileOtp3:"",
+      mobileOtp4:"",
+      individualName:"",
+      city1:"",
+      mobile1:""
   });
 
   // const state = useContext(GlobalState);
@@ -44,10 +35,7 @@ export default function Steeper({ type, setType, ty }) {
   const [tabIndex, setTabIndex] = useState(1);
   // const [isActive, setIsActive] = useState(false);
 
-  const [images, setImages] = useState(false);
-  const [images1, setImages1] = useState(false);
-  const [images2, setImages2] = useState(false);
-  const [images3, setImages3] = useState(false);
+  
 
   var css = {
     background: "#EBF7FF",
@@ -90,123 +78,40 @@ export default function Steeper({ type, setType, ty }) {
     }
   };
 
-  const handleUplaod = async (e) => {
-    e.preventDefault();
-    try {
-      const file = e.target.files[0];
-      const file1 = e.target.files[0];
-      const file2 = e.target.files[0];
-      const file3 = e.target.files[0];
-      if (!file || !file1 || !file2 || !file3)
-        return alert("Files doesnt exit");
-      if (
-        file.size > 1024 * 1024 ||
-        file1.size > 1024 * 1024 ||
-        file2.size > 1024 * 1024 ||
-        file3.size > 1024 * 1024
-      )
-        return alert("size to large");
-
-      if (
-        (file.type !== "image/jpeg" && file.type !== "image/png") ||
-        (file1.type !== "image/jpeg" && file1.type !== "image/png") ||
-        (file2.type !== "image/jpeg" && file2.type !== "image/png") ||
-        (file3.type !== "image/jpeg" && file3.type !== "image/png")
-      )
-        return alert("File Format is incorrect");
-      let formData = new FormData();
-      let formData1 = new FormData();
-      let formData2 = new FormData();
-      let formData3 = new FormData();
-      formData.append("file", file);
-      formData1.append("file1", file1);
-      formData2.append("file2", file2);
-      formData3.append("file3", file3);
-      const res = await axios.post(
-        "/api/upload",
-        formData,
-        formData1,
-        formData2,
-        formData3,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-
-      setImages(res.data);
-      setImages1(res.data);
-      setImages2(res.data);
-      setImages3(res.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+ 
 
   const handleChange = (e) => {
     if (document.getElementsByName(e.target.name)[0].nextElementSibling) {
       document.getElementsByName(e.target.name)[0].nextElementSibling.remove();
     }
-
-    // if (
-    //   e.target.name === "file" ||
-    //   e.target.name === "file1" ||
-    //   e.target.name === "file2" ||
-    //   e.target.name === "file3"
-    // ) {
-    //   setDetails({ ...details, [e.target.name]: e.target.files[0] });
-    //   e.preventDefault();
-    //   try {
-    //     if (!e.target.files[0]) return alert("Files doesnt exit");
-
-    //     if (e.target.files[0] > 1024 * 1024) return alert("size to large");
-
-    //     if (
-    //       e.target.files[0] !== "image/jpeg" &&
-    //       e.target.files[0] !== "image/png"
-    //     )
-    //       return alert("file format is incorrect");
-
-    //     let formData = new FormData();
-    //     formData.append("file", e.target.files[0]);
-    //     formData.append("file1", e.target.files[0]);
-    //     formData.append("file2", e.target.files[0]);
-    //     formData.append("file3", e.target.files[0]);
-
-    //     const res = await axios.post('/api/upload',formData,{
-    //       headers: {'Content-Type': 'multipart/form-data', 'Authorization': ''}
-    //   })
-
-    //   console.log(res.data);
-    //   setImages(res.data);
-    //   }
-    //   catch (error) {
-    //     alert(error.response.data.msg)
-    //   }
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     let resp = await axios.post("/api/broker", {...details,images})
-  //     let t = document.getElementById("git");
-  //     t.style.display="block"
-  //     t.innerText=`${resp.data.msg}`;
-  //     setTimeout(() => {
-  //       t.style.display="none";
-  //     }, 5000);
-  //     setCallback(!callback);
-  //   }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let resp = await axios.post("/api/registerBroker", {...details});
+      localStorage.setItem("firstlogin", true);
+      let t = document.getElementById("git");
+      t.style.display="block"
+      t.innerText=`${resp.data.msg}`;
+      setTimeout(() => {
+        t.style.display="none";
+      }, 5000);
 
-  //   catch (error) {
-  //     let t = document.getElementById("fit");
-  //     t.style.display="block"
-  //     t.innerText=`${error.response.data.msg}`;
-  //     setTimeout(() => {
-  //       t.style.display="none";
-  //     }, 5000);
-  //   }
-  // };
+      navigate("/");
+      // setCallback(!callback);
+    }
+
+    catch (error) {
+      let t = document.getElementById("fit");
+      t.style.display="block"
+      t.innerText=`${error.response.data.msg}`;
+      setTimeout(() => {
+        t.style.display="none";
+      }, 5000);
+    }
+  };
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -318,7 +223,7 @@ export default function Steeper({ type, setType, ty }) {
   const stylepeer = {
     backgroundColor: "#c00000",
     color: "#ffffff",
-    width: "180px",
+    width: "150px",
     maxWidth: "100%",
     height: "45px",
   };
@@ -366,7 +271,7 @@ export default function Steeper({ type, setType, ty }) {
         <>
           {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
 
-          <form>
+          <form onSubmit={handleSubmit}>
             {activeStep === 0 && (
               <div className="wrapper">
                 <div className="shadow">
@@ -399,8 +304,8 @@ export default function Steeper({ type, setType, ty }) {
                               <input
                                 type="text"
                                 placeholder="Name of the firm"
-                                name="firstName"
-                                value={details.firstName}
+                                name="firmName"
+                                value={details.firmName}
                                 onChange={handleChange}
                               />
                             </div>
@@ -408,8 +313,8 @@ export default function Steeper({ type, setType, ty }) {
                               <input
                                 type="text"
                                 placeholder="Name of  Authorized Person"
-                                name="lastName"
-                                value={details.lastName}
+                                name="authorizedName"
+                                value={details.authorizedName}
                                 onChange={handleChange}
                               />
                             </div>
@@ -419,8 +324,8 @@ export default function Steeper({ type, setType, ty }) {
                               <input
                                 type="text"
                                 placeholder="city"
-                                name="mobile"
-                                value={details.mobile}
+                                name="city"
+                                value={details.city}
                                 onChange={handleChange}
                               />
                             </div>
@@ -428,8 +333,8 @@ export default function Steeper({ type, setType, ty }) {
                               <input
                                 type="text"
                                 placeholder="Mobile No."
-                                name="email"
-                                value={details.email}
+                                name="mobile"
+                                value={details.mobile}
                                 onChange={handleChange}
                               />
                             </div>
@@ -444,8 +349,8 @@ export default function Steeper({ type, setType, ty }) {
                               <input
                                 type="text"
                                 placeholder="Name"
-                                name="firstName"
-                                value={details.firstName}
+                                name="individualName"
+                                value={details.individualName}
                                 onChange={handleChange}
                               />
                             </div>
@@ -453,8 +358,8 @@ export default function Steeper({ type, setType, ty }) {
                               <input
                                 type="text"
                                 placeholder="City"
-                                name="lastName"
-                                value={details.lastName}
+                                name="city1"
+                                value={details.city1}
                                 onChange={handleChange}
                               />
                             </div>
@@ -464,21 +369,11 @@ export default function Steeper({ type, setType, ty }) {
                               <input
                                 type="text"
                                 placeholder="Mobile"
-                                name="mobile"
-                                value={details.mobile}
+                                name="mobile1"
+                                value={details.mobile1}
                                 onChange={handleChange}
                               />
                             </div>
-                            {/* <div className="inner-form">
-                        <input
-                          type="text"
-                          placeholder="Mobile No."
-                          name="email"
-                          value={details.email}
-                          onChange={handleChange}
-                         
-                        />
-                      </div> */}
                           </div>
                         </>
                       )}
@@ -502,9 +397,9 @@ export default function Steeper({ type, setType, ty }) {
                       <div className="inner-form inner-form-1">
                         <input
                           type="text"
-                          name="mobileOtp"
+                          name="mobileOtp1"
                           required
-                          value={details.mobileOtp}
+                          value={details.mobileOtp1}
                           onChange={handleChange}
                           maxLength="1"
                           style={deepStyle}
@@ -545,245 +440,21 @@ export default function Steeper({ type, setType, ty }) {
                       </div>
                     </div>
                     <span className="resend">Resend</span>
-                    {/* <div className="top-form">
+                  </div>
+                </div>
+                
+              </div>
+            )}
+
+          
            
-          </div> */}
-                  </div>
-                </div>
-                {/* <h2>Email OTP Verification</h2>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente quas natus optio dicta, impedit minus eum blanditiis
-                  ex adipisci{" "}
-                </p> */}
-                <div id="myForm" className="dance">
-                  <div className="form">
-                    {/* <div className="top-form">
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          name="emailOtp"
-                          required
-                          value={details.emailOtp}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          name="emailOtp2"
-                          required
-                          value={details.emailOtp2}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          name="emailOtp3"
-                          required
-                          value={details.emailOtp3}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          name="emailOtp4"
-                          value={details.emailOtp4}
-                          required
-                          onChange={handleChange}
-                        />
-                      </div>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* {activeStep === 2 && (
-             
-              <input
-                          type="text"
-                          placeholder="Experience in the field (years.)"
-                          name="experience"
-                          value={details.experience}
-                          onChange={handleChange}
-                          required
-                        />
-              
-             
-            )} */}
-
-            {/* {activeStep === 3 && (
-              <div className="wrapper">
-                <h2>Address Information</h2>
-                <div id="myForm" className="dance">
-                  <div className="form">
-                    <div className="bottom-form">
-                      <div className="inner-form">
-                        <textarea
-                          placeholder="Address"
-                          name="address"
-                          value={details.address}
-                          onChange={handleChange}
-                          required
-                        ></textarea>
-                      </div>
-                    </div>
-                    <div className="top-form">
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          placeholder="State"
-                          name="state"
-                          value={details.state}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          placeholder="PIN Code"
-                          name="pinCode"
-                          value={details.pinCode}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          placeholder="City"
-                          name="city"
-                          value={details.city}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                      <div className="inner-form inner-form-1">
-                        <input
-                          type="text"
-                          placeholder="Area"
-                          name="area"
-                          value={details.area}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-           
-            {activeStep === 4 && (
-              <div className="wrapper">
-                <h2>Document Submition</h2>
-                <div id="myForm" className="dance">
-                  <div className="form">
-                    <div className="top-form">
-                      <div className="inner-form">
-                     
-                        <label htmlFor="file">Photo of PAN</label>
-                        <input
-                          className="fileup"
-                          type="file"
-                          placeholder="Photo of Business Card / Shop (Optional)"
-                          name="file"
-                          onChange={handleUplaod}
-                        />
-                            <img width="100" height="100" src={images ? images.url : ''} alt="not" />
-                      </div>
-                      <div className="inner-form">
-                   
-                        <label htmlFor="file1">Photo of Aadhar</label>
-
-                        <input
-                          className="fileup"
-                          type="file"
-                          placeholder="Rera Certification Copy"
-                          name="file1"
-                          onChange={handleUplaod}
-                          
-                        />
-                        
-                           <img width="100" height="100" src={images1 ? images1.url : ''} alt="no" />
-                        
-                         
-                      </div>
-                    </div>
-                    <div className="top-form">
-                      <div className="inner-form">
-                    
-                        <label htmlFor="file2">
-                          Photo of Business Card / Shop (Optional)
-                        </label>
-                        <input
-                          className="fileup"
-                          type="file"
-                          placeholder="Photo of Pan"
-                          name="file2"
-                          onChange={handleUplaod}
-                          
-                        />
-                         <img width="100" height="100" src={images2 ? images2.url : ''} alt="not" />
-                      </div>
-                      <div className="inner-form">
-                    
-                        <label htmlFor="file3">
-                          Rera Certification Copy (Optional)
-                        </label>
-                        <input
-                          className="fileup"
-                          type="file"
-                          placeholder="Photo of Aadhar"
-                          name="file3"
-                          onChange={handleUplaod}
-                          
-                        />
-                         <img width="100" height="100" src={images3 ? images3.url : ''} alt="not" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            {activeStep === 5 && (
-              <div className="wrapper">
-               
-                <div className="whatsapp-box">
-                  <div className="imgs-what">
-                    <img src="" alt="" />
-                  </div>
-                  <div id="myForm" className="dance">
-                    <div className="form">
-                      <div className="top-form">
-                        <div className="inner-form">
-                          <input
-                            className="fileup"
-                            type="text"
-                            placeholder="Whatsapp Number (Optional) - Same as contact number tick"
-                            name="whatsapp"
-                            value={details.whatsapp}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )} */}
             <Box
-              style={{ padding: "30px 35px" }}
+              style={{ padding: "30px 40px" }}
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 pt: 2,
-                justifyContent: "space-between",
+                
               }}
             >
             <div className="next-btn">

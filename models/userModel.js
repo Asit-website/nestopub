@@ -1,102 +1,56 @@
-const mongoose = require('mongoose');
-const userSchema = new mongoose.Schema({
-    firstName:{
-        type:String,
-        required:true,
-    },
-    lastName:{
-        type:String,
-        required:true
-    },
-    mobile:{
-        type:Number,
-        required:true
-    },
-    email:{
-        type:String,
-        required:true
-    },
-    mobileOtp:{
-        type:Number,
-        required:true
-    },
-    mobileOtp2:{
-        type:Number,
-        required:true
-    },
-    mobileOtp3:{
-        type:Number,
-        required:true
-    },
-    mobileOtp4:{
-        type:Number,
-        required:true
-    },
-    emailOtp:{
-        type:String,
-        required:true
-    },
-    emailOtp2:{
-        type:String,
-        required:true
-    },
-    emailOtp3:{
-        type:String,
-        required:true
-    },
-    emailOtp4:{
-        type:String,
-        required:true
-    },
-    experience:{
-        type:String,
-        required:true
-    },
-    builderList:{
-        type:String,
-        required:true
-    },
-    registrationNumber:{
-        type:String,
-        required:true
-    },
-    certificationCopy:{
-        type:String,
-    },
-    address:{
-        type:String,
-        required:true,
-    },
-    state:{
-        type:String,
-        required:true,
-    },
-    pinCode:{
-        type:String,
-        requird:true
-    },
-    city:{
-        type:String,
-        requird:true
-    },
-    area:{
-        type:String,
-        requird:true 
-    },
-    whatsapp:{
-        type:String,
-    },
-    images:{
-        type:Object,
-        required:true
+const mongoose = require("mongoose");
+const userSchema = new mongoose.Schema(
+  {
+    firmName: {
+      type: String,
+      required: true,
     },
 
-    role:{
-        type:String,
-        default:'user'
-    }
-},{
-    timestamps:true
-})
+    authorizedName: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    mobile: {
+      type:String,
+      required: true,
+    },
+    mobileOtp1: {
+      type:String,
+      required: true,
+    },
+    mobileOtp2: {
+      type:String,
+      required: true,
+    },
+    mobileOtp3: {
+      type:String,
+      required: true,
+    },
+    mobileOtp4: {
+      type:String,
+      required: true,
+    },
+    individualName: {
+      type: String,
+    },
+    city1: {
+      type: String,
+    },
+    mobile1: {
+      type: String,
+    },
+    // role: {
+    //   type: String,
+    //   default: "user",
+    // },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-module.exports = mongoose.model("Users",userSchema);
+module.exports = mongoose.model("Users", userSchema);
