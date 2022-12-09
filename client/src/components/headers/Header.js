@@ -3,7 +3,6 @@ import logo from "../../images/logo.png";
 import { NavLink } from "react-router-dom";
 import HomePop from "../mainPages/home/HomePop";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { GlobalState } from "../../GlobalState";
 const Header = ({ pop, setPop }) => {
   const state = useContext(GlobalState);
@@ -15,7 +14,7 @@ const Header = ({ pop, setPop }) => {
   const closeMenu = () => setClick(false);
   const [navColor, setNavColor] = useState(false);
   const [same, setSame] = useState("popup-container");
-  const navigate = useNavigate();
+
 
   const logoutUser = async () => {
     await axios.get("/api/logout");
@@ -31,10 +30,7 @@ const Header = ({ pop, setPop }) => {
   };
   window.addEventListener("scroll", changeNavColor);
 
-  //   const loggedRouter = () => {
-  //     return ;
-  //   };
-
+ 
   return (
     <>
       <div className={navColor ? "header activeH" : "header"}>
@@ -80,7 +76,7 @@ const Header = ({ pop, setPop }) => {
                     Logout
                   </NavLink>
                 </li>
-                <span>{user.firmName}</span>
+               <NavLink to="#!"><li className="nav-item"> <span className="wel">Welcome</span>{user.firmName}{user.individualName}</li></NavLink>
               </>
             ) : (
               <li className="nav-item nav-item1">

@@ -3,7 +3,7 @@ import axios from 'axios';
 const BrokerApi = (token) => {
   const [isLogged,setIsLogged] = useState(false);
   const [user,setUser] = useState([]);
-
+  const [callback,setCallback] = useState(false);
   useEffect(() =>{
       if(token){
         const getBroker = async() =>{
@@ -14,7 +14,6 @@ const BrokerApi = (token) => {
 
               setIsLogged(true);
               setUser(res.data);
-              console.log(res.data);
             } 
             
             catch (error) {
@@ -29,7 +28,8 @@ const BrokerApi = (token) => {
 
   return {
        isLogged:[isLogged,setIsLogged],
-       user:[user,setUser]
+       user:[user,setUser],
+       callback:[callback,setCallback]
   }
 }
 

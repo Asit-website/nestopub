@@ -1260,6 +1260,35 @@ padding: 20px 0px;
   /* font-family: "Bold"; */
 }
 
+.steeper-button1{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 25px;
+}
+
+.steeper-button1 .broking {
+  font-family: "Bold";
+  background: #ebf7ff;
+  border: 1.5px solid #0678c4;
+  width: 220px;
+  height: 60px;
+  border-radius: 8px 0px 0px 9px;
+  font-size: 17.5px;
+  color: #1b84c9;
+}
+.steeper-button1 .broker-individual {
+  border: 1.5px solid #000000;
+  opacity: 0.6;
+  width: 220px;
+  height: 60px;
+  border-radius: 0px 8px 9px 0px;
+  font-size: 17.5px;
+  color: #101010;
+  /* font-family: "Bold"; */
+}
+
+
 .resend {
   font-family: "Semi Bold";
   float: right;
@@ -1667,4 +1696,8 @@ padding: 20px 0px;
   transform: translate(-50%, -50%);
   white-space: nowrap;
   text-decoration: underline;
+}
+.wel{
+  color: #c00100;
+  font-family: "Semi Bold Italic";
 }

@@ -3,20 +3,16 @@ const userSchema = new mongoose.Schema(
   {
     firmName: {
       type: String,
-      required: true,
     },
 
     authorizedName: {
       type: String,
-      required: true,
     },
     city: {
       type: String,
-      required: true,
     },
     mobile: {
       type:String,
-      required: true,
     },
     mobileOtp1: {
       type:String,

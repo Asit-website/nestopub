@@ -7,11 +7,10 @@ const authCtrl = {
       try {
         const {firmName,authorizedName,city,mobile,individualName,city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4} = req.body      
 
-        const firmUser = await Users.findOne({firmName:firmName});
-        if(firmUser){
-         res.status(400).json({msg:"This FirmName is Already Exists"});
-        }
-
+      //   const firmUser = await Users.findOne({firmName:firmName});
+      //   if(firmUser){
+      //    res.status(400).json({msg:"This FirmName is Already Exists"});
+      //   }  
         const newBroker = new Users({
          firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4
         })
@@ -36,31 +35,34 @@ const authCtrl = {
    },
 
    loginBroker: async(req,res) =>{
-
       try {
          const {firmName,mobile} = req.body;
-         const broker = await Users.findOne({firmName:firmName});
+         const user = await Users.findOne({firmName:firmName});
          const brokerMobile = await Users.findOne({mobile:mobile});
-         if(!broker)
+
+         if(!user)
          {
            return res.status(400).json({msg:"Broker Does Not Exist"});
          }
-
          if(!brokerMobile){
-            return res.status(400).json({msg:"mobile Number Does Not Exist"});
+            return res.status(400).json({msg:"Brokers Mobile does not exist"});
          }
 
-         const accesstoken =  createAccessToken({id:broker._id});
-         const refreshtoken = createRefreshToken({id:broker._id});
+         // if(!brokerMobile){
+         //    return res.status(400).json({msg:"mobile Number Does Not Exist"});
+         // }
+
+         const accesstoken =  createAccessToken({id:user._id});
+         const refreshtoken = createRefreshToken({id:user._id});
    
          // set the cookie 
          res.cookie("refreshtoken",refreshtoken,{
              httpOnly:true,
-             path:'/user/refresh_token',
+             path:'/api/refresh_token',
              maxAge:7*24*60*60*1000 //7d
          })
    
-         res.json({accesstoken}); 
+         res.json({msg:"login",accesstoken}); 
       } 
       
       catch (error) {
@@ -68,6 +70,40 @@ const authCtrl = {
       }
       
    },
+
+   brokerIndividual: async (req,res) =>{
+      try {
+         const {individualName,mobile1} = req.body;
+         const individual = await Users.findOne({individualName:individualName});
+         const individualMobile = await Users.findOne({mobile1:mobile1});
+
+         if(!individual)
+         {
+           return res.status(400).json({msg:"Broker Does Not Exist"});
+         }
+         if(!individualMobile){
+            return res.status(400).json({msg:"Brokers Mobile does not exist"});
+         }
+
+
+         const accesstoken =  createAccessToken({id:individual._id});
+         const refreshtoken = createRefreshToken({id:individual._id});
+   
+         // set the cookie 
+         res.cookie("refreshtoken",refreshtoken,{
+             httpOnly:true,
+             path:'/api/refresh_token',
+             maxAge:7*24*60*60*1000 //7d
+         })
+   
+         res.json({msg:"login",accesstoken}); 
+      } 
+      
+      catch (error) {
+         return res.status(500).json({msg:error.message})
+      }
+   },
+
 
    logout:async (req,res)=>{
       try {

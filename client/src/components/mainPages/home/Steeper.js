@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom'
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -7,31 +7,30 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-// import { GlobalState } from "../../../GlobalState";
+import { GlobalState } from "../../../GlobalState";
 import { Alert } from "@mui/material";
 
 const steps = ["Create Account", "Mobile,Email OTP Verification"];
 
 export default function Steeper({ type, setType, ty }) {
   const navigate = useNavigate();
-  const [details, setDetails] = useState({
-      firmName:"",
-      authorizedName:"",
-      city:"",
-      mobile:"",
-      mobileOtp1:"",
-      mobileOtp2:"",
-      mobileOtp3:"",
-      mobileOtp4:"",
-      individualName:"",
-      city1:"",
-      mobile1:""
-  });
+  // const [details, setDetails] = useState({
+  //     firmName:"",
+  //     authorizedName:"",
+  //     city:"",
+  //     mobile:"",
+  //     mobileOtp1:"",
+  //     mobileOtp2:"",
+  //     mobileOtp3:"",
+  //     mobileOtp4:"",
+  //     individualName:"",
+  //     city1:"",
+  //     mobile1:""
+  // });
+    const [details, setDetails] = useState({});
 
-  // const state = useContext(GlobalState);
-  // const [brok] = state.BrokerApi.brok;
-  // const [callback,setCallback] = state.BrokerApi.callback;
-
+  const state = useContext(GlobalState);
+  const [callback,setCallback] = state.BrokerApi.callback;
   const [tabIndex, setTabIndex] = useState(1);
   // const [isActive, setIsActive] = useState(false);
 
@@ -78,8 +77,6 @@ export default function Steeper({ type, setType, ty }) {
     }
   };
 
- 
-
   const handleChange = (e) => {
     if (document.getElementsByName(e.target.name)[0].nextElementSibling) {
       document.getElementsByName(e.target.name)[0].nextElementSibling.remove();
@@ -92,6 +89,7 @@ export default function Steeper({ type, setType, ty }) {
     try {
       let resp = await axios.post("/api/registerBroker", {...details});
       localStorage.setItem("firstlogin", true);
+      navigate("/brokerProfile");
       let t = document.getElementById("git");
       t.style.display="block"
       t.innerText=`${resp.data.msg}`;
@@ -99,17 +97,12 @@ export default function Steeper({ type, setType, ty }) {
         t.style.display="none";
       }, 5000);
 
-      navigate("/");
-      // setCallback(!callback);
+      setCallback(!callback);
+      
     }
 
     catch (error) {
-      let t = document.getElementById("fit");
-      t.style.display="block"
-      t.innerText=`${error.response.data.msg}`;
-      setTimeout(() => {
-        t.style.display="none";
-      }, 5000);
+      
     }
   };
 
@@ -305,7 +298,7 @@ export default function Steeper({ type, setType, ty }) {
                                 type="text"
                                 placeholder="Name of the firm"
                                 name="firmName"
-                                value={details.firmName}
+                                value={details?.firmName}
                                 onChange={handleChange}
                               />
                             </div>
@@ -314,7 +307,7 @@ export default function Steeper({ type, setType, ty }) {
                                 type="text"
                                 placeholder="Name of  Authorized Person"
                                 name="authorizedName"
-                                value={details.authorizedName}
+                                value={details?.authorizedName}
                                 onChange={handleChange}
                               />
                             </div>
@@ -325,7 +318,7 @@ export default function Steeper({ type, setType, ty }) {
                                 type="text"
                                 placeholder="city"
                                 name="city"
-                                value={details.city}
+                                value={details?.city}
                                 onChange={handleChange}
                               />
                             </div>
@@ -334,7 +327,7 @@ export default function Steeper({ type, setType, ty }) {
                                 type="text"
                                 placeholder="Mobile No."
                                 name="mobile"
-                                value={details.mobile}
+                                value={details?.mobile}
                                 onChange={handleChange}
                               />
                             </div>
@@ -350,7 +343,7 @@ export default function Steeper({ type, setType, ty }) {
                                 type="text"
                                 placeholder="Name"
                                 name="individualName"
-                                value={details.individualName}
+                                value={details?.individualName}
                                 onChange={handleChange}
                               />
                             </div>
@@ -359,7 +352,7 @@ export default function Steeper({ type, setType, ty }) {
                                 type="text"
                                 placeholder="City"
                                 name="city1"
-                                value={details.city1}
+                                value={details?.city1}
                                 onChange={handleChange}
                               />
                             </div>
@@ -370,7 +363,7 @@ export default function Steeper({ type, setType, ty }) {
                                 type="text"
                                 placeholder="Mobile"
                                 name="mobile1"
-                                value={details.mobile1}
+                                value={details?.mobile1}
                                 onChange={handleChange}
                               />
                             </div>
@@ -399,7 +392,7 @@ export default function Steeper({ type, setType, ty }) {
                           type="text"
                           name="mobileOtp1"
                           required
-                          value={details.mobileOtp1}
+                          value={details?.mobileOtp1}
                           onChange={handleChange}
                           maxLength="1"
                           style={deepStyle}
@@ -410,7 +403,7 @@ export default function Steeper({ type, setType, ty }) {
                           type="text"
                           name="mobileOtp2"
                           required
-                          value={details.mobileOtp2}
+                          value={details?.mobileOtp2}
                           onChange={handleChange}
                           maxLength="1"
                           style={deepStyle}
@@ -421,7 +414,7 @@ export default function Steeper({ type, setType, ty }) {
                           type="text"
                           name="mobileOtp3"
                           required
-                          value={details.mobileOtp3}
+                          value={details?.mobileOtp3}
                           onChange={handleChange}
                           maxLength="1"
                           style={deepStyle}
@@ -431,7 +424,7 @@ export default function Steeper({ type, setType, ty }) {
                         <input
                           type="text"
                           name="mobileOtp4"
-                          value={details.mobileOtp4}
+                          value={details?.mobileOtp4}
                           onChange={handleChange}
                           required
                           maxLength="1"
