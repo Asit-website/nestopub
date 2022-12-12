@@ -97,7 +97,7 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
     try {
     const res =  await axios.post('/api/individual',{...user1});
       localStorage.setItem("firstlogin", true);
-      navigate("/");
+      window.location.href="/brokerProfile"
       alert(res.data.msg);
     } 
     

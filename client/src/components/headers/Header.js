@@ -7,6 +7,7 @@ import { GlobalState } from "../../GlobalState";
 const Header = ({ pop, setPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
+  const [isAdmin] = state.BrokerApi.isAdmin
   const [user] = state.BrokerApi.user;
 
   const [click, setClick] = useState(false);
@@ -21,6 +22,17 @@ const Header = ({ pop, setPop }) => {
     localStorage.removeItem("firstlogin");
     window.location.href="/";
   };
+
+  // ============admin router===============
+  const adminRouter = () =>{
+    return(
+      <>
+          <NavLink to="/login" exact onClick={closeMenu}>
+                Why  Nestohub?
+              </NavLink>
+      </>
+    )
+  }
   const changeNavColor = () => {
     if (window.scrollY >= 0) {
       setNavColor(true);
@@ -62,6 +74,9 @@ const Header = ({ pop, setPop }) => {
                 <button className="btn-primary ">Register Now for FREE</button>
               </span>
             </li>
+            {
+              isAdmin && adminRouter()
+            }
             {isLogged ? (
               <>
                 <li className="nav-item">

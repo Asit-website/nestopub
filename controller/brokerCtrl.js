@@ -1,40 +1,31 @@
-const Brokers = require('../models/brokerModel');
+const Users = require("../models/userModel");
 const brokerCtrl = {
-    getBroker:async (req,res)=>{
+    editBroker: async (req,res) =>{
         try {
-            const broker = await Brokers.find();
-            res.json(broker);
-        }
-
-        catch (error) {
-            return res.status(500).json({ msg: error.message })
-        }
-        
-    },
-
-    createBroker:async (req,res) =>{
-        try {
-            const { firstName,lastName, mobile, email, mobileOtp, mobileOtp2, mobileOtp3, mobileOtp4, emailOtp, emailOtp2, emailOtp3, emailOtp4, experience, builderList,registrationNumber, certificationCopy, address, state, pinCode, city, area,whatsapp,images,images1,images2,images3} = req.body;
-
-            if(!images || !images1 || !images2 || !images3) return res.status(400).json({ msg: "no image is upload" });
-
-            const emailUser = await Brokers.findOne({email:email});
-            if (emailUser) return res.status(400).json({ msg: "This brokerEmail is already exist" });
-    
-            const newBroker = new Brokers({
-                firstName,lastName, mobile, email, mobileOtp, mobileOtp2, mobileOtp3, mobileOtp4, emailOtp, emailOtp2, emailOtp3, emailOtp4, experience, builderList,registrationNumber, certificationCopy, address, state, pinCode, city, area,whatsapp,images,images1,images2,images3
+            const {firmName,authorizedName,city,mobile,individualName,city1, mobile1} = req.body;
+            await Users.findOneAndUpdate({_id:req.user.id},{
+                firmName,authorizedName,city,mobile,individualName,city1, mobile1
             })
-    
-            await newBroker.save();
-    
-            res.json({ msg: "created a new Broker Successfully" });
+            
+            res.json({msg:"update profile successfully"});
+
         } 
         
         catch (error) {
             return res.status(500).json({ msg: error.message })
+        } 
+    },
+    deleteBroker: async (req,res) =>{
+        try {
+             await Users.findByIdAndDelete({_id:req.user.id});
+             res.json({msg:"Delete Account Successfully"});
+        } 
+        
+        catch (error) {
+            return res.status(500).json({ msg: error.message });
         }
-       
     }
 }
+
 
 module.exports = brokerCtrl;

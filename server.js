@@ -16,6 +16,7 @@ app.use(fileUpload({
 }))
 
 app.use('/api',require('./Router/authRouter'));
+app.use('/api', require('./Router/brokerRouter'));
 app.use('/api',require('./Router/upload'));
 
 

@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const authCtrl = require('../controller/authCtrl');
-const auth = require("../middleware/auth")
+const auth = require("../middleware/auth");
+const authBroker = require('../middleware/authBroker');
 
 router.post('/registerBroker',authCtrl.resgisterBroker);
-router.post('/loginBroker', authCtrl.loginBroker);
+router.post('/loginBroker',authCtrl.loginBroker);
 router.post('/individual',authCtrl.brokerIndividual);
 router.get('/logout',authCtrl.logout);
 router.get('/refresh_token',authCtrl.refreshToken);

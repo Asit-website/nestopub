@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 const BrokerApi = (token) => {
   const [isLogged,setIsLogged] = useState(false);
+  const [isAdmin,setIsAdmin] = useState(false);
+  // const [isBroker,setIsBroker] = useState(false);
+  // const [isBuilder,setIsBuilder] = useState(false);
   const [user,setUser] = useState([]);
   const [callback,setCallback] = useState(false);
   useEffect(() =>{
@@ -11,9 +14,9 @@ const BrokerApi = (token) => {
               const res = await axios.get('/api/infor',{
                 headers: {Authorization:token}
             });
-
               setIsLogged(true);
               setUser(res.data);
+              res.data.role === 1  ? setIsAdmin(true) : setIsAdmin(false);
             } 
             
             catch (error) {
@@ -28,6 +31,7 @@ const BrokerApi = (token) => {
 
   return {
        isLogged:[isLogged,setIsLogged],
+       isAdmin:[isAdmin,setIsAdmin],
        user:[user,setUser],
        callback:[callback,setCallback]
   }

@@ -1127,6 +1127,26 @@ footer {
   resize: none;
   overflow: hidden;
 }
+.brokerItem{
+  opacity: 0.8 !important;
+}
+.brokerItem-btn{
+    font-family: "Bold";
+    background-color: #c00100;
+    border: none;
+    width: 240px;
+    max-width: 100%;
+    border-radius: 5px;
+    height: 50px;
+    color: #ffffff;
+    font-size: 22px;
+    border-radius: 2px;
+    font-weight: 600;
+    margin-top: 30px;
+    display: block;
+    margin: auto;
+    cursor: pointer;
+}
 /* @media screen and (max-width: 460px) {
   .top-form .inner-form {
     width: 100%;

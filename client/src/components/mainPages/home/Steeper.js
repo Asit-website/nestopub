@@ -14,20 +14,20 @@ const steps = ["Create Account", "Mobile,Email OTP Verification"];
 
 export default function Steeper({ type, setType, ty }) {
   const navigate = useNavigate();
-  // const [details, setDetails] = useState({
-  //     firmName:"",
-  //     authorizedName:"",
-  //     city:"",
-  //     mobile:"",
-  //     mobileOtp1:"",
-  //     mobileOtp2:"",
-  //     mobileOtp3:"",
-  //     mobileOtp4:"",
-  //     individualName:"",
-  //     city1:"",
-  //     mobile1:""
-  // });
-    const [details, setDetails] = useState({});
+  const [details, setDetails] = useState({
+      firmName:"",
+      authorizedName:"",
+      city:"",
+      mobile:"",
+      mobileOtp1:"",
+      mobileOtp2:"",
+      mobileOtp3:"",
+      mobileOtp4:"",
+      individualName:"",
+      city1:"",
+      mobile1:""
+  });
+    // const [details, setDetails] = useState({});
 
   const state = useContext(GlobalState);
   const [callback,setCallback] = state.BrokerApi.callback;
@@ -89,7 +89,7 @@ export default function Steeper({ type, setType, ty }) {
     try {
       let resp = await axios.post("/api/registerBroker", {...details});
       localStorage.setItem("firstlogin", true);
-      navigate("/brokerProfile");
+      window.location.href="/brokerProfile"
       let t = document.getElementById("git");
       t.style.display="block"
       t.innerText=`${resp.data.msg}`;
@@ -102,7 +102,7 @@ export default function Steeper({ type, setType, ty }) {
     }
 
     catch (error) {
-      
+      alert(error.response.data.msg)
     }
   };
 
@@ -128,34 +128,6 @@ export default function Steeper({ type, setType, ty }) {
       newSkipped.delete(activeStep);
     }
 
-    // if(activeStep===0){
-    //   if(details.firstName.length ===0 || details.lastName.length===0 || details.mobile.length===0 || details.email.length === 0){
-    //     alert("plz fill all the data");
-    //   }
-    //   else{
-    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    //     setSkipped(newSkipped);
-    //    }
-    // }
-
-    // else if(activeStep === 1){
-    //   if(details.mobileOtp.length === 0 || details.mobileOtp2.length == 0 || details.mobileOtp3.length === 0 || details.mobileOtp4.length === 0 || details.emailOtp.length === 0 || details.emailOtp2.length === 0 || details.emailOtp3.length === 0 || details.emailOtp4.length === 0){
-    //     alert("plz fill the data");
-    //    }
-    //    else{
-    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    //     setSkipped(newSkipped);
-    //    }
-    // }
-
-    //  else{
-    //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    //   setSkipped(newSkipped);
-    //  }
-
-    //  <small className="text-error">First name is required</small>
-
-    // console.log(t);
     let flag = true;
     for (let i of document.querySelectorAll(".alertEle")) {
       i.remove();
