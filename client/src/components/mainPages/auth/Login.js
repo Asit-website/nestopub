@@ -5,6 +5,7 @@ import handSack from '../../../images/handSack.jpg';
 import ResetPassword from './ResetPassword';
 import axios from "axios";
 import { GlobalState } from '../../../GlobalState';
+
 const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
   const [user,setUser] = useState({
     firmName:"",
@@ -16,12 +17,17 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
     mobile1:""
   })
 
-  const state = useContext(GlobalState);
+  const [user2,setUser2] = useState({
+     name:"",
+     phone:""
+  })
 
+  const state = useContext(GlobalState);
+  const [isAdmin] = state.BrokerApi.isAdmin;
+  const [token] = state.token;
   const [tabIndex, setTabIndex] = useState(1);
 
 
-  const [callback,setCallback] = state.BrokerApi.callback;
 
   const navigate = useNavigate();
 
@@ -33,6 +39,11 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
   const inputChange1 = (e) =>{
     const {name,value} = e.target;
     setUser1({...user1,[name]:value});
+  }
+
+  const inputChange2 = (e) =>{
+     const {name,value} = e.target;
+     setUser2({...user2,[name]:value});
   }
   var css = {
     background: "#EBF7FF",
@@ -59,6 +70,9 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
     for (var prop in secondCss) {
       document.getElementById("camp").style[prop] = secondCss[prop];
     }
+    for (var prop in secondCss) {
+      document.getElementById("tamp").style[prop] = secondCss[prop];
+    }
     for (var prop in css) {
       document.getElementById("barier").style[prop] = css[prop];
     }
@@ -73,8 +87,24 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
     for (var prop in secondCss) {
       document.getElementById("barier").style[prop] = secondCss[prop];
     }
+    for (var prop in secondCss) {
+      document.getElementById("tamp").style[prop] = secondCss[prop];
+    }
   };
 
+  const tabAnother1 = (e) =>{
+     e.preventDefault();
+     setTabIndex(3);
+     for (var prop in secondCss) {
+      document.getElementById("camp").style[prop] = secondCss[prop];
+    }
+    for (var prop in secondCss) {
+      document.getElementById("barier").style[prop] = secondCss[prop];
+    }
+    for (var prop in css) {
+      document.getElementById("tamp").style[prop] = css[prop];
+    }
+  }
 
   const loginSubmit = async (e) =>{
     e.preventDefault();
@@ -106,6 +136,21 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
     }
   
   }
+
+  const loginSubmit2 = async(e) =>{
+    e.preventDefault();
+    try {
+      const res =  await axios.post('/api/loginAdmin',{...user2});
+      localStorage.setItem("firstlogin", true);
+      window.location.href="/dashboard";
+      alert(res.data.msg);
+      
+    } 
+    
+    catch (error) {
+      alert(error.response.data.msg)
+    }
+  }
   return (
     <>
     <div  className='Login'>
@@ -125,6 +170,10 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
                   >
                     Individual broker
                   </button>
+                 
+                </div>
+                <div className="steeper-button1">
+                <button id='tamp' onClick={tabAnother1} className='admin-btn broker-individual'>Admin Login</button>
                 </div>
                 {
                   tabIndex === 1 && (
@@ -163,6 +212,26 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
                 <button type='submit'>Login</button>
             </form>
                     </>
+                  )
+                }
+
+                {
+                  tabIndex === 3 && (
+                     <>
+                     <form onSubmit={loginSubmit2} className='firmas'>
+                <div className="input-form">
+                    <input value={user2.name} onChange={inputChange2} name='name' type="text" placeholder='Name' />
+                </div>
+                <div className="input-form">
+                    <input value={user2.phone} onChange={inputChange2} name='phone' type="text" placeholder='Email / Phone No.' />
+                </div>
+                <div className="input-form">
+                    {/* <input type="text" placeholder='Password' /> */}
+                    <p onClick={() => setResetPop(true)} className='res'>Reset Passward ?</p>
+                </div>
+                <button type='submit'>Login</button>
+            </form>
+                     </>
                   )
                 }
         

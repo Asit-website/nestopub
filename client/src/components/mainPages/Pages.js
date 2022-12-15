@@ -6,11 +6,13 @@ import Login from "./auth/Login";
 import Notfound from "./Notfound";
 import BrokerProfile from "../broker/BrokerProfile";
 import { GlobalState } from "../../GlobalState";
+import AdminDashBoard from "../Admin/AdminDashBoard";
 
 
 const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
+  const [isAdmin] = state.BrokerApi.isAdmin;
   return (
     <>
       <Routes>
@@ -23,6 +25,8 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
         />
         <Route exact path="/login" element={<Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
         <Route exact path="/brokerProfile" element={isLogged ? <BrokerProfile/> : <Notfound/>}/>
+
+        <Route exact path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
         <Route path="*" exact element={<Notfound/>}/>
       </Routes>
     </>

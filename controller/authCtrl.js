@@ -5,14 +5,14 @@ const jwt = require("jsonwebtoken");
 const authCtrl = {
    resgisterBroker: async(req,res)=>{
       try {
-        const {firmName,authorizedName,city,mobile,individualName,city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4} = req.body      
+        const {firmName,authorizedName,city,mobile,individualName,city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone} = req.body      
 
       //   const firmUser = await Users.findOne({firmName:firmName});
       //   if(firmUser){
       //    res.status(400).json({msg:"This FirmName is Already Exists"});
       //   }  
         const newBroker = new Users({
-         firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4
+         firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone
         })
 
         await newBroker.save();
@@ -36,10 +36,13 @@ const authCtrl = {
 
    loginBroker: async(req,res) =>{
       try {
-         const {firmName,mobile} = req.body;
+         const {firmName,mobile,name} = req.body;
          const user = await Users.findOne({firmName:firmName});
          const brokerMobile = await Users.findOne({mobile:mobile});
-
+         const name1 = await Users.findOne({name:name});
+         if(name1){
+            return res.status(400).json({msg:"You are not an Admin"});
+         }
          if(!user)
          {
            return res.status(400).json({msg:"Broker Does Not Exist"});
@@ -47,11 +50,6 @@ const authCtrl = {
          if(!brokerMobile){
             return res.status(400).json({msg:"Brokers Mobile does not exist"});
          }
-
-         // if(!brokerMobile){
-         //    return res.status(400).json({msg:"mobile Number Does Not Exist"});
-         // }
-
          const accesstoken =  createAccessToken({id:user._id});
          const refreshtoken = createRefreshToken({id:user._id});
    
@@ -62,7 +60,7 @@ const authCtrl = {
              maxAge:7*24*60*60*1000 //7d
          })
    
-         res.json({msg:"login",accesstoken}); 
+         res.json({msg:"You are Login as an Broking Firm",accesstoken}); 
       } 
       
       catch (error) {
@@ -73,10 +71,13 @@ const authCtrl = {
 
    brokerIndividual: async (req,res) =>{
       try {
-         const {individualName,mobile1} = req.body;
+         const {individualName,mobile1,name} = req.body;
          const individual = await Users.findOne({individualName:individualName});
          const individualMobile = await Users.findOne({mobile1:mobile1});
-
+         const name2 = Users.findOne({name:name});
+         if(name2){
+            return res.status(400).json({msg:"You are not an Admin"});
+         }
          if(!individual)
          {
            return res.status(400).json({msg:"Broker Does Not Exist"});
@@ -96,7 +97,7 @@ const authCtrl = {
              maxAge:7*24*60*60*1000 //7d
          })
    
-         res.json({msg:"login",accesstoken}); 
+         res.json({msg:"You are Login as an Individual Broker",accesstoken}); 
       } 
       
       catch (error) {
@@ -104,6 +105,37 @@ const authCtrl = {
       }
    },
 
+   adminLogin: async (req,res) =>{
+      try {
+          const {name,phone} = req.body;
+        
+            const admin = await Users.findOne({name:name});
+            const mobile4 = await Users.findOne({phone:phone});
+            if(!admin){
+               return res.status(400).json({msg:"you are not an admin"});
+            }
+
+           if(!mobile4){
+            return res.status(400).json({msg:"you are not an admin"});
+           }
+      
+         const accesstoken =  createAccessToken({id:admin._id});
+         const refreshtoken = createRefreshToken({id:admin._id});
+   
+         // set the cookie 
+         res.cookie("refreshtoken",refreshtoken,{
+             httpOnly:true,
+             path:'/api/refresh_token',
+             maxAge:7*24*60*60*1000 //7d
+         })
+   
+         res.json({msg:"You are Login as an Admin",accesstoken}); 
+      } 
+      
+      catch (error) {
+         return res.status(500).json({msg:error.message})
+      }
+   },
 
    logout:async (req,res)=>{
       try {

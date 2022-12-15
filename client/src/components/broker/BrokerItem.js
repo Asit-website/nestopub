@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
+import { Alert } from "@mui/material";
 const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
   const state = useContext(GlobalState);
   const [token] = state.token;
@@ -16,6 +17,8 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
     mobile1: "",
   });
 
+  const naviagte = useNavigate();
+
   const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
@@ -26,9 +29,9 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
         const res = await axios.delete(`/api/deleteBroker/${user._id}`, {
           headers: { Authorization: token },
         });
-        window.location.href="/brokerProfile"
-        setCallback(!callback);
+        window.location.href = "/brokerProfile";
         alert(res.data.msg);
+        setCallback(!callback);
       }
     } catch (error) {
       alert(error.response.data.msg);
@@ -44,8 +47,17 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
           headers: { Authorization: token },
         }
       );
-      alert(res.data.msg);
-      window.location.href = "/brokerProfile";
+      setTimeout(() => {
+        window.location.href = "/brokerProfile";
+      }, 3000);
+      
+      let t = document.getElementById("git");
+      t.style.display="block";
+      t.innerText=`${res.data.msg}`;
+      t.innerHTML=`<div class="alertji"><i class="fa-solid fa-circle-check"></i><p>${res.data.msg}</p></div>`;
+      setTimeout(() => {
+        t.style.display="none";
+      }, 5000);
       setCallback(!callback);
     } catch (error) {
       alert(error.response.data.msg);
@@ -68,11 +80,19 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
           <p>IndividualBrokerPhone :{user.mobile1}</p>
         </>
       )}
+
+      {
+        user.name && (
+          <>
+            <p>{user.name}</p>
+            <p>{user.phone}</p>
+          </>
+        )
+      }
       <button type="submit" onClick={() => DeleteProfile(user._id)}>
         Delete
       </button>
       <button onClick={() => setProfilePop(true)}>Edit Profile</button>
-
       {profilePop && (
         <>
           <div className="home-pop">
@@ -84,16 +104,22 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
               {user.firmName && (
                 <>
                   <div className="wrapper">
-                  <div className="shadow">
-                  <h2>Broker Updation</h2>
-                </div>
+                  <div id="git">
+                  {/* <Alert  severity="success" id="git">
+
+                  </Alert> */}
+                  
+                  </div>
+                    <div className="shadow">
+                      <h2>Broker Updation</h2>
+                    </div>
                     <div id="myForm" className="dance">
                       <div className="form form-steps">
                         <div className="top-forms">
                           <div className="top-form">
                             <div className="inner-form int-form2">
                               <input
-                               className="brokerItem"
+                                className="brokerItem"
                                 type="text"
                                 placeholder="Name of the firm"
                                 name="firmName"
@@ -107,7 +133,9 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
                                 type="text"
                                 placeholder="Name of  Authorized Person"
                                 name="authorizedName"
-                                value={details?.authorizedName || user.authorizedName}
+                                value={
+                                  details?.authorizedName || user.authorizedName
+                                }
                                 onChange={handleChange}
                               />
                             </div>
@@ -143,31 +171,67 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
 
               {user.individualName && (
                 <>
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    name="individualName"
-                    value={details?.individualName || user.individualName}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    placeholder="City"
-                    name="city1"
-                    value={details?.city1 || user.city1}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Mobile"
-                    name="mobile1"
-                    value={details?.mobile1 || user.mobile1}
-                    onChange={handleChange}
-                  />
+                  <div className="wrapper">
+                    <div className="shadow">
+                      <h2>Broker Updation</h2>
+                    </div>
+                    <div id="myForm" className="dance">
+                      <div className="form form-steps">
+                        <div className="top-forms">
+                          
+                            <div className="top-form">
+                              <div className="inner-form int-form2">
+                                <input
+                                  type="text"
+                                  placeholder="Name"
+                                  name="individualName"
+                                  value={
+                                    details?.individualName ||
+                                    user.individualName
+                                  }
+                                  onChange={handleChange}
+                                />
+                              </div>
+                              <div className="inner-form int-form2">
+                                <input
+                                  type="text"
+                                  placeholder="City"
+                                  name="city1"
+                                  value={details?.city1 || user.city1}
+                                  onChange={handleChange}
+                                />
+                              </div>
+                            </div>
+                            <div className="top-form">
+                              <div className="inner-form int-form2">
+                                <input
+                                  type="text"
+                                  placeholder="Mobile"
+                                  name="mobile1"
+                                  value={details?.mobile1 || user.mobile1}
+                                  onChange={handleChange}
+                                />
+                              </div>
+                            </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </>
               )}
-
-              <button className="brokerItem-btn" type="submit" onClick={() => updateProfile(user._id)}>
+               {
+                user.name && (
+                  <>
+                   
+                  </>
+                )
+               }
+              <button
+                className="brokerItem-btn"
+                type="submit"
+                onClick={() => updateProfile(user._id)}
+              >
                 Update
               </button>
             </div>

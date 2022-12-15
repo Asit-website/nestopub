@@ -7,7 +7,16 @@ const userSchema = new mongoose.Schema(
       required:false,
       set: a => a === '' ? undefined : a
     },
-
+    name:{
+      type:String,
+      required:false,
+      set: xa => xa === '' ? undefined : xa
+    },
+    phone:{
+      type:String,
+      required:false,
+      set: xb => xb === '' ? undefined : xb
+    },
     authorizedName: {
       type: String,
       required:false,
@@ -22,6 +31,11 @@ const userSchema = new mongoose.Schema(
       type:String,
       required:false,
       set: d => d === '' ? undefined : d
+    },
+    email:{
+      type:String,
+      required:false,
+      set: z => z === '' ? undefined : z
     },
     mobileOtp1: {
       type:String,
@@ -57,6 +71,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required:false,
       set: k => k === '' ? undefined : k
+    },
+    email1:{
+      type:String,
+      required:false,
+      set: x => x === '' ? undefined : x
     },
     role: {
       type: Number,

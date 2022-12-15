@@ -1147,36 +1147,11 @@ footer {
     margin: auto;
     cursor: pointer;
 }
-/* @media screen and (max-width: 460px) {
-  .top-form .inner-form {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .bottom-form textarea{
-    margin: 10px 0;
-  }
-
-  .inner-form input{
-    margin: 10px 0;
-  }
-
-  .top-form,
-  .bottom-form {
-    margin: 5px 0;
-  }
-
-  .form {
-    margin-top: 10px;
-  }
-} */
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-  /* color: #c00000 !important; */
   border: 1.5px solid #c00000;
   color: #c00000 !important;
 }
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-  /* color: #000 !important; */
   border: 1.5px solid #c1bfbf;
   border-radius: 50%;
   fill: #c1bfbf !important;
@@ -1306,6 +1281,9 @@ padding: 20px 0px;
   font-size: 17.5px;
   color: #101010;
   /* font-family: "Bold"; */
+}
+.steeper-button1 .admin-btn{
+  border-radius: 5px;
 }
 
 
@@ -1720,4 +1698,25 @@ padding: 20px 0px;
 .wel{
   color: #c00100;
   font-family: "Semi Bold Italic";
+}
+#git{
+  background-color: rgb(146, 238, 146);
+}
+
+#git i{
+  position:  static !important;
+  background-color: greenyellow;
+}
+.alertji{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.alertji p{
+ position: relative;
+ top: -10px;
+ margin-left: 10px;
+ font-size: 18px;
+ color: #ffffff;
+ font-family: "Semi Bold Italic";
 }

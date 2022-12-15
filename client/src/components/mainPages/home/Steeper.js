@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -25,7 +25,9 @@ export default function Steeper({ type, setType, ty }) {
       mobileOtp4:"",
       individualName:"",
       city1:"",
-      mobile1:""
+      mobile1:"",
+      name:"",
+      phone:""
   });
     // const [details, setDetails] = useState({});
 
@@ -77,6 +79,11 @@ export default function Steeper({ type, setType, ty }) {
     }
   };
 
+  const tabAnother1 = (e) =>{
+    e.preventDefault();
+    setTabIndex(3);
+  }
+
   const handleChange = (e) => {
     if (document.getElementsByName(e.target.name)[0].nextElementSibling) {
       document.getElementsByName(e.target.name)[0].nextElementSibling.remove();
@@ -89,16 +96,14 @@ export default function Steeper({ type, setType, ty }) {
     try {
       let resp = await axios.post("/api/registerBroker", {...details});
       localStorage.setItem("firstlogin", true);
-      window.location.href="/brokerProfile"
+      window.location.href="/brokerProfile";
+      setCallback(!callback);
       let t = document.getElementById("git");
       t.style.display="block"
       t.innerText=`${resp.data.msg}`;
       setTimeout(() => {
         t.style.display="none";
       }, 5000);
-
-      setCallback(!callback);
-      
     }
 
     catch (error) {
@@ -204,7 +209,6 @@ export default function Steeper({ type, setType, ty }) {
 
       <Stepper style={styleUpload} className="stoper" activeStep={activeStep}>
         {steps.map((label, index) => {
-          console.log(index);
           const stepProps = {};
           const labelProps = {};
           if (isStepOptional(index)) {
@@ -257,6 +261,7 @@ export default function Steeper({ type, setType, ty }) {
                   >
                     Individual broker
                   </button>
+                 <button style={{display:'none'}} onClick={tabAnother1}>admin</button>
                 </div>
 
                 <div id="myForm" className="dance">
@@ -342,6 +347,35 @@ export default function Steeper({ type, setType, ty }) {
                           </div>
                         </>
                       )}
+
+                      {
+                        tabIndex === 3 && (
+                          <>
+                          <div className="top-form">
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="Name"
+                                name="name"
+                                value={details?.name}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="inner-form int-form2">
+                              <input
+                                type="text"
+                                placeholder="Phone"
+                                name="phone"
+                                value={details?.phone}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          </div>
+                         
+                          </>
+                        )
+                      }
+
                     </div>
                   </div>
                 </div>

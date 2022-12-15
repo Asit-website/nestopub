@@ -7,7 +7,7 @@ import { GlobalState } from "../../GlobalState";
 const Header = ({ pop, setPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
-  const [isAdmin] = state.BrokerApi.isAdmin
+  const [isAdmin] = state.BrokerApi.isAdmin;
   const [user] = state.BrokerApi.user;
 
   const [click, setClick] = useState(false);
@@ -16,23 +16,24 @@ const Header = ({ pop, setPop }) => {
   const [navColor, setNavColor] = useState(false);
   const [same, setSame] = useState("popup-container");
 
-
   const logoutUser = async () => {
     await axios.get("/api/logout");
     localStorage.removeItem("firstlogin");
-    window.location.href="/";
+    window.location.href = "/";
   };
 
   // ============admin router===============
-  const adminRouter = () =>{
-    return(
+  const adminRouter = () => {
+    return (
       <>
+        <li className="nav-item">
           <NavLink to="/login" exact onClick={closeMenu}>
-                Why  Nestohub?
-              </NavLink>
+            Why Nestohub?
+          </NavLink>
+        </li>
       </>
-    )
-  }
+    );
+  };
   const changeNavColor = () => {
     if (window.scrollY >= 0) {
       setNavColor(true);
@@ -42,7 +43,6 @@ const Header = ({ pop, setPop }) => {
   };
   window.addEventListener("scroll", changeNavColor);
 
- 
   return (
     <>
       <div className={navColor ? "header activeH" : "header"}>
@@ -60,7 +60,7 @@ const Header = ({ pop, setPop }) => {
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <NavLink to="/login" exact onClick={closeMenu}>
-                Why Join Nestohub?
+                {isAdmin ? "Admin Here" : "Why Join Nestohub?"}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -74,9 +74,7 @@ const Header = ({ pop, setPop }) => {
                 <button className="btn-primary ">Register Now for FREE</button>
               </span>
             </li>
-            {
-              isAdmin && adminRouter()
-            }
+            {isAdmin && adminRouter()}
             {isLogged ? (
               <>
                 <li className="nav-item">
@@ -91,7 +89,16 @@ const Header = ({ pop, setPop }) => {
                     Logout
                   </NavLink>
                 </li>
-               <NavLink to="#!"><li className="nav-item"> <span className="wel">Welcome</span>{user.firmName}{user.individualName}</li></NavLink>
+                {user.role === 1 ? null : (
+                  <NavLink to="#!">
+                    <li className="nav-item">
+                      {" "}
+                      <span className="wel">Welcome</span>
+                      {user.firmName}
+                      {user.individualName}
+                    </li>
+                  </NavLink>
+                )}
               </>
             ) : (
               <li className="nav-item nav-item1">
