@@ -7,6 +7,7 @@ import Notfound from "./Notfound";
 import BrokerProfile from "../broker/BrokerProfile";
 import { GlobalState } from "../../GlobalState";
 import AdminDashBoard from "../Admin/AdminDashBoard";
+import BrokerManage from "../Admin/BrokerManage";
 
 
 const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
@@ -27,6 +28,7 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
         <Route exact path="/brokerProfile" element={isLogged ? <BrokerProfile/> : <Notfound/>}/>
 
         <Route exact path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
+        <Route exact path="/dashboard/manageBrok" element={ isAdmin ? <BrokerManage/> : <Notfound/>}/>
         <Route path="*" exact element={<Notfound/>}/>
       </Routes>
     </>

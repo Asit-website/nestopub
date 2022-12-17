@@ -2,7 +2,7 @@ const router = require('express').Router();
 const authCtrl = require('../controller/authCtrl');
 const auth = require("../middleware/auth");
 // const authBroker = require('../middleware/authBroker');
-// const authAdmin = require("../middleware/authAdmin");
+const authAdmin = require("../middleware/authAdmin");
 
 router.post('/registerBroker',authCtrl.resgisterBroker);
 router.post('/loginBroker',authCtrl.loginBroker);

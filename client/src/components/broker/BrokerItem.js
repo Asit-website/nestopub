@@ -26,13 +26,11 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
   const DeleteProfile = async (e) => {
     try {
       if (window.confirm("do you want to delete your account")) {
-        const res = await axios.delete(`/api/deleteBroker/${user._id}`, {
-          headers: { Authorization: token },
-        });
+        const res = await axios.delete(`/api/deleteBroker/${user._id}`);
         window.location.href = "/brokerProfile";
         alert(res.data.msg);
-        setCallback(!callback);
       }
+      setCallback(!callback);
     } catch (error) {
       alert(error.response.data.msg);
     }
@@ -42,14 +40,13 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
     try {
       const res = await axios.patch(
         `/api/editBroker/${user._id}`,
-        { ...details },
-        {
-          headers: { Authorization: token },
-        }
+        { ...details }
       );
-      setTimeout(() => {
-        window.location.href = "/brokerProfile";
-      }, 3000);
+
+      naviagte("/brokerProfile");
+      // setTimeout(() => {
+      //   window.location.href = "/brokerProfile";
+      // }, 3000);
       
       let t = document.getElementById("git");
       t.style.display="block";

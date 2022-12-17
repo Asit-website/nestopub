@@ -39,7 +39,7 @@ const authCtrl = {
          const {firmName,mobile,name} = req.body;
          const user = await Users.findOne({firmName:firmName});
          const brokerMobile = await Users.findOne({mobile:mobile});
-         const name1 = await Users.findOne({name:name});
+         const name1 = await Users.findOne({name:req.params.id});
          if(name1){
             return res.status(400).json({msg:"You are not an Admin"});
          }
@@ -74,7 +74,7 @@ const authCtrl = {
          const {individualName,mobile1,name} = req.body;
          const individual = await Users.findOne({individualName:individualName});
          const individualMobile = await Users.findOne({mobile1:mobile1});
-         const name2 = Users.findOne({name:name});
+         const name2 = Users.findOne({name:req.params.id});
          if(name2){
             return res.status(400).json({msg:"You are not an Admin"});
          }

@@ -1,5 +1,6 @@
 import React,{createContext,useEffect,useState} from 'react';
 import BrokerApi from './api/BrokerApi';
+import IndividualApi from './api/IndividualApi';
 import axios from "axios";
 export const GlobalState = createContext();
 export const DataProvider = ({children}) =>{
@@ -26,7 +27,9 @@ export const DataProvider = ({children}) =>{
 
     const state = {
        token: [token, setToken],
-       BrokerApi:BrokerApi(token)
+       BrokerApi:BrokerApi(token),
+       IndividualApi:IndividualApi()
+       
     }
 
     return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;

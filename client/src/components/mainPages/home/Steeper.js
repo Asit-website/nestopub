@@ -97,7 +97,7 @@ export default function Steeper({ type, setType, ty }) {
       let resp = await axios.post("/api/registerBroker", {...details});
       localStorage.setItem("firstlogin", true);
       window.location.href="/brokerProfile";
-      setCallback(!callback);
+      // setCallback(!callback);
       let t = document.getElementById("git");
       t.style.display="block"
       t.innerText=`${resp.data.msg}`;

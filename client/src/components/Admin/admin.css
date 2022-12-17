@@ -1,3 +1,32 @@
-.adminDashboard{
-    height: 100vh;
+
+.menuside{
+    background-color: #c10100;
 }
+.broker-item{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(308px,1fr));
+    justify-items: center;
+    margin: 20px 0;
+}
+.broker-card{
+   width: 250px;
+   max-width: 100%;
+   overflow: hidden;
+   /* height: 500px; */
+   height: 180px;
+   box-shadow: 0 0 15px rgba(0,0,0,0.8);
+   margin: 10px 0;
+   position: relative;
+}
+
+.broker-card p{
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    color: #323232;
+    margin: 10px 0px;
+}
+

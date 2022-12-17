@@ -21,11 +21,6 @@ app.use('/api',require('./Router/upload'));
 
 
 
-
-// app.get('/',(req,res) =>{
-//    res.send("hi i am kushel");
-// })
-
 const URI = process.env.MONGODB_URL;
 mongoose.connect(URI,{
     useNewUrlParser:true,

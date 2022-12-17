@@ -3,8 +3,6 @@ import axios from 'axios';
 const BrokerApi = (token) => {
   const [isLogged,setIsLogged] = useState(false);
   const [isAdmin,setIsAdmin] = useState(false);
-  // const [isBroker,setIsBroker] = useState(false);
-  // const [isBuilder,setIsBuilder] = useState(false);
   const [user,setUser] = useState([]);
   const [callback,setCallback] = useState(false);
   useEffect(() =>{
@@ -26,7 +24,7 @@ const BrokerApi = (token) => {
 
           getBroker()
       }
-  },[token]);
+  },[token,callback]);
 
 
   return {
