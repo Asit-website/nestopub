@@ -3,7 +3,7 @@ const Users = require("../models/userModel");
 const authBuilder = async(req,res,next) =>{
    try {
     const user = await Users.findOne({ _id:req.user.id  }) 
-    if(user.role==="user" || user.role === "admin" || user.role==="broker"){
+    if(user.role===0){
       return res.status(400).json({msg:"Builder resources access denied"});
     }
 

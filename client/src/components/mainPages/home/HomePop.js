@@ -1,7 +1,6 @@
 import React from 'react'
 import Stepper from './Steeper';
 const HomePop = ({setPop,type,setType}) => {
-  // let type = "popup-container"
   let ty = "popup-id"
   const changeFun = () =>{
       let tyr = document.getElementById(ty);

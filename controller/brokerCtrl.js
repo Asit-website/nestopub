@@ -1,11 +1,24 @@
 const Users = require("../models/userModel");
-const Brokers = require("../models/brokerModel");
+class APIfeature{
+    constructor(query, queryString ) {
+        this.query = query;
+        this.queryString = queryString;
+      }
+
+      pagination() { 
+        const page = this.queryString.page * 1 || 1;
+        const limit = this.queryString.limit *1 || 4;
+        const skip = (page-1) * limit;
+        this.query = this.query.skip(skip).limit(limit);
+        return this;
+      } 
+}
 const brokerCtrl = {
     editBroker: async (req,res) =>{
         try {
-            const {firmName,authorizedName,city,mobile,individualName,city1, mobile1} = req.body;
+            const {firmName,authorizedName,city,mobile,individualName,city1, mobile1,images} = req.body;
             await Users.findOneAndUpdate({_id:req.params.id},{
-                firmName,authorizedName,city,mobile,individualName,city1, mobile1
+                firmName,authorizedName,city,mobile,individualName,city1, mobile1,images
             })
             
             res.json({msg:"update profile successfully"});
@@ -29,8 +42,16 @@ const brokerCtrl = {
 
     getBroker: async (req,res) =>{
         try {
-          const broker = await Users.find({}).where({role:0});
-          res.json(broker);
+        const features = new APIfeature(Users.find().where({role:0}),req.query)
+        .pagination();
+
+        const broker = await features.query;
+
+        res.json({
+            status: "success",
+            result: broker.length,
+            broker: broker,
+        });
         } 
         
         catch (error) {

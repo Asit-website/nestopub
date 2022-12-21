@@ -7,6 +7,7 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
   const state = useContext(GlobalState);
   const [token] = state.token;
   const [callback, setCallback] = state.BrokerApi.callback;
+  const [images,setImages] = useState(false);
   const [details, setDetails] = useState({
     firmName: "",
     authorizedName: "",
@@ -40,14 +41,10 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
     try {
       const res = await axios.patch(
         `/api/editBroker/${user._id}`,
-        { ...details }
+        { ...details,images}
       );
 
       naviagte("/brokerProfile");
-      // setTimeout(() => {
-      //   window.location.href = "/brokerProfile";
-      // }, 3000);
-      
       let t = document.getElementById("git");
       t.style.display="block";
       t.innerText=`${res.data.msg}`;
@@ -60,21 +57,78 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
       alert(error.response.data.msg);
     }
   };
+
+  const handleUpload = async (e)=>{
+    e.preventDefault();
+    try {
+        const file = e.target.files[0];
+        if(!file)  return alert("Files doesnt exit");
+        if(file.size > 1024*1024) 
+         return alert("size to large");
+         if(file.type!=='image/jpeg' && file.type!=='image/png')
+         return alert("File Format is incorrect")
+         let formData = new FormData();
+         formData.append('file',file);
+         const res = await axios.post('/api/upload',formData)
+         setImages(res.data);
+    }
+    
+    catch (error) {
+      alert(error.response.data.msg);
+    }
+ }
+
+ const handleDestroy = async () => {
+  try {
+    await axios.post(
+      "/api/destroy",
+      { public_id: images.public_id }
+    );
+    setImages(false); 
+  } catch (error) {
+    alert(error.response.data.msg);
+  }
+};
+
+
+const styleUploads = {
+  display: images ? "block" : "none",
+};
   return (
     <div>
       {user.firmName && (
         <>
-          <p>{user.firmName}</p>
-          <p>{user.authorizedName}</p>
-          <p>{user.city}</p>
-          <p>{user.mobile}</p>
+        <div className="user-card">
+        <img className="brok-img" src={user.images.url} alt="not" />
+          <h2>Broking Firm</h2>
+          <p><span>Name</span>: {user.firmName}</p>
+          <p><span>AutohirizedName</span>: {user.authorizedName}</p>
+          <p><span>City</span>: {user.city}</p>
+          <p><span>Phone Number</span>: {user.mobile}</p>
+          <div className="btn-adhar">
+          <button type="submit" onClick={() => DeleteProfile(user._id)}>
+        Delete
+      </button>
+      <button onClick={() => setProfilePop(true)}>Edit Profile</button>
+          </div>
+          </div>
         </>
       )}
       {user.individualName && (
         <>
+        <div className="user-card">
+          <img className="brok-img" src={user.images.url} alt="" />
+          <h2>Individual Broker</h2>
           <p>IndividualBrokerName :{user.individualName}</p>
           <p>IndividualBrokerCity :{user.city1}</p>
           <p>IndividualBrokerPhone :{user.mobile1}</p>
+          <div className="btn-adhar">
+          <button type="submit" onClick={() => DeleteProfile(user._id)}>
+        Delete
+      </button>
+      <button onClick={() => setProfilePop(true)}>Edit Profile</button>
+      </div>
+      </div>
         </>
       )}
 
@@ -86,10 +140,10 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
           </>
         )
       }
-      <button type="submit" onClick={() => DeleteProfile(user._id)}>
+      {/* <button type="submit" onClick={() => DeleteProfile(user._id)}>
         Delete
       </button>
-      <button onClick={() => setProfilePop(true)}>Edit Profile</button>
+      <button onClick={() => setProfilePop(true)}>Edit Profile</button> */}
       {profilePop && (
         <>
           <div className="home-pop">
@@ -159,6 +213,13 @@ const BrokerItem = ({ user, setUser, profilePop, setProfilePop }) => {
                               />
                             </div>
                           </div>
+                          <div className="inner-form inner-form-1 upload">
+                        <input required type="file" name="file" id="file_up" onChange={handleUpload} />
+                      <div id="file_img" style={styleUploads} >
+                               <img src={images ? images.url : ""} alt="not" />
+                                <span onClick={handleDestroy}>X</span>
+                        </div> 
+                      </div>
                         </div>
                       </div>
                     </div>

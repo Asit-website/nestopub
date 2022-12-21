@@ -5,14 +5,13 @@ const jwt = require("jsonwebtoken");
 const authCtrl = {
    resgisterBroker: async(req,res)=>{
       try {
-        const {firmName,authorizedName,city,mobile,individualName,city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone} = req.body      
+        const {firmName,authorizedName,city,mobile,individualName,city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone,images} = req.body      
 
-      //   const firmUser = await Users.findOne({firmName:firmName});
-      //   if(firmUser){
-      //    res.status(400).json({msg:"This FirmName is Already Exists"});
-      //   }  
+        if(!images){
+         return res.status(400).json({msg:"plz upload a Professional Image"});
+        }
         const newBroker = new Users({
-         firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone
+         firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone,images
         })
 
         await newBroker.save();
@@ -36,13 +35,9 @@ const authCtrl = {
 
    loginBroker: async(req,res) =>{
       try {
-         const {firmName,mobile,name} = req.body;
+         const {firmName,mobile} = req.body;
          const user = await Users.findOne({firmName:firmName});
          const brokerMobile = await Users.findOne({mobile:mobile});
-         const name1 = await Users.findOne({name:req.params.id});
-         if(name1){
-            return res.status(400).json({msg:"You are not an Admin"});
-         }
          if(!user)
          {
            return res.status(400).json({msg:"Broker Does Not Exist"});
@@ -71,13 +66,9 @@ const authCtrl = {
 
    brokerIndividual: async (req,res) =>{
       try {
-         const {individualName,mobile1,name} = req.body;
+         const {individualName,mobile1} = req.body;
          const individual = await Users.findOne({individualName:individualName});
          const individualMobile = await Users.findOne({mobile1:mobile1});
-         const name2 = Users.findOne({name:req.params.id});
-         if(name2){
-            return res.status(400).json({msg:"You are not an Admin"});
-         }
          if(!individual)
          {
            return res.status(400).json({msg:"Broker Does Not Exist"});

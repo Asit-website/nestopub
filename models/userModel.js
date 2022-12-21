@@ -77,10 +77,19 @@ const userSchema = new mongoose.Schema(
       required:false,
       set: x => x === '' ? undefined : x
     },
+    images:{
+      type:Object,
+      required:false,
+      set: xy => xy === '' ? undefined : xy
+  },
     role: {
       type: Number,
       default: 0,
     },
+    checked:{
+      type:Boolean,
+      default:false,
+     },
   },
   {
     timestamps: true,

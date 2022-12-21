@@ -10,9 +10,10 @@ import axios from "axios";
 import { GlobalState } from "../../../GlobalState";
 import { Alert } from "@mui/material";
 
-const steps = ["Create Account", "Mobile,Email OTP Verification"];
+const steps = ["Create Account", "Mobile,Email OTP Verification","profile"];
 
 export default function Steeper({ type, setType, ty }) {
+ 
   const navigate = useNavigate();
   const [details, setDetails] = useState({
       firmName:"",
@@ -32,7 +33,8 @@ export default function Steeper({ type, setType, ty }) {
     // const [details, setDetails] = useState({});
 
   const state = useContext(GlobalState);
-  const [callback,setCallback] = state.BrokerApi.callback;
+  const [images,setImages] = useState(false);
+  const [isAdmin] = state.BrokerApi.isAdmin;
   const [tabIndex, setTabIndex] = useState(1);
   // const [isActive, setIsActive] = useState(false);
 
@@ -57,6 +59,7 @@ export default function Steeper({ type, setType, ty }) {
     fontFamily: "Regular",
   };
 
+  
   const tabChange = (e) => {
     e.preventDefault();
     setTabIndex(1);
@@ -91,12 +94,51 @@ export default function Steeper({ type, setType, ty }) {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
+  const handleUpload = async (e)=>{
+    e.preventDefault();
+    try {
+        const file = e.target.files[0];
+        if(!file)  return alert("Files doesnt exit");
+        if(file.size > 1024*1024) 
+         return alert("size to large")
+ 
+         if(file.type!=='image/jpeg' && file.type!=='image/png')
+         return alert("File Format is incorrect")
+          // formdata important factor hai 
+         let formData = new FormData();
+         formData.append('file',file);
+         const res = await axios.post('/api/upload',formData)
+         setImages(res.data);
+    }
+    
+    catch (error) {
+      alert(error.response.data.msg);
+    }
+ }
+
+ const handleDestroy = async () => {
+  try {
+    await axios.post(
+      "/api/destroy",
+      { public_id: images.public_id }
+    );
+    setImages(false); 
+  } catch (error) {
+    alert(error.response.data.msg);
+  }
+};
+
+
+const styleUploads = {
+  display: images ? "block" : "none",
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let resp = await axios.post("/api/registerBroker", {...details});
+      let resp = await axios.post("/api/registerBroker", {...details,images});
       localStorage.setItem("firstlogin", true);
-      window.location.href="/brokerProfile";
+        window.location.href="/brokerProfile";
       // setCallback(!callback);
       let t = document.getElementById("git");
       t.style.display="block"
@@ -169,6 +211,7 @@ export default function Steeper({ type, setType, ty }) {
 
   const deepStyle = {
     backgroundColor: "#D9D9D9",
+    textAlign:"center"
   };
 
   const handleSkip = () => {
@@ -348,7 +391,7 @@ export default function Steeper({ type, setType, ty }) {
                         </>
                       )}
 
-                      {
+                      {/* {
                         tabIndex === 3 && (
                           <>
                           <div className="top-form">
@@ -374,7 +417,7 @@ export default function Steeper({ type, setType, ty }) {
                          
                           </>
                         )
-                      }
+                      } */}
 
                     </div>
                   </div>
@@ -445,6 +488,35 @@ export default function Steeper({ type, setType, ty }) {
               </div>
             )}
 
+            {
+              activeStep === 2 && (
+                <div className="wrapper">
+                <div className="shadow">
+                  <h2 className="step123">Mobile Verification</h2>
+                </div>
+                <p className="wrap-para">
+                Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
+                </p>
+                <div id="myForm" className="dance">
+                  <div className="form">
+                    <div className="top-form">
+                      <div className="inner-form inner-form-1 upload">
+                        <input required type="file" name="file" id="file_up" onChange={handleUpload} />
+                      <div id="file_img" style={styleUploads} >
+                               <img src={images ? images.url : ''} alt="not" />
+                                <span onClick={handleDestroy}>X</span>
+                        </div> 
+                      </div>
+                    </div>
+                    <span className="resend">Resend</span>
+                  </div>
+                </div>
+                
+              </div>
+              )
+            }
+
+           
           
            
             <Box

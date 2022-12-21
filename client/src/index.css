@@ -1311,7 +1311,6 @@ padding: 20px 0px;
   margin-top: 150px;
 }
 .Login_image img {
-  /* max-width: 560px; */
   width: 100%;
   height: 800px;
   object-fit: cover;
@@ -1354,6 +1353,7 @@ padding: 20px 0px;
   border-radius: 2px;
   font-weight: 600;
   margin-top: 30px;
+  cursor: pointer;
 }
 .form-wraper-login h2 {
   font-family: "Bold";
@@ -1719,4 +1719,78 @@ padding: 20px 0px;
  font-size: 18px;
  color: #ffffff;
  font-family: "Semi Bold Italic";
+}
+#file_img{
+  margin-top: 20px;
+  position: relative;
+}
+#file_img img{
+  max-width: 500px;
+  width: 100%;
+}
+#file_img span{
+  position: absolute;
+  top: -13px;
+  right: -13px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: 900;
+  color: crimson;
+}
+.brok-img{
+  display: block;
+  margin: auto;
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+}
+.user-card{
+  background-color: #ffffff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 30px 0px;
+  max-width: 500px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-40%);
+}
+.user-card h2{
+  font-family: "Bold";
+  font-size: 25px;
+  margin: 15px 50px;
+}
+.user-card img{
+  display: block;
+  margin: auto;
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+}
+.user-card p{
+  font-family: "Regular";
+  margin: 12px 50px;
+  font-size: 18px;
+}
+.user-card .btn-adhar{
+  margin: 20px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.user-card button{
+  background: #0170C1;
+  width: 130px;
+  height: 40px;
+  max-width: 100%;
+  display: block;
+  text-align: center;
+  border: none;
+  color: #ffffff;
+  font-family: "Semi Bold Italic";
+  cursor: pointer;
+  font-size: 15px;
 }
