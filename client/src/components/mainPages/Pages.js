@@ -25,7 +25,7 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
           }
         />
         <Route exact path="/login" element={<Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
-        <Route exact path="/brokerProfile" element={isLogged ? <BrokerProfile/> : <Notfound/>}/>
+        <Route exact path="/brokerProfile" element={<BrokerProfile/>}/>
 
         <Route exact path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
         <Route exact path="/dashboard/manageBrok" element={ isAdmin ? <BrokerManage/> : <Notfound/>}/>
