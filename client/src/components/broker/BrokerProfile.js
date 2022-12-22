@@ -9,10 +9,11 @@ const BrokerProfile = () => {
   return (
     <>
        <div style={{height:'100vh'}}>
-           <BrokerItem user={user} setUser={setUser} profilePop={profilePop} setProfilePop={setProfilePop}/>
+           {/* <BrokerItem user={user} setUser={setUser} profilePop={profilePop} setProfilePop={setProfilePop}/> */}
+           
        </div> 
     </>
   )
 }
 
-export default BrokerProfile
+export default BrokerProfile;
