@@ -2,3 +2,116 @@
 @tailwind components;
 @tailwind utilities;
 
+.broker-home11{
+    background-color: white;
+    padding-top: 2.2rem;
+    width: 20%;
+}
+.broker-home12{
+    width: 80%;
+    background-color: #EFEFEF;
+    padding: 2rem;
+}
+.broker-home121{
+    width: 70%;
+    margin-right: 10px;
+}
+.broker-home122{
+    width: 30%;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 7px;
+    margin-left: 10px;
+}
+.broker-home1211{
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 7px;
+}
+.broker-home1212{
+    background-color: white;
+    border-radius: 7px;
+}
+.broker-home12111{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.089);
+    padding: 15px;
+}
+.broker-home12112{
+    padding: 15px;
+}
+.broker-home12a{
+    padding: 26px;
+}
+.broker-home12-border{
+    border-left: 1px solid rgba(0, 0, 0, 0.096);
+    border-right: 1px solid rgba(0, 0, 0, 0.096);
+}
+.broker-home12121{
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.089);
+}
+.broker-home-btn{
+    padding: 4px 12px;
+    border-radius: 7px;
+}
+.broker-home-btn1{
+    background-color: rgb(236, 236, 236);
+}
+.broker-home-btn2{
+    background-color: #1A7EC7;
+    color: white;
+}
+.broker-home-table{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.096);
+    padding: 22px 12px;
+    justify-content: space-between;
+}
+.broker-home-table p{
+    font-size: 12px;
+}
+.broker-home{
+    min-height: 89vh;
+}
+.broker-home1{
+    min-height: 89vh;
+}
+.broker-home111{
+    padding-bottom: 7px;
+    padding-left: 20px;
+}
+.broker-home-btn0{
+    border: 2px solid #1A7EC7;
+    border-radius: 40px;
+    width: fit-content;
+    padding: 6px 0px;
+    padding-left: 8px;
+    padding-right: 30px;
+}
+.broker-add{
+    background-color: #1A7EC7;
+    height: 35px;
+    font-size: 31px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-right: 7px;
+}
+.broker-home-btn0 p{
+    color: #1A7EC7;
+}
+/* .broker-home-table11{
+    margin-right: 20px;
+} */
+.broker-home12111 div{
+    border: 2px solid gray;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 5px;
+}

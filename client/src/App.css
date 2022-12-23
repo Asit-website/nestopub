@@ -17,7 +17,7 @@
 }
 
 @font-face {
-  font-family: "Regular"; /*Can be any text*/
+  font-family: gilroy; /*Can be any text*/
   src: local("Glory-Regular"),
     url("./font/static/Glory-Regular.ttf") format("truetype");
 }
@@ -43,4 +43,7 @@
   font-family: "Medium Italic"; /*Can be any text*/
   src: local("Glory-MediumItalic"),
     url("./font/static/Glory-MediumItalic.ttf") format("truetype");
+}
+*{
+  font-family: gilroy;
 }
