@@ -11,7 +11,7 @@ const BrokerItem1 = () => {
                                 <div className="broker-add">
                                     +
                                 </div>
-                                <p>Add New Client</p>
+                                <p>Add New Client</p> 
                             </div>
                         </div>
                         <div className="broker-home111 mb-7">
