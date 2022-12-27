@@ -18,7 +18,7 @@ app.use(fileUpload({
 app.use('/api',require('./Router/authRouter'));
 app.use('/api', require('./Router/brokerRouter'));
 app.use('/api',require('./Router/upload'));
-
+app.use('/api', require('./Router/clientRouter'));
 
 
 const URI = process.env.MONGODB_URL;

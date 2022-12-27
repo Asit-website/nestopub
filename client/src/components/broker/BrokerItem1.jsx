@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Sidebar from '../common/Sidebar';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
+import { GlobalState } from '../../GlobalState';
+import ClientsItem from '../ClientsPop/ClientsItem';
 
 const weekUtil={
     0:"S",
@@ -14,9 +16,12 @@ const weekUtil={
     6:"S"
 };
 
+
+
 const BrokerItem1 = () => {
     const [value, onChange] = useState(new Date());
-
+    const state = useContext(GlobalState);
+    const [clientLog] = state.ClientApi.clientLog;
     return (
         <>
             <div className='broker-home'>
@@ -75,7 +80,43 @@ const BrokerItem1 = () => {
                                     </div>
                                 </div>
                                 <div className="broker-home12122">
-                                    <div className="broker-home-table flex">
+                              {
+                                clientLog.map((client)=>{
+                                    return <ClientsItem key={client._id} client={client}/>
+                                })
+                              }
+                                            {/* <div className="broker-home-table flex">
+                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5' src="/static/images/Rectangle2151.png" alt="" />
+                                            <p>Sagar Sharma</p>
+                                        </div>
+                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5' src="/static/images/Path11489.png" alt="" />
+                                            <p>Uttam Nagar (Delhi)</p>
+                                        </div>
+                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5' src="/static/images/Path11490.png" alt="" />
+                                            <p>4(BHK) at Gaur’s City</p>
+                                        </div>
+                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5' src="/static/images/Path11488(1).png" alt="" />
+                                            <p>70-01 Lack-one Crore</p>
+                                        </div>
+                                        <div className="broker-home-table1 flex items-center">
+                                            <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
+                                                <img src="/static/images/Vector.png" alt="" />
+                                            </div>
+                                            <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
+                                                <img src="/static/images/Vector(1).png" alt="" />
+                                            </div>
+                                            <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
+                                                <img src="/static/images/Group.png" alt="" />
+                                            </div>
+                                        </div>
+                                    </div> */}
+                                    
+                                   
+                                    {/* <div className="broker-home-table flex">
                                         <div className="broker-home-table1 broker-home-table11 flex items-center">
                                             <img className='mr-1.5' src="/static/images/Rectangle2151.png" alt="" />
                                             <p>Sagar Sharma</p>
@@ -132,36 +173,7 @@ const BrokerItem1 = () => {
                                                 <img src="/static/images/Group.png" alt="" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="broker-home-table flex">
-                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
-                                            <img className='mr-1.5' src="/static/images/Rectangle2151.png" alt="" />
-                                            <p>Sagar Sharma</p>
-                                        </div>
-                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
-                                            <img className='mr-1.5' src="/static/images/Path11489.png" alt="" />
-                                            <p>Uttam Nagar (Delhi)</p>
-                                        </div>
-                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
-                                            <img className='mr-1.5' src="/static/images/Path11490.png" alt="" />
-                                            <p>4(BHK) at Gaur’s City</p>
-                                        </div>
-                                        <div className="broker-home-table1 broker-home-table11 flex items-center">
-                                            <img className='mr-1.5' src="/static/images/Path11488(1).png" alt="" />
-                                            <p>70-01 Lack-one Crore</p>
-                                        </div>
-                                        <div className="broker-home-table1 flex items-center">
-                                            <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
-                                                <img src="/static/images/Vector.png" alt="" />
-                                            </div>
-                                            <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
-                                                <img src="/static/images/Vector(1).png" alt="" />
-                                            </div>
-                                            <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
-                                                <img src="/static/images/Group.png" alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

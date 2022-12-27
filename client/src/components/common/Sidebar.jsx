@@ -1,11 +1,20 @@
-import React from 'react'
-
+import React,{useState} from 'react'
+import Clientspop from '../ClientsPop/Clientspop';
 const Sidebar = () => {
+    const [popAdd,setPopAdd] = useState(false);
+    const [men,setMen] = useState(false);
+
+    const styles = {
+        left: men ? 0 : "-100%",
+    }
     return (
         <>
-            <div className="broker-home11">
+             <div className="broker-soc">
+            <i onClick={() => setMen(!men)} className="fa-solid fa-bars"></i>
+            </div>
+            <div style={styles} className="broker-home11">
                 <div className="broker-home111 mb-8">
-                    <div className="broker-home-btn0 flex items-center cursor-pointer">
+                    <div onClick={() => setPopAdd(true)} className="broker-home-btn0 flex items-center cursor-pointer">
                         <div className="broker-add">
                             +
                         </div>
@@ -49,6 +58,10 @@ const Sidebar = () => {
                     </div>
                 </div>
             </div>
+          
+            {
+               popAdd && <Clientspop setPopAdd={setPopAdd}/>
+            }
         </>
     )
 }
