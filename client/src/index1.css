@@ -80,6 +80,12 @@
     padding-bottom: 7px;
     padding-left: 20px;
 }
+.tighup{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    max-width: 100%;
+}
 .broker-home-btn0{
     border: 2px solid #1A7EC7;
     border-radius: 40px;

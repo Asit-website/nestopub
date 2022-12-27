@@ -47,6 +47,7 @@ const Header = ({ pop, setPop }) => {
     <>
       <div className={navColor ? "header activeH" : "header"}>
         <nav className="navbar">
+       
           <NavLink to="/" exact className="logo">
             <img src={logo} alt="logo" />
           </NavLink>

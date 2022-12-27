@@ -1,13 +1,9 @@
 import React from "react";
-// import man2 from '../../../images/man2.png';
-// import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./styles.css";
-// import {  Navigation, Pagination, Keyboard } from "swiper";
-// import HomePop from "./HomePop";
 import manHome from '../../../images/manHome.png';
 import app from '../../../images/app.png';
 import google from '../../../images/google-play.png';
