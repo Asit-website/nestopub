@@ -10,6 +10,7 @@ import AdminDashBoard from "../Admin/AdminDashBoard";
 import BrokerManage from "../Admin/BrokerManage";
 import CustomerManagement from "../broker/CustomerManagement";
 
+import BrokerProperty from "../broker/BrokerProperty";
 
 const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
   const state = useContext(GlobalState);
@@ -28,6 +29,7 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
         <Route exact path="/login" element={<Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
         <Route exact path="/brokerProfile" element={<BrokerProfile/>}/>
         <Route exact path="/brokerProfile/customerManagement" element={<CustomerManagement/>}/>
+        <Route exact path="/brokerProperty" element={<BrokerProperty/>}/>
 
         <Route exact path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
         <Route exact path="/dashboard/manageBrok" element={ isAdmin ? <BrokerManage/> : <Notfound/>}/>
