@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     return (
@@ -16,12 +17,13 @@ const Sidebar = () => {
                     <div className="flex">
                         <img src="/static/images/grid_view.png" alt="" />
                         <p className='ml-4'>DashBoard</p>
+                        
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11488.png" alt="" />
-                        <p className='ml-4'>Properties</p>
+                        <Link  to="/brokerProperty"><p className='ml-4'>Properties</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
