@@ -194,6 +194,79 @@
     border-radius: 6px;
     margin-bottom: 14px;
 }
+.broker-cus{
+    width: 100%;
+    margin-right: 0;
+}
+.broker-cus1-img{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 9px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.broker-cus1-img img{
+    width: 100%;
+    height: 100%;
+}
+.broker-cus1-img1{
+    background: #7ADA90;
+}
+.broker-cus1-img2{
+    background: #6D94CE;
+}
+.broker-cus1-img3{
+    background: #BE3F6E;
+}
+.broker-cus1-img4{
+    background: #E4C422;
+}
+.broker-cus1-img5{
+    background: #E16D7A;
+}
+.broker-cus1-p{
+    padding: 2px 0px;
+    padding-left: 8px;
+    width: 8vw;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.broker-cus1-p1{
+    background-color: #7ada9027;
+}
+.broker-cus1-p2{
+    background-color: #6d94ce21;
+}
+.broker-cus1-p3{
+    background-color: #be3f6e25;
+}
+.broker-cus1-p4{
+    background-color: #e4c42225;
+}
+.broker-cus1-p5{
+    background-color: #e16d7a1f;
+}
+.broker-cus-1a{
+    padding: 26px 16px;
+}
+.broker-home-table12 img{
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+}
+.broker-cus-table{
+    justify-content: flex-start;
+}
+.broker-cus-table1{
+    width: 100%;
+    justify-content: center;
+}
+.broker-cus-head div{
+    width: 100%;
+    text-align: center;
 
 //============= Broker Property CSS===================
 .broker-property12{
