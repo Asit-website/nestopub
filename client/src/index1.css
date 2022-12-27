@@ -267,11 +267,132 @@
 .broker-cus-head div{
     width: 100%;
     text-align: center;
-
-//============= Broker Property CSS===================
+}
+/* Properties CSS */
 .broker-property12{
     background-color: #FFF!important;
-    overflowY : 'scroll';
+    overflow-y : scroll;
+    height : 10px;
+}
+.broker-property121{
+    width: 60%;
+    margin-right: 10px;
+}
+.broker-property122{
+    width: 40%;
+    background-color: #FFFFFF;
+    padding: 1rem;
+    border-radius: 7px;
+    margin-left: 10px;
+}
+.border-10{
+    border-radius : 10px;
+}
+
+.height-max {
+ height : 600px;
+}
+
+.stays {
+    font-size : 24px;
+    font-weight : 700;
+    margin-bottom : 20px;
+}
+
+.filter-section{
+    justify-content : space-between;
+    
+}
+
+.filters{
+    justify-content: flex-start;
+    flex-wrap : wrap
+}
+
+.filter {
+    justify-content : space-between;
+    align-items : center;
+    border : 1px solid #5E81F4;
+    padding : 5px 10px;
+    margin-right : 10px;
+    margin-bottom : 10px;
+}
+
+.filter img{
+    width : 12px;
+    height : 12px;
+    margin-left : 10px;
+}
+
+.filterIcon {
+    width : 20px;
+    height : 20px;
+}
+.properties{
+    margin-top : 20px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height : 450px;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.properties::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.properties {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.property-card{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding : 10px;
+    border-radius : 10px;
+    margin-top : 30px;
+}
+
+.property-card-img{
+    height : 100%;
+    
+    background-color : #5E81F4;
+    border-radius : 10px;
+    margin-right : 10px;
+}
+
+.city-icon{
+    height : 30px;
+    width : 30px;
+    border-radius : 30px;
+    background-color : #5E81F4;
+    margin-right : 10px;
+}
+
+.property-card-title{
+    font-size : 16px;
+    font-weight : 700;
+}
+.rating-section{
+    align-items : center;
+}
+.rating-section p{
+    font-size : 16px;
+    margin-right : 10px;
+}
+
+.star-icon{
+    height : 12px;
+    width : 12px;
+    margin-right : 5px;
+}
+
+.property-detail{
+    font-size : 12px;
+    margin : 5px 0px;
+}
+
+.broker-property12{
+    background-color: #FFF!important;
+    overflow-y : scroll;
     height : 10px;
 }
 .broker-property121{
