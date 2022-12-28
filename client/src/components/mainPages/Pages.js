@@ -11,6 +11,9 @@ import BrokerManage from "../Admin/BrokerManage";
 import CustomerManagement from "../broker/CustomerManagement";
 
 import BrokerProperty from "../broker/BrokerProperty";
+import VisitManagement from "../broker/VisitManagement";
+import PaymentHistory from "../broker/PaymentHistory";
+import MyProfile from "../broker/MyProfile";
 import Contact from "../Contact";
 
 const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
@@ -33,6 +36,9 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
           }
         />
         <Route exact path="/login" element={<Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
+        <Route exact path="/brokerProfile/visitManagement" element={<VisitManagement/>}/>
+        <Route exact path="/brokerProfile/paymentHistory" element={<PaymentHistory/>}/>
+        <Route exact path="/brokerProfile/myProfile" element={<MyProfile/>}/>
         <Route exact path="/brokerProfile" element={ isLogged ? <BrokerProfile/> : adminstartor()}/>
         <Route exact path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement/> : adminstartor()}/>
         <Route exact path="/brokerProperty" element={<BrokerProperty/>}/>
