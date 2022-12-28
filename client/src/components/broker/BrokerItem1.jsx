@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import Sidebar from '../common/Sidebar';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'
-// import dayjs from 'dayjs';
 import { GlobalState } from '../../GlobalState';
 import ClientsItem from '../ClientsPop/ClientsItem';
 
@@ -105,7 +104,7 @@ const BrokerItem1 = () => {
                                 <div className="broker-home12222">
                                     <Calendar formatShortWeekday={(locale, date) => weekUtil[(date.getDay())]} onChange={onChange} value={value} />
                                 </div>
-                                {/* dayjs(date).format() */}
+                               
                                 <div className="broker-home12223">
                                     <div className="broker-home2-card flex mb-3 p-2">
                                         <div className="img mr-3">

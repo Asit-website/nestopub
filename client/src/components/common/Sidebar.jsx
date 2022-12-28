@@ -1,21 +1,22 @@
 import React,{useState} from 'react'
 import Clientspop from '../ClientsPop/Clientspop';
-import React from 'react'
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     const [popAdd,setPopAdd] = useState(false);
-    const [men,setMen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
-    const styles = {
-        left: men ? 0 : "-100%",
-    }
+    const toggleSidebar=()=>{
+        document.querySelector('.broker-home11').classList.toggle('sideOpen');
+        document.querySelector('.broker-home12').classList.toggle('sideOpen1');
+    };
+
     return (
         <>
              <div className="broker-soc">
-            <i onClick={() => setMen(!men)} className="fa-solid fa-bars"></i>
+            <i onClick={toggleSidebar} className="fa-solid fa-bars"></i>
             </div>
-            <div style={styles} className="broker-home11">
+            <div className="broker-home11">
                 <div className="broker-home111 mb-8">
                     <div onClick={() => setPopAdd(true)} className="broker-home-btn0 flex items-center cursor-pointer">
                         <div className="broker-add">
@@ -27,32 +28,31 @@ const Sidebar = () => {
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/grid_view.png" alt="" />
-                        <p className='ml-4'>DashBoard</p>
-                        
+                        <Link to="/brokerProfile"><p className='ml-4'>DashBoard</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11488.png" alt="" />
-                        <Link  to="/brokerProperty"><p className='ml-4'>Properties</p></Link>
+                        <Link to="/brokerProperty"><p className='ml-4'>Properties</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Group19843.png" alt="" />
-                        <p className='ml-4'>Customer Management</p>
+                        <Link to="/brokerProfile/customerManagement"><p className='ml-4'>Customer Management</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11515.png" alt="" />
-                        <p className='ml-4'>Visit Management</p>
+                        <Link to="/brokerProfile/visitManagement"><p className='ml-4'>Visit Management</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11546.png" alt="" />
-                        <p className='ml-4'>Payment History</p>
+                        <Link to="/brokerProfile/paymentHistory"><p className='ml-4'>Payment History</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
