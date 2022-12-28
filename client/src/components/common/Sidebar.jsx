@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import Clientspop from '../ClientsPop/Clientspop';
-import React from 'react'
 import { Link } from 'react-router-dom';
+import Help from './Help';
 
 const Sidebar = () => {
     const [popAdd,setPopAdd] = useState(false);
@@ -61,6 +61,8 @@ const Sidebar = () => {
                         <p className='ml-4'>Raise request for Loan support</p>
                     </div>
                 </div>
+
+                 <Help/>
             </div>
           
             {

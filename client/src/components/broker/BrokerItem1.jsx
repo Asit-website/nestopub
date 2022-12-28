@@ -5,6 +5,7 @@ import 'react-calendar/dist/Calendar.css'
 // import dayjs from 'dayjs';
 import { GlobalState } from '../../GlobalState';
 import ClientsItem from '../ClientsPop/ClientsItem';
+import LoadMoreClients from '../ClientsPop/LoadMoreClients';
 
 const weekUtil = {
     0: "S",
@@ -45,7 +46,7 @@ const BrokerItem1 = () => {
                                     </div>
                                     <div className="broker-home12a broker-home12-border">
                                         <p>Total Clients</p>
-                                        <p className="text-xl font-semibold">22</p>
+                                        <p className="text-xl font-semibold">{clientLog.length}</p>
                                     </div>
                                     <div className="broker-home12a broker-home12-border">
                                         <p>Follow Up</p>
@@ -84,6 +85,10 @@ const BrokerItem1 = () => {
                                         })
                                     }
                                 </div>
+                                <LoadMoreClients/>
+                                {
+                                    clientLog.length === 0 && <h2>No Client to Display</h2>
+                                }
                             </div>
                         </div>
                         <div className="broker-home122">
