@@ -60,8 +60,8 @@ const Header = ({ pop, setPop }) => {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <NavLink to="/login" exact onClick={closeMenu}>
-                {isAdmin ? "Admin Here" : "Why Join Nestohub?"}
+              <NavLink to="/contact" exact onClick={closeMenu}>
+                 Why Join Nestohub?
               </NavLink>
             </li>
             <li className="nav-item">
