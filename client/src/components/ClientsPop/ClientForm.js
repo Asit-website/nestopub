@@ -145,7 +145,7 @@ const ClientForm = () => {
                   <div className="inner-form inner-form-1 upload">
                     <input onChange={handleUpload}  type="file" name="file" id="file_up" />
                     <div id="file_img" style={styleUploads} >
-                               <img src={BuyerImages ? BuyerImages.url : ''} alt="not" />
+                               <img className="parrot" src={BuyerImages ? BuyerImages.url : ''} alt="not" />
                                 <span onClick={handleDestroy}>X</span>
                         </div> 
                   </div>
