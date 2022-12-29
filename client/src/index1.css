@@ -6,11 +6,13 @@
     background-color: white;
     padding-top: 2.2rem;
     width: 20%;
+    left: 0%;
 }
 .broker-home12,.broker-property12{
     width: 80%;
     background-color: #EFEFEF;
-    padding: 2rem;
+    padding: 2rem 1.5rem;
+    transition: all 0.3s;
 }
 .broker-home121{
     width: 70%;
@@ -175,8 +177,8 @@
     border-radius: 6px;
 }
 .broker-home2-card .img{
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
 }
 .broker-home2-card .img img{
     width: 100%;
@@ -184,9 +186,11 @@
 }
 .broker-home2-card .text h5{
     color: black;
+    font-size: 12px;
 }
 .broker-home2-card .text p{
     color: black;
+    font-size: 9px;
 }
 .broker-side-bottom{
     color: #1A7EC7;
@@ -274,6 +278,100 @@
     width: 100%;
     text-align: center;
 }
+.sideOpen{
+    left: -100%;
+    width: 0%;
+}
+.sideOpen1{
+    width: 100%;
+}
+.myCustomHeight{
+    height: 730px !important;
+}
+.visit-manage{
+    background-color: white;
+    padding-top: 3rem;
+}
+.visit-manage .broker-home2-card{
+    background-color: white;
+}
+.broker-home12223{
+    width: 23rem;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.096);
+    margin-left: 1rem;
+    border-radius: 10px;
+}
+.payment-history{
+    padding: 10px;
+}
+.payment-history1{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+}
+.pay11{
+    width: 42vmin;
+}
+.pay2h{
+    color: #0A2E57;
+}
+.broker-myp-bor{
+    padding: 20px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.096);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.096);
+}
+.broker-my18{
+    padding: 8px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.175);
+    border-radius: 5px;
+    width: fit-content;
+}
+.broker-10-alert{
+    position: absolute;
+    right: 5px;
+    top: 22px;
+    font-weight: 700;
+    color: #C10101;
+}
+.broker-my10{
+    position: relative;
+}
+.broker-myp1{
+    background-color: white;
+    border-radius: 8px;
+    width: 30%;
+}
+.broker-myp2{
+    width: 70%;
+}
+.broker-myp20{
+    border-radius: 8px;
+}
+.upper-b{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.089);
+}
+.upper-b div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    font-size: 12px;
+    padding: 6px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.356);
+}
+.broker-myp-input{
+    width: 31%;
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+.broker-myp-input input{
+    width: 100%;
+}
+
 
 /* Properties CSS */
 
