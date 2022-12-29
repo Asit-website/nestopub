@@ -30,31 +30,32 @@ const Sidebar = () => {
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/grid_view.png" alt="" />
-                        <Link to="/brokerProfile"><p className='ml-4'>DashBoard</p></Link>
+                        {/* {console.log(window.location.pathname)} */}
+                        <Link to="/brokerProfile/dashboard"><p className={window.location.pathname ==='/brokerProfile/dashboard' ? 'sidebar-active ml-4' : 'ml-4'}>DashBoard</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11488.png" alt="" />
-                        <Link  to="/brokerProfile/property"><p className='ml-4'>Properties</p></Link>
+                        <Link  to="/brokerProfile/brokerProperty"><p className={window.location.pathname ==='/brokerProfile/brokerProperty' ? 'sidebar-active ml-4' : 'ml-4'}>Properties</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Group19843.png" alt="" />
-                        <Link to="/brokerProfile/customerManagement"><p className='ml-4'>Customer Management</p></Link>
+                        <Link to="/brokerProfile/customerManagement"><p className={window.location.pathname ==='/brokerProfile/customerManagement' ? 'sidebar-active ml-4' : 'ml-4'}>Customer Management</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11515.png" alt="" />
-                        <Link to="/brokerProfile/visitManagement"><p className='ml-4'>Visit Management</p></Link>
+                        <Link to="/brokerProfile/visitManagement"><p className={window.location.pathname ==='/brokerProfile/visitManagement' ? 'sidebar-active ml-4' : 'ml-4'}>Visit Management</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11546.png" alt="" />
-                        <Link to="/brokerProfile/paymentHistory"><p className='ml-4'>Payment History</p></Link>
+                        <Link to="/brokerProfile/paymentHistory"><p className={window.location.pathname ==='/brokerProfile/paymentHistory' ? 'sidebar-active ml-4' : 'ml-4'}>Payment History</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
