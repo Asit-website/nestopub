@@ -7,15 +7,26 @@ const ClientApi = (token) => {
     const [result,setResult] = useState(0);
     const [page,setPage] = useState(1);
     useEffect(()=>{
-      const Client = async() =>{
-           const res = await axios.get(`/api/getClient?limit=${page*5}`,{
-            headers: {Authorization:token}
-           });
-           setClientLog(res.data.clients);
-           setResult(res.data.result);
+      if(token){
+        
+        const Client = async() =>{
+          try {
+            const res = await axios.get(`/api/getClient?limit=${page*5}`,{
+              headers: {Authorization:token}
+             });
+             setClientLog(res.data.clients);
+             setResult(res.data.result);
+          } 
+          
+          catch (error) {
+            alert(error.response.data.msg)
+          }
+          
+     }
+     Client();
       }
+     
 
-      Client();
     },[callback,token,page])
 
     return{
