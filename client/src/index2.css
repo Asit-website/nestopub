@@ -1,0 +1,108 @@
+.sp-title{
+    font-size : 32px;
+    font-weight : 600;
+    margin : 20px 0px;
+}
+
+.similar-properties-cards{
+    overflow-y : hidden;
+    overflow-x: scroll;
+    width : 100%;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.similar-properties-cards::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.similar-properties-cards {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.similar-properties-card{
+    width : 300px;
+    
+    margin-right : 50px;
+}
+
+.sp-card-img{
+    background-color :  #FAFBFF;
+    height : 200px;
+    width : 300px;
+    border-radius : 20px 20px 0px 0px;
+}
+
+.sp-card-detail{
+    background-color : white;
+    padding : 20px;
+}
+
+.sp-card-text{
+    font-weight : 600;
+}
+
+.sp-card-price{
+    font-weight : 600;
+    margin : 10px 0px;
+    color : #4A60A1;
+}
+
+.property-props{
+    justify-content : space-between;
+    border-bottom : 1.07071px solid #E7E9EB;
+    padding-bottom : 10px;
+}
+.property-prop{
+    align-items : center;
+}
+.property-prop img{
+    height : 18px;
+    width : 18px;
+    margin-right : 5px;
+}
+.property-prop p{
+    color : #6D737A;
+    
+}
+
+.sp-broker-sec{
+    margin-top : 20px;
+    justify-content : space-between
+}
+.sp-broker-img{
+    align-items : center;
+}
+.sp-broker-img img{
+    max-height : 30px;
+    max-width : 30px;
+    height : 100%;
+    width : 100%;
+    border-radius : 30px;
+    margin-right : 10px;
+}
+
+.sp-broker-img p{
+    font-size : 14px;
+}
+
+.action-box{
+    max-height : 30px;
+    max-width : 30px;
+    height : 100%;
+    width : 100%;
+    background-color :  #EDEFF6;
+    align-items : center;
+    justify-content : center;
+    margin-left : 10px;
+    padding : 5px;
+    border-radius : 2px;
+}
+
+.action-box img{
+    max-height : 20px;
+    max-width : 20px;
+    height : 100%;
+    width : 100%;
+    
+    
+}

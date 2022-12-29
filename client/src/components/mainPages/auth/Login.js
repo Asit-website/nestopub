@@ -27,8 +27,6 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
   const [token] = state.token;
   const [tabIndex, setTabIndex] = useState(1);
 
-
-
   const navigate = useNavigate();
 
   const inputChange = (e) =>{

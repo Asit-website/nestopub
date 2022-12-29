@@ -9,12 +9,12 @@ import { GlobalState } from "../../GlobalState";
 import AdminDashBoard from "../Admin/AdminDashBoard";
 import BrokerManage from "../Admin/BrokerManage";
 import CustomerManagement from "../broker/CustomerManagement";
-
 import BrokerProperty from "../broker/BrokerProperty";
 import VisitManagement from "../broker/VisitManagement";
 import PaymentHistory from "../broker/PaymentHistory";
 import MyProfile from "../broker/MyProfile";
 import Contact from "../Contact";
+import BrokerPropertyDetails from "../broker/BrokerPropertyDetails";
 
 const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
   const state = useContext(GlobalState);
@@ -41,7 +41,8 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
         <Route path="/brokerProfile/myProfile" element={<MyProfile/>}/>
         <Route path="/brokerProfile" element={ isLogged ? <BrokerProfile/> : adminstartor()}/>
         <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement/> : adminstartor()}/>
-        <Route path="/brokerProperty" element={<BrokerProperty/>}/>
+        <Route path="/brokerProperty/property" element={<BrokerProperty/>}/>
+        
         <Route path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
         <Route path="/dashboard/manageBrok" element={ isAdmin ? <BrokerManage/> : <Notfound/>}/>
 

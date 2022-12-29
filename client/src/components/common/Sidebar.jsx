@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import Clientspop from '../ClientsPop/Clientspop';
+
 import { Link } from 'react-router-dom';
 import Help from './Help';
 
@@ -35,7 +36,7 @@ const Sidebar = () => {
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Path11488.png" alt="" />
-                        <Link to="/brokerProperty"><p className='ml-4'>Properties</p></Link>
+                        <Link  to="/brokerProfile/property"><p className='ml-4'>Properties</p></Link>
                     </div>
                 </div>
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
