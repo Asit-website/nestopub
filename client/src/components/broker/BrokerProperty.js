@@ -1,4 +1,6 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Multiselect} from 'multiselect-react-dropdown'
 import Sidebar from '../common/Sidebar'
 import fi from '../../images/FilterIcon.png'
 import dangerous from '../../images/dangerous.png'
@@ -7,6 +9,9 @@ import propertyimg from '../../images/propertyimg.png'
 
 
 const BrokerProperty = () => {
+
+    const navigate = useNavigate();
+    
     return (
         <>
             <div className='broker-home'>
@@ -18,7 +23,7 @@ const BrokerProperty = () => {
                         </div>
                         <div className='broker-property122'>
                             <div className='multiSelect'>
-
+                            
                             </div>
                             <div className='properties-section'>
                                 <p className='stays'>Stays In Noida</p>
@@ -55,7 +60,7 @@ const BrokerProperty = () => {
 
                                 <div className='properties'>
 
-                                    <div className='property-card flex'>
+                                    <div className='property-card flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
                                         <div className='property-card-img'>
                                             <img src={propertyimg} />
                                         </div>
@@ -78,7 +83,7 @@ const BrokerProperty = () => {
                                         </div>
                                     </div>
 
-                                    <div className='property-card flex'>
+                                    <div className='property-card flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
                                         <div className='property-card-img'>
                                             <img src={propertyimg} />
                                         </div>
@@ -101,7 +106,7 @@ const BrokerProperty = () => {
                                         </div>
                                     </div>
 
-                                    <div className='property-card flex'>
+                                    <div className='property-card flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
                                         <div className='property-card-img'>
                                             <img src={propertyimg} />
                                         </div>
@@ -112,7 +117,7 @@ const BrokerProperty = () => {
                                                 <p className='rating'>4.8</p>
                                                 <p>Noida</p>
                                             </div>
-                                            <div className='property-detail flex'>
+                                            <div className='property-detail flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
                                                 <p>2 guests| </p>
                                                 <p>3 bedroom| </p>
                                                 <p>2 bathroom</p>
@@ -124,7 +129,7 @@ const BrokerProperty = () => {
                                         </div>
                                     </div>
 
-                                    <div className='property-card flex'>
+                                    <div className='property-card flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
                                         <div className='property-card-img'>
                                             <img src={propertyimg} />
                                         </div>
