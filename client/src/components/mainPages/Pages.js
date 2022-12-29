@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Routes, Route,useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./home/Home";
 import Login from "./auth/Login";
 // import LoginSteeper from "./auth/LoginSteeper";
@@ -16,13 +16,13 @@ import MyProfile from "../broker/MyProfile";
 import Contact from "../Contact";
 import BrokerPropertyDetails from "../broker/BrokerPropertyDetails";
 
-const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
+const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
   const [isAdmin] = state.BrokerApi.isAdmin;
-  const adminstartor = () =>{
-    return(
-      <Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop}/>
+  const adminstartor = () => {
+    return (
+      <Login setAuthFlag={setAuthFlag} resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />
     )
   }
   return (
@@ -32,22 +32,22 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
           exact
           path="/"
           element={
-            <Home  setPop={setPop} />
+            <Home setAuthFlag={setAuthFlag} setPop={setPop} />
           }
         />
-        <Route path="/login" element={<Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
-        <Route path="/brokerProfile/visitManagement" element={<VisitManagement/>}/>
-        <Route path="/brokerProfile/paymentHistory" element={<PaymentHistory/>}/>
-        <Route path="/brokerProfile/myProfile" element={<MyProfile/>}/>
-        <Route path="/brokerProfile" element={ isLogged ? <BrokerProfile/> : adminstartor()}/>
-        <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement/> : adminstartor()}/>
-        <Route path="/brokerProperty/property" element={<BrokerProperty/>}/>
-        
-        <Route path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
-        <Route path="/dashboard/manageBrok" element={ isAdmin ? <BrokerManage/> : <Notfound/>}/>
+        <Route path="/login" element={<Login setAuthFlag={setAuthFlag} resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
+        <Route path="/brokerProfile/visitManagement" element={<VisitManagement setAuthFlag={setAuthFlag} />} />
+        <Route path="/brokerProfile/paymentHistory" element={<PaymentHistory setAuthFlag={setAuthFlag} />} />
+        <Route path="/brokerProfile/myProfile" element={<MyProfile setAuthFlag={setAuthFlag} />} />
+        <Route path="/brokerProfile/dashboard" element={isLogged ? <BrokerProfile setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/brokerProperty" element={<BrokerProperty setAuthFlag={setAuthFlag} />} />
 
-         <Route path="/contact" element={<Contact/>}/>
-        <Route path="*" element={<Notfound/>}/>
+        <Route path="/dashboard" element={isAdmin ? <AdminDashBoard setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
+        <Route path="/dashboard/manageBrok" element={isAdmin ? <BrokerManage setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
+
+        <Route path="/contact" element={<Contact setAuthFlag={setAuthFlag} />} />
+        <Route path="*" element={<Notfound setAuthFlag={setAuthFlag} />} />
       </Routes>
     </>
   );

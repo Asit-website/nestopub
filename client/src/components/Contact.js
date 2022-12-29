@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import corporate from '../images/corporate.jpg';
 import fb1 from '../images/fb1.png';
 import twit1 from '../images/twit1.png';
 import instagram from '../images/Instagram.png';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
-const Contact = () => {
+const Contact = ({setAuthFlag}) => {
+   useEffect(()=>{
+      setAuthFlag(false);
+    },[]);
    const [contactUser,setContactUser] = useState({
       name1:"",
       email1:"",

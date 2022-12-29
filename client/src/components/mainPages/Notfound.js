@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-const Notfound = () => {
+const Notfound = ({setAuthFlag}) => {
+  useEffect(()=>{
+    setAuthFlag(false);
+  },[]);
   return (
     <div className="notFound">
       <h1> 404 | Not Found</h1>

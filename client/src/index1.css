@@ -50,6 +50,8 @@
     border-right: 1px solid rgba(0, 0, 0, 0.096);
 }
 .broker-home12121{
+    z-index: 10;
+    background-color: white;
     padding: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.089);
 }
@@ -371,7 +373,68 @@
 .broker-myp-input input{
     width: 100%;
 }
-
+.head2-noti{
+    border-radius: 6px;
+    margin-right: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    padding: 8px;
+    position: relative;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.head2-noti1{
+    position: absolute;
+    top: -4px;
+    height: 19px;
+    width: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    right: -9px;
+    background-color: #1A7EC7;
+    color: white;
+    font-size: 11px;
+}
+.navbar1{
+    justify-content: start !important;
+}
+.head2-logo{
+    width: 11rem;
+}
+.head21{
+    width: 30%;
+}
+.head22{
+    width: 70%;
+}
+.head2-input{
+    width: 36vw;
+    margin-right: 25px;
+}
+.head2-input input{
+    width: 100%;
+}
+.head2-user img{
+    width: 35px !important;
+    width: 35px !important;
+    border-radius: 50% !important;
+    border: 1px solid rgba(0, 0, 0, 0.055);
+    margin-right: 6px !important;
+}
+#head2-drop{
+    position: fixed;
+    top: 70px;
+    z-index: 20;
+}
+.sidebar-active{
+    color: #1A7EC7;
+}.sidebar-active ~ .lsls{
+    width: 1000px;
+}
 
 /* Properties CSS */
 

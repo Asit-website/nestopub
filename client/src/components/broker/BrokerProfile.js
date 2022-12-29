@@ -1,9 +1,12 @@
 
-import React,{useContext,useState} from 'react';
+import React,{useContext,useEffect,useState} from 'react';
 import { GlobalState } from '../../GlobalState';
 import BrokerItem from './BrokerItem';
 import BrokerItem1 from './BrokerItem1';
-const BrokerProfile = () => {
+const BrokerProfile = ({setAuthFlag}) => {
+  useEffect(()=>{
+    setAuthFlag(true);
+  },[]);
   const [profilePop,setProfilePop] = useState(false);
     const state = useContext(GlobalState);
     const [user,setUser] = state.BrokerApi.user;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from '../common/Sidebar';
 import moment from 'moment';
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
@@ -12,7 +12,11 @@ const allViews = Object.keys(Views).map(k => Views[k]);
 console.log(allViews);
 // const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
 
-const VisitManagement = () => {
+const VisitManagement = ({setAuthFlag}) => {
+    useEffect(()=>{
+        setAuthFlag(true);
+      },[]);
+
     return (
         <>
             <div className='broker-home'>
