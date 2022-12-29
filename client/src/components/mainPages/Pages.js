@@ -22,7 +22,7 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
   const [isAdmin] = state.BrokerApi.isAdmin;
   const adminstartor = () =>{
     return(
-      <Login  resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop}/>
+      <Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop}/>
     )
   }
   return (
@@ -35,20 +35,19 @@ const Pages = ({setPop,resetPop,setResetPop,stepPop,setStepPop}) => {
             <Home  setPop={setPop} />
           }
         />
-        <Route exact path="/login" element={<Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
-        <Route exact path="/brokerProfile/visitManagement" element={<VisitManagement/>}/>
-        <Route exact path="/brokerProfile/paymentHistory" element={<PaymentHistory/>}/>
-        <Route exact path="/brokerProfile/myProfile" element={<MyProfile/>}/>
-        <Route exact path="/brokerProfile" element={ isLogged ? <BrokerProfile/> : adminstartor()}/>
-        <Route exact path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement/> : adminstartor()}/>
-        <Route exact path="/brokerProfile/property" element={<BrokerProperty/>}/>
-        <Route exact path="/brokerProfile/propertyDetails" element={<BrokerPropertyDetails/>}/>
+        <Route path="/login" element={<Login resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
+        <Route path="/brokerProfile/visitManagement" element={<VisitManagement/>}/>
+        <Route path="/brokerProfile/paymentHistory" element={<PaymentHistory/>}/>
+        <Route path="/brokerProfile/myProfile" element={<MyProfile/>}/>
+        <Route path="/brokerProfile" element={ isLogged ? <BrokerProfile/> : adminstartor()}/>
+        <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement/> : adminstartor()}/>
+        <Route path="/brokerProperty/property" element={<BrokerProperty/>}/>
+        
+        <Route path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
+        <Route path="/dashboard/manageBrok" element={ isAdmin ? <BrokerManage/> : <Notfound/>}/>
 
-        <Route exact path="/dashboard" element={isAdmin ? <AdminDashBoard/> : <Notfound/>}/>
-        <Route exact path="/dashboard/manageBrok" element={ isAdmin ? <BrokerManage/> : <Notfound/>}/>
-
-         <Route exact path="/contact" element={<Contact/>}/>
-        <Route path="*" exact element={<Notfound/>}/>
+         <Route path="/contact" element={<Contact/>}/>
+        <Route path="*" element={<Notfound/>}/>
       </Routes>
     </>
   );

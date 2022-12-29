@@ -27,7 +27,7 @@ const Header = ({ pop, setPop }) => {
     return (
       <>
         <li className="nav-item">
-          <NavLink to="/login" exact onClick={closeMenu}>
+          <NavLink to="/login" onClick={closeMenu}>
             Why Nestohub?
           </NavLink>
         </li>
@@ -48,7 +48,7 @@ const Header = ({ pop, setPop }) => {
       <div className={navColor ? "header activeH" : "header"}>
         <nav className="navbar">
        
-          <NavLink to="/" exact className="logo">
+          <NavLink to="/" className="logo">
             <img src={logo} alt="logo" />
           </NavLink>
           <div className="hamburger" onClick={handleClick}>
@@ -60,7 +60,7 @@ const Header = ({ pop, setPop }) => {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <NavLink to="/contact" exact onClick={closeMenu}>
+              <NavLink to="/contact" onClick={closeMenu}>
                  Why Join Nestohub?
               </NavLink>
             </li>
@@ -81,7 +81,6 @@ const Header = ({ pop, setPop }) => {
                 <li className="nav-item">
                   <NavLink
                     to="/"
-                    exact
                     onClick={() => {
                       closeMenu();
                       logoutUser();
@@ -103,7 +102,7 @@ const Header = ({ pop, setPop }) => {
               </>
             ) : (
               <li className="nav-item nav-item1">
-                <NavLink to="/login" exact onClick={closeMenu}>
+                <NavLink to="/login" onClick={closeMenu}>
                   Login
                 </NavLink>
               </li>
