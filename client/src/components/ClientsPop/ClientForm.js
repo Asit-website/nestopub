@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
+import { useNavigate } from "react-router-dom";
 const ClientForm = () => {
  
   const state = useContext(GlobalState);
   const [callback,setCallback] = state.ClientApi.callback;
   const [token] = state.token;
   const [BuyerImages,setBuyerImages] = useState(false);
+  const navigate = useNavigate();
   const myform = {
     marginTop: "-30px",
   };
@@ -68,6 +70,7 @@ const ClientForm = () => {
           headers: {Authorization:token}
         });
         alert(resp.data.msg);  
+        navigate("/brokerProfile");
         setCallback(!callback)
     } 
     

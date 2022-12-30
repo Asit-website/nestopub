@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 // import HomePop from '../home/HomePop';
 import handSack from '../../../images/handSack.jpg';
@@ -6,7 +6,11 @@ import ResetPassword from './ResetPassword';
 import axios from "axios";
 import { GlobalState } from '../../../GlobalState';
 
-const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
+const Login = ({setAuthFlag, resetPop,setResetPop,stepPop,setStepPop}) => {
+  useEffect(()=>{
+    setAuthFlag(false);
+  },[]);
+
   const [user,setUser] = useState({
     firmName:"",
     mobile:""
@@ -26,8 +30,6 @@ const Login = ({resetPop,setResetPop,stepPop,setStepPop}) => {
   const [isAdmin] = state.BrokerApi.isAdmin;
   const [token] = state.token;
   const [tabIndex, setTabIndex] = useState(1);
-
-
 
   const navigate = useNavigate();
 

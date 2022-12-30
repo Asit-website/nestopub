@@ -301,7 +301,7 @@ a {
 }
 .broker-home1212{
   overflow-y: scroll;
-  height: 500px;
+  height: 600px;
 }
 .broker-home12121{
   position: sticky;
@@ -1537,6 +1537,9 @@ padding: 20px 0px;
   .red-women {
     padding: 0px 20px;
   }
+  .contact-sect{
+    padding: 0 20px;
+  }
 }
 
 @media only screen and (max-width: 1231px) {
@@ -1983,7 +1986,8 @@ border-radius: 50%;
  position: relative;
  left: 60px;
 }
-.second-contact input[type="text"]{
+.second-contact input[type="text"],
+.second-contact input[type="email"]{
   position: relative;
   right: 10px;
 }
@@ -2104,8 +2108,75 @@ border-radius: 50%;
 .direct{
   margin-top: 50px;
 }
+.direct-header{
+ display: flex;
+ align-items: flex-start;
+ justify-content: space-evenly;
+ margin-top: 80px;
+}
 .direct h2{
   text-align: center;
   font-family: "Bold"; 
   font-size: 36px;
+}
+.dirct-header1 h3{
+  color: black;
+  font-family: "Bold"; 
+  font-size: 24px;
+  text-align: center;
+  line-height: 26px;
+}
+.diecrt-para {
+  margin-top: 10px;
+}
+.diecrt-para p{
+  color: black;
+  font-family: gilroy;
+  font-size: 16px;
+  text-align: center;
+  line-height: 22px;
+}
+#success-msg{
+  display: none;
+  margin-top: 50px;
+}
+#fuccess{
+  display: none;
+  margin-top: 50px;
+}
+.css-wnkddu-MuiPaper-root-MuiAlert-root{
+ display: block;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 18px !important;
+ margin: auto;
+  padding: 15px 0px !important;
+  max-width: 500px ;
+  width: 100% ;
+  font-family: gilroy !important;
+}
+
+.css-1hdyuqk-MuiPaper-root-MuiAlert-root{
+  display: block;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 18px !important;
+ margin: auto;
+  padding: 15px 0px !important;
+  max-width: 500px ;
+  width: 100% ;
+  font-family: gilroy !important;
+}
+
+/* ====================media query of contact us page============== */
+@media only screen and (max-width:1094px){
+ .third-contact{
+  margin-left: 100px;
+ }
+}
+
+@media only screen and (max-width:990px){
+  
 }

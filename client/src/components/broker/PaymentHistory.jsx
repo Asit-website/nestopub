@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from '../common/Sidebar';
 
-const PaymentHistory = () => {
+const PaymentHistory = ({setAuthFlag}) => {
+    useEffect(()=>{
+        setAuthFlag(true);
+      },[]);
     return (
         <>
             <div className='broker-home'>

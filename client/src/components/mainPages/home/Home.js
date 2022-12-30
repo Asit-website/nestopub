@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
@@ -15,7 +15,10 @@ import card1 from '../../../images/card1.png';
 import card2 from '../../../images/card2.png';
 import card3 from '../../../images/card3.png';
 import women from '../../../images/women.png';
-const Home = ({setPop}) => {
+const Home = ({setAuthFlag, setPop}) => {
+  useEffect(()=>{
+    setAuthFlag(false);
+  },[]);
   
   return (
     <>

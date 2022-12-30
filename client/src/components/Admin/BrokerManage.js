@@ -1,4 +1,4 @@
-import React,{useContext,useState} from 'react';
+import React,{useContext,useEffect,useState} from 'react';
 import { GlobalState } from '../../GlobalState';
 import AdminMenu from './AdminMenu'
 import BrokerJi from './BrokerJi';
@@ -6,7 +6,10 @@ import LoadMoreBroker from './LoadMoreBroker';
 import { NavLink,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const BrokerManage = () => {
+const BrokerManage = ({setAuthFlag}) => {
+  useEffect(()=>{
+    setAuthFlag(false);
+  },[]);
   const state = useContext(GlobalState);
     const [broker,setBroker] = state.IndividualApi.broker;
     const [callback,setCallback] = state.IndividualApi.callback;

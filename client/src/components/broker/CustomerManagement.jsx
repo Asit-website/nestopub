@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Sidebar from '../common/Sidebar';
 
-const CustomerManagement = () => {
+const CustomerManagement = ({setAuthFlag}) => {
+    useEffect(()=>{
+        setAuthFlag(true);
+      },[]);
     return (
         <>
             <div className='broker-home'>
@@ -40,7 +43,7 @@ const CustomerManagement = () => {
                                             <img src="/static/images/a7.png" alt="" />
                                         </div>
                                         <div className="broker-cus1-p broker-cus1-p3">
-                                            <p className="text-xs">Done</p>
+                                            <p className="text-xs">Today</p>
                                             <p className="text-sm font-semibold">20</p>
                                         </div>
                                     </div>
@@ -49,7 +52,7 @@ const CustomerManagement = () => {
                                             <img src="/static/images/a6.png" alt="" />
                                         </div>
                                         <div className="broker-cus1-p broker-cus1-p4">
-                                            <p className="text-xs">Done</p>
+                                            <p className="text-xs">Meetings</p>
                                             <p className="text-sm font-semibold">02</p>
                                         </div>
                                     </div>
@@ -58,7 +61,7 @@ const CustomerManagement = () => {
                                             <img src="/static/images/a5.png" alt="" />
                                         </div>
                                         <div className="broker-cus1-p broker-cus1-p5">
-                                            <p className="text-xs">Done</p>
+                                            <p className="text-xs">Dump</p>
                                             <p className="text-sm font-semibold">20</p>
                                         </div>
                                     </div>

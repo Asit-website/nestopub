@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Multiselect} from 'multiselect-react-dropdown'
 import Sidebar from '../common/Sidebar'
@@ -8,7 +8,10 @@ import star from '../../images/Star.png'
 import propertyimg from '../../images/propertyimg.png'
 
 
-const BrokerProperty = () => {
+const BrokerProperty = ({setAuthFlag}) => {
+    useEffect(()=>{
+        setAuthFlag(true);
+      },[]);
 
     const navigate = useNavigate();
     

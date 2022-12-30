@@ -1,9 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import corporate from '../images/corporate.jpg';
 import fb1 from '../images/fb1.png';
 import twit1 from '../images/twit1.png';
 import instagram from '../images/Instagram.png';
-const Contact = () => {
+import axios from 'axios';
+import Alert from '@mui/material/Alert';
+const Contact = ({setAuthFlag}) => {
+   useEffect(()=>{
+      setAuthFlag(false);
+    },[]);
+   const [contactUser,setContactUser] = useState({
+      name1:"",
+      email1:"",
+      message1:""
+   });
+
+   const handleInputs = (e) =>{
+      setContactUser({...contactUser,[e.target.name]: e.target.value});
+   }
+   const submitForm = async(e) =>{
+      e.preventDefault();
+      try {
+         const res = await axios.post('/user/contacts',{...contactUser});
+         document.getElementById("success-msg").style.display = "block"; 
+        const fis = document.getElementById("fes");
+        fis.innerText=`${res.data.msg}`;
+        setTimeout(() => {
+         document.getElementById("success-msg").style.display = "none"; 
+        }, 2000);
+         setContactUser({
+            name1:"",
+            email1:"",
+            message1:"",
+         })
+      } 
+      
+      catch (error) {
+         document.getElementById("fuccess").style.display = "block"; 
+         const tis = document.querySelector(".tis");
+         tis.innerText=`${error.response.data.msg}`;
+         setTimeout(() => {
+            document.getElementById("fuccess").style.display = "none"; 
+           }, 2000);
+
+           setContactUser({
+            name1:"",
+            email1:"",
+            message1:"",
+         })
+      }
+     
+   }
   return (
     <div className='contact'>
        <div className="contact-sect">
@@ -12,18 +59,34 @@ const Contact = () => {
            </div>
            <div className="second-contact">
            <h2 className='text-black'>Contact Us</h2>
-                <form >
+                <form onSubmit={submitForm}>
                    <div className="input-filed">
-                       <input className="text-black" type="text" placeholder='Full Name' />
+                       <input 
+                       name='name1'
+                       value={contactUser.name1}
+                       onChange={handleInputs}
+                       className="text-black" 
+                       type="text" 
+                       placeholder='Full Name' />
                    </div>
                    <div className="input-filed">
-                       <input type="text" placeholder='E-mail' />
+                       <input 
+                       name='email1'
+                       value={contactUser.email1}
+                       onChange={handleInputs}
+                       type="email" 
+                       placeholder='E-mail' />
                    </div>
                    <div className="input-filed">
-                       <input type="text" placeholder='Message' />
+                       <input 
+                       name='message1'
+                       value={contactUser.message1}
+                       onChange={handleInputs}
+                       type="text" 
+                       placeholder='Message' />
                    </div>
                    <div className="con-bt">
-                      <button>Contact Us</button>
+                      <button type='submit'>Contact Us</button>
                    </div>
                 </form>
            </div>
@@ -47,7 +110,12 @@ const Contact = () => {
               </div>
            </div>
        </div>
-
+       <div className="success-message" id="success-msg">
+              <Alert id='fes'  severity="success"></Alert>
+            </div>
+            <div id='fuccess'>
+              <Alert   className='tis' severity="error"></Alert>
+            </div>
        <div className="another-contact">
              <div className="sect">
                 <h2>Looking for an agent</h2>
@@ -62,13 +130,24 @@ const Contact = () => {
          <h2>Need a direct line?</h2>
          <div className="direct-header">
              <div className="dirct-header1">
-                
+               <h3>General Questions</h3>
+               <div className="diecrt-para">
+                  <p>Contact our Corporate HQ</p>
+               </div>
              </div>
              <div className="dirct-header1">
-               
+             <h3>Press & Media</h3>
+               <div className="diecrt-para">
+                  <p>Send a request to our</p>
+                  <p>Communications team</p>
+               </div>
              </div>
              <div className="dirct-header1">
-               
+             <h3>Wire Confirmation and <br />Funds Assistance</h3>
+               <div className="diecrt-para">
+                  <p>For questions related to wire</p>
+                  <p>Instructions and where to mail checks.</p>
+               </div>
              </div>
          </div>
        </div>
