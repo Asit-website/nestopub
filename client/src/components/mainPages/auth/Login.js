@@ -114,7 +114,7 @@ const Login = ({setAuthFlag, resetPop,setResetPop,stepPop,setStepPop}) => {
     const res =  await axios.post('/api/loginBroker',{...user});
     console.log(res);
       localStorage.setItem("firstlogin", true);
-      window.location.href="/brokerProfile";
+      window.location.href="/brokerProfile/dashboard";
       alert(res.data.msg);
     } 
     
@@ -129,7 +129,7 @@ const Login = ({setAuthFlag, resetPop,setResetPop,stepPop,setStepPop}) => {
     try {
     const res =  await axios.post('/api/individual',{...user1});
       localStorage.setItem("firstlogin", true);
-      window.location.href="/brokerProfile"
+      window.location.href="/brokerProfile/dashboard"
       alert(res.data.msg);
     } 
     

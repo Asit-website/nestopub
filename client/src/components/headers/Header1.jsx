@@ -10,6 +10,8 @@ const Header1 = ({ pop, setPop }) => {
   const [isAdmin] = state.BrokerApi.isAdmin;
   const [user] = state.BrokerApi.user;
 
+  const [broker] = state.IndividualApi.broker;
+
   // console.log(user);
 
   const [click, setClick] = useState(false);
@@ -66,7 +68,9 @@ const Header1 = ({ pop, setPop }) => {
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="cursor-pointer mr-2 bi bi-arrow-left" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
               </svg>
-              <p className="text-lg font-semibold">{"Hey"} {user.firmName}</p>
+              
+              <p className="text-lg font-semibold">{"Hey"} {user.firmName}{user.individualName}</p>
+
             </div>
             <div className="flex head22">
               <div className="head2-input">
@@ -94,13 +98,13 @@ const Header1 = ({ pop, setPop }) => {
                 }} className="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
                   <span className="sr-only">Open user menu</span>
                   <img className="mr-2 w-8 h-8 rounded-full" src={user.images.url} alt="user photo" />
-                  <p className="font-semibold">{user.firmName}</p> 
+                  <p className="font-semibold">{user.firmName}{user.individualName}</p> 
                   <svg className="w-4 h-4 mx-1.5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                 </button>
 
                 <div id="head2-drop" className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                   <div className="py-3 px-4 text-sm text-gray-900 dark:text-white">
-                    <div className="font-medium ">{user.firmName}</div>
+                    <div className="font-medium ">{user.firmName}{user.individualName}</div>
                     {/* <div className="truncate">name@flowbite.com</div> */}
                   </div>
                   <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">

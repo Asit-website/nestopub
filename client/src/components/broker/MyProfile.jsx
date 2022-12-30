@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Sidebar from '../common/Sidebar';
-
 const MyProfile = ({setAuthFlag}) => {
     useEffect(()=>{
         setAuthFlag(true);
