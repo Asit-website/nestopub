@@ -3,5 +3,7 @@ const clientCtrl = require("../controller/clientCtrl");
 const auth = require('../middleware/auth')
 router.post('/addClient',auth,clientCtrl.addClient);
 router.get('/getClient',auth,clientCtrl.getClients);
+router.delete('/deleteClient/:id', auth, clientCtrl.deleteClients);
+router.patch('/editClient/:id',auth, clientCtrl.clientEdit);
 
 module.exports = router;

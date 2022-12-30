@@ -4,6 +4,15 @@ class APIfeature{
        this.query = query;
        this.queryString = queryString;
      }
+     filtering() {
+      const queryObj = {...this.queryString } 
+      const excludedFields = ['page', 'sort', 'limit'];
+      excludedFields.forEach(e1 => delete(queryObj[e1]));
+      let queryStr = JSON.stringify(queryObj);
+      queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match);
+      this.query.find(JSON.parse(queryStr))
+      return this; 
+    }
      pagination() { 
        const page = this.queryString.page * 1 || 1;
        const limit = this.queryString.limit *1 || 5;
@@ -18,6 +27,9 @@ const clientCtrl = {
          const {BuyId,BuyName,BuyerMobile,BuyerLocation,BuyerBudget,BuyerBhk,BuyerImages} = req.body;
 
         if(!BuyerImages) return res.status(400).json({ msg: "Plz Uplaod a Proffessional Image" });
+        
+        const mobilebuy = await Clients.findOne({BuyerMobile:BuyerMobile});
+        if(mobilebuy) return res.status(400).json({msg:"a client added with a same phone Number"});
 
          const newClient = new Clients({
             BuyId,BuyName,BuyerMobile,BuyerLocation,BuyerBudget,BuyerBhk,BuyerImages,user:req.user.id
@@ -51,11 +63,41 @@ const clientCtrl = {
    },
    deleteClients: async (req,res) =>{
       try {
-          const client = await Clients.findById
+           let client = await Clients.findById(req.params.id);
+           if(!client) return res.status(400).json({msg:"not allowed"});
+
+           if(client.user.toString() !== req.user.id){
+              return res.status(400).json({msg:"not allowed"})
+           };
+
+           await Clients.findByIdAndDelete(req.params.id);
+           res.json({msg:"deleted Successfully"});
       } 
       
       catch (error) {
          return res.status(500).json({msg:error.message});
+      }
+   },
+
+   clientEdit: async (req,res) =>{
+      try {
+         const {BuyId,BuyName,BuyerMobile,BuyerLocation,BuyerBudget,BuyerBhk,BuyerImages} = req.body;
+
+         if(!BuyerImages) return res.status(400).json({ msg: "Plz Uplaod a Proffessional Image"});
+
+         let client = await Clients.findById(req.params.id);
+         if(!client) return res.status(400).json({msg:"not allowed"});
+        
+         if(client.user.toString() !== req.user.id)
+         return res.status(400).json({msg:"not allowed"});
+
+         await Clients.findOneAndUpdate({ _id: req.params.id }, {
+            BuyId,BuyName,BuyerMobile,BuyerLocation,BuyerBudget,BuyerBhk,BuyerImages
+          })
+      } 
+      
+      catch (error) {
+          return res.status(500).json({msg:error.message});
       }
    }
 }
