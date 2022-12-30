@@ -2140,9 +2140,15 @@ border-radius: 50%;
   display: none;
   margin-top: 50px;
 }
+.mrji{
+  margin-top: 0px !important;
+}
 #fuccess{
   display: none;
   margin-top: 50px;
+}
+.fuccess-msg{
+  margin-top: 0px !important;
 }
 .css-wnkddu-MuiPaper-root-MuiAlert-root{
  display: block;

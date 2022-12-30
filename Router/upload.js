@@ -1,15 +1,12 @@
 const router = require('express').Router()
 const cloudinary = require('cloudinary');
 const fs = require('fs');
-const auth = require("../middleware/auth")
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET
 })
 
-
-// Upload image only admin can use
 router.post('/upload', (req, res) =>{
     try {
         
@@ -33,7 +30,6 @@ router.post('/upload', (req, res) =>{
             removeTmp(file.tempFilePath);
 
             res.json({public_id: result.public_id, url: result.secure_url});
-            // predefined hote hai iske andar
         })
 
         
@@ -44,7 +40,6 @@ router.post('/upload', (req, res) =>{
     }
 })
 
-// Delete image only admin can use
 router.post('/destroy', (req, res) =>{
     try {
         const {public_id} = req.body;
@@ -62,7 +57,7 @@ router.post('/destroy', (req, res) =>{
     
 })
 
-// path lega as an argument 
+
 const removeTmp = (path) =>{
     fs.unlink(path, err=>{
         if(err) throw err;

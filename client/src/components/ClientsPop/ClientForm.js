@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
 import { useNavigate } from "react-router-dom";
+import Alert from '@mui/material/Alert';
 const ClientForm = () => {
  
   const state = useContext(GlobalState);
@@ -69,13 +70,34 @@ const ClientForm = () => {
         let resp = await axios.post("/api/addClient", {...client,BuyerImages},{
           headers: {Authorization:token}
         });
-        alert(resp.data.msg);  
-        navigate("/brokerProfile/dashboard");
+        // alert(resp.data.msg);  
+        document.getElementById("success-msg").style.display = "block"; 
+        const fis = document.getElementById("fes");
+        fis.innerText=`${resp.data.msg}`;
+        setTimeout(() => {
+         document.getElementById("success-msg").style.display = "none"; 
+         navigate("/brokerProfile/dashboard");
+        }, 2000);
         setCallback(!callback)
+
+        setClient({
+          BuyName: "",
+          BuyerMobile: "",
+          BuyerLocation: "",
+          BuyerBudget: "",
+          BuyerBhk: "",
+        });
+
+        setBuyerImages(false);
     } 
     
     catch (error) {
-        alert(error.response.data.msg) 
+      document.getElementById("fuccess").style.display = "block"; 
+      const tis = document.querySelector(".tis");
+      tis.innerText=`${error.response.data.msg}`;
+      setTimeout(() => {
+         document.getElementById("fuccess").style.display = "none"; 
+        }, 2000);
     }
     
   };
@@ -87,6 +109,12 @@ const ClientForm = () => {
         <div className="shadow">
           <h2>Add New Client</h2>
         </div>
+        <div className="success-message mrji" id="success-msg">
+              <Alert id='fes'  severity="success"></Alert>
+            </div>
+            <div id='fuccess' className="fuccess-msg">
+              <Alert   className='tis' severity="error"></Alert>
+            </div>
         <div className="hr">
           <hr className="small-hr" />
           <hr className="step-hr" />

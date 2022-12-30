@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./home/Home";
 import Login from "./auth/Login";
-// import LoginSteeper from "./auth/LoginSteeper";
 import Notfound from "./Notfound";
 import BrokerProfile from "../broker/BrokerProfile";
 import { GlobalState } from "../../GlobalState";

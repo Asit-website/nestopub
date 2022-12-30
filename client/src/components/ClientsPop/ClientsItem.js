@@ -1,4 +1,5 @@
-import React from 'react'
+
+import React from 'react';
 const ClientsItem = ({ client }) => {
     return (
         <>
@@ -21,7 +22,7 @@ const ClientsItem = ({ client }) => {
                 </div>
                 <div className="broker-home-table1 flex items-center">
                     <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
-                        <img src="/static/images/Vector.png" alt="" />
+                        <img  src="/static/images/Vector.png" alt="" />
                     </div>
                     <div className="cursor-pointer broker-home-pill flex justify-center items-center ml-4">
                         <img src="/static/images/Vector(1).png" alt="" />
