@@ -185,6 +185,7 @@
 .broker-home2-card .img img{
     width: 100%;
     height: 100%;
+    border-radius: 5px;
 }
 .broker-home2-card .text h5{
     color: black;
@@ -298,10 +299,8 @@
     background-color: white;
 }
 .broker-home12223{
-    width: 23rem;
-    padding: 0.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.096);
-    margin-left: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
     border-radius: 10px;
 }
 .payment-history{
@@ -434,6 +433,22 @@
     color: #1A7EC7;
 }.sidebar-active ~ .lsls{
     width: 1000px;
+}
+.cus-modal{
+    top: 70px;
+    left: 20%;
+    max-width: 50rem;
+    /* box-shadow: 0px 0px 1px 5000px rgba(0,0,0,0.8); */
+}
+.visit-date input{
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.163);
+    border-radius: 6px;
+    outline: none;
+    padding: 9px 10px;
+}
+.visit-date .rdtPicker{
+    min-width: 300px !important;
 }
 
 /* Properties CSS */

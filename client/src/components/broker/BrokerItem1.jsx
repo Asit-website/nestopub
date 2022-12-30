@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Sidebar from '../common/Sidebar';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'
 import { GlobalState } from '../../GlobalState';
 import ClientsItem from '../ClientsPop/ClientsItem';
 import LoadMoreClients from '../ClientsPop/LoadMoreClients';
+import NewVisitModal from './modals/NewVisitModal';
 
 const weekUtil = {
     0: "S",
@@ -20,8 +21,22 @@ const BrokerItem1 = () => {
     const [value, onChange] = useState(new Date());
     const state = useContext(GlobalState);
     const [clientLog] = state.ClientApi.clientLog;
+    const [refreshFlag, setRefreshFlag] = useState(false);
+    const [visits, setVisits] = useState([]);
+
+    useEffect(() => {
+        getVisits();
+    }, [refreshFlag]);
+
+    const getVisits = async () => {
+        const data = await state.getVisits();
+        setVisits(data.data);
+        // console.log(data);
+    };
+
     return (
         <>
+            <NewVisitModal refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
             <div className='broker-home'>
                 <div className="broker-home1 flex">
                     <Sidebar />
@@ -84,7 +99,7 @@ const BrokerItem1 = () => {
                                         })
                                     }
                                 </div>
-                                <LoadMoreClients/>
+                                <LoadMoreClients />
                                 {
                                     clientLog.length === 0 && <h2>No Client to Display</h2>
                                 }
@@ -100,7 +115,9 @@ const BrokerItem1 = () => {
                                 </div>
                             </div>
                             <div className="broker-home1222 pt-3">
-                                <div className="broker-home12221 flex items-center">
+                                <div onClick={() => {
+                                    document.getElementById('newVisitModal').classList.toggle('hidden');
+                                }} className="broker-home12221 cursor-pointer flex items-center">
                                     <div>
                                         +
                                     </div>
@@ -109,28 +126,27 @@ const BrokerItem1 = () => {
                                 <div className="broker-home12222">
                                     <Calendar formatShortWeekday={(locale, date) => weekUtil[(date.getDay())]} onChange={onChange} value={value} />
                                 </div>
-                               
+
                                 <div className="broker-home12223">
-                                    <div className="broker-home2-card flex mb-3 p-2">
-                                        <div className="img mr-3">
-                                            <img src="/static/images/cho.png" alt="" />
-                                        </div>
-                                        <div className="text">
-                                            <h5 className='mb-0 font-semibold text-sm'>Visit with Shubham Gupta</h5>
-                                            <p className='mb-0 text-xs'>Visting on New Ashok Nagar Flat (3BHK)</p>
-                                            <p className='font-semibold text-sm'>12:30  November 10,2022</p>
-                                        </div>
-                                    </div>
-                                    <div className="broker-home2-card flex mb-3 p-2">
-                                        <div className="img mr-3">
-                                            <img src="/static/images/cho.png" alt="" />
-                                        </div>
-                                        <div className="text">
-                                            <h5 className='mb-0 font-semibold text-sm'>Visit with Shubham Gupta</h5>
-                                            <p className='mb-0 text-xs'>Visting on New Ashok Nagar Flat (3BHK)</p>
-                                            <p className='font-semibold text-sm'>12:30  November 10,2022</p>
-                                        </div>
-                                    </div>
+                                    {visits.map((e, index) => {
+                                        // console.log(e);
+                                        // console.log(clientLog);
+                                        let info=clientLog.find(x=>x._id===e.client);
+                                        // console.log(info);
+                                        return (
+                                            <div key={index} className="broker-home2-card flex mb-3 p-2">
+                                                <div className="img mr-3">
+                                                    <img src={info.BuyerImages.url} alt="" />
+                                                </div>
+                                                <div className="text">
+                                                    <h5 className='mb-0 font-semibold text-sm'>Visit with {info.BuyName}</h5>
+                                                    <p className='mb-0 text-xs'>Visting on {info.BuyerLocation} ({info.BuyerBhk})</p>
+                                                    {/* <p className='font-semibold text-sm'>12:30  November 10,2022</p> */}
+                                                    <p className='font-semibold text-sm'>{new Date(e.date).toLocaleString()}</p>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                                 <div className="text-center mb-4 broker-side-bottom underline">
                                     Show all meetings and Tasks

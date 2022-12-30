@@ -1,4 +1,6 @@
 const Users = require("../models/userModel");
+const ScheduleVisit=require('../models/scheduleVisit');
+
 class APIfeature{
     constructor(query, queryString ) {
         this.query = query;
@@ -54,8 +56,38 @@ const brokerCtrl = {
         catch (error) {
             return res.status(500).json({ msg: error.message });
         }
-    }
-}
+    },
 
+    getScheduledClients: async (req,res)=>{
+        try {
+            // console.log(req.user);
+            const data= await ScheduleVisit.find({user: req.user.id});
+            res.json({
+                status: "success",
+                data
+            });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
+    postScheduledClients:async (req,res)=>{
+        try {
+            let { client, date }=req.body;
+            const newVisit=new ScheduleVisit({
+                user: req.user.id, 
+                client,
+                date
+            });
+            const data=await newVisit.save();
+            return res.json({
+                status: "success",
+                data
+            });
+        } catch (error) {
+            return res.status(500).json({ msg: error.message });
+        }
+    }
+};
 
 module.exports = brokerCtrl;
