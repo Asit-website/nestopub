@@ -8,6 +8,7 @@ import share from '../../images/ShareNetwork.png'
 import wishlist from '../../images/Heart.png'
 import addProperty from '../../images/Plus.png'
 const BrokerPropertyDetails = () => {
+    
   return (
     <>
         <div className='broker-home'>
