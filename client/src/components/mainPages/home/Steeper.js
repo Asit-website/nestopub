@@ -138,7 +138,7 @@ const styleUploads = {
     try {
       let resp = await axios.post("/api/registerBroker", {...details,images});
       localStorage.setItem("firstlogin", true);
-        window.location.href="/brokerProfile";
+        window.location.href="/brokerProfile/dashboard";
       // setCallback(!callback);
       let t = document.getElementById("git");
       t.style.display="block"

@@ -34,12 +34,8 @@ const clientCtrl = {
    },
    getClients: async (req,res) =>{
      try {
-      //   const clients = await Clients.find({user:req.user.id});
-      //   res.json(clients);
-
       const features = new APIfeature(Clients.find({user:req.user.id}),req.query).
       pagination();
-
       const clients = await features.query;
       res.json({
          status:"success",
@@ -55,7 +51,7 @@ const clientCtrl = {
    },
    deleteClients: async (req,res) =>{
       try {
-          
+          const client = await Clients.findById
       } 
       
       catch (error) {

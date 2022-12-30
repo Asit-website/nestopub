@@ -70,7 +70,7 @@ const ClientForm = () => {
           headers: {Authorization:token}
         });
         alert(resp.data.msg);  
-        navigate("/brokerProfile");
+        navigate("/brokerProfile/dashboard");
         setCallback(!callback)
     } 
     

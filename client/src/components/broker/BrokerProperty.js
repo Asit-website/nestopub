@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Multiselect} from 'multiselect-react-dropdown'
+import { Multiselect} from 'multiselect-react-dropdown';
 import Sidebar from '../common/Sidebar'
 import fi from '../../images/FilterIcon.png'
 import dangerous from '../../images/dangerous.png'
 import star from '../../images/Star.png'
 import propertyimg from '../../images/propertyimg.png'
-
 
 const BrokerProperty = ({setAuthFlag}) => {
     useEffect(()=>{
