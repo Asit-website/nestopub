@@ -13,7 +13,7 @@ export const DataProvider = ({ children }) => {
       const refreshToken = async () => {
         // refreshtoken cookie wala hai
         const res = await axios.get("/api/refresh_token");
-        console.log(res.data.accesstoken);
+        // console.log(res.data.accesstoken);
         setToken(res.data.accesstoken); // accesstoken ... refresh token ke andar milta hai
 
         setTimeout(() => {
@@ -58,13 +58,31 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const editClient = async ({ id, BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages }) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/editClient/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          "Authorization": token
+        },
+        body: JSON.stringify({ BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages })
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const state = {
     token: [token, setToken],
     BrokerApi: BrokerApi(token),
     IndividualApi: IndividualApi(),
     ClientApi: ClientApi(token),
     getVisits,
-    postVisit
+    postVisit,
+    editClient
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;
