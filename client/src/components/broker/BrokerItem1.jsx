@@ -6,6 +6,7 @@ import { GlobalState } from '../../GlobalState';
 import ClientsItem from '../ClientsPop/ClientsItem';
 import LoadMoreClients from '../ClientsPop/LoadMoreClients';
 import NewVisitModal from './modals/NewVisitModal';
+import Clientspop from '../ClientsPop/Clientspop';
 
 
 const weekUtil = {
@@ -24,6 +25,8 @@ const BrokerItem1 = () => {
     const [clientLog] = state.ClientApi.clientLog;
     const [refreshFlag, setRefreshFlag] = useState(false);
     const [visits, setVisits] = useState([]);
+    const [popAdd, setPopAdd] = useState(false);
+    const [editData, setEditData] = useState({});
 
     useEffect(() => {
         getVisits();
@@ -35,8 +38,17 @@ const BrokerItem1 = () => {
         // console.log(data);
     };
 
+    const editClient = (data) => {
+        console.log(data);
+        setEditData(data);
+        setPopAdd(true);
+    };
+
     return (
         <>
+            {
+                popAdd && <Clientspop setPopAdd={setPopAdd} isEdit={true} editData={editData} />
+            }
             <NewVisitModal refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
             <div className='broker-home'>
                 <div className="broker-home1 flex">
@@ -93,11 +105,11 @@ const BrokerItem1 = () => {
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 <div className="broker-home12122">
                                     {
                                         clientLog.map((client) => {
-                                            return <ClientsItem key={client._id} client={client} />
+                                            return <ClientsItem key={client._id} client={client} editClient={editClient} />
                                         })
                                     }
                                 </div>
@@ -131,20 +143,19 @@ const BrokerItem1 = () => {
 
                                 <div className="broker-home12223">
                                     {visits.map((e, index) => {
-                                        // console.log(e);
                                         // console.log(clientLog);
-                                        let info=clientLog.find(x=>x._id===e.client);
+                                        let info = clientLog.find(x => x._id === e.client);
                                         // console.log(info);
                                         return (
                                             <div key={index} className="broker-home2-card flex mb-3 p-2">
                                                 <div className="img mr-3">
-                                                    <img src={info.BuyerImages.url} alt="" />
+                                                    <img src={info?.BuyerImages.url} alt="" />
                                                 </div>
                                                 <div className="text">
-                                                    <h5 className='mb-0 font-semibold text-sm'>Visit with {info.BuyName}</h5>
-                                                    <p className='mb-0 text-xs'>Visting on {info.BuyerLocation} ({info.BuyerBhk})</p>
+                                                    <h5 className='mb-0 font-semibold text-sm'>Visit with {info?.BuyName}</h5>
+                                                    <p className='mb-0 text-xs'>Visting on {info?.BuyerLocation} ({info?.BuyerBhk})</p>
                                                     {/* <p className='font-semibold text-sm'>12:30  November 10,2022</p> */}
-                                                    <p className='font-semibold text-sm'>{new Date(e.date).toLocaleString()}</p>
+                                                    <p className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
                                                 </div>
                                             </div>
                                         )

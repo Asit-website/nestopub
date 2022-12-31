@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
-const ClientForm = () => {
- 
+const ClientForm = ({ isEdit, editData, setPopAdd }) => {
   const state = useContext(GlobalState);
-  const [callback,setCallback] = state.ClientApi.callback;
+  const [callback, setCallback] = state.ClientApi.callback;
   const [token] = state.token;
-  const [BuyerImages,setBuyerImages] = useState(false);
+  const [BuyerImages, setBuyerImages] = useState(false);
   const navigate = useNavigate();
+  const [uploadedImage, setUploadedImage] = useState('');
+
   const myform = {
     marginTop: "-30px",
   };
@@ -23,22 +24,36 @@ const ClientForm = () => {
     BuyerBhk: "",
   });
 
-
-  const handleUpload = async(e) =>{
-    e.preventDefault();
-    try {
-        const file = e.target.files[0];
-        if(!file)  return alert("Files doesnt exit");
-        if(file.size > 1024*1024) 
-         return alert("size to large")
-         if(file.type!=='image/jpeg' && file.type!=='image/png')
-         return alert("File Format is incorrect")
-         let formData = new FormData();
-         formData.append('file',file);
-         const res = await axios.post('/api/upload',formData)
-         setBuyerImages(res.data);
+  useEffect(() => {
+    if (isEdit) {
+      console.log(editData);
+      setClient({
+        id: editData._id,
+        BuyName: editData.BuyName,
+        BuyerMobile:editData.BuyerMobile,
+        BuyerLocation: editData.BuyerLocation,
+        BuyerBudget: editData.BuyerBudget,
+        BuyerBhk: editData.BuyerBhk
+      });
+      setUploadedImage(editData.BuyerImages.url);
     }
-    
+  }, [editData]);
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+
+    try {
+      const file = e.target.files[0];
+      if (!file) return alert("Files doesnt exit");
+      if (file.size > 1024 * 1024)
+        return alert("size to large")
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png')
+        return alert("File Format is incorrect")
+      let formData = new FormData();
+      formData.append('file', file);
+      const res = await axios.post('/api/upload', formData)
+      setBuyerImages(res.data);
+    }
     catch (error) {
       alert(error.response.data.msg);
     }
@@ -50,7 +65,7 @@ const ClientForm = () => {
         "/api/destroy",
         { public_id: BuyerImages.public_id }
       );
-      setBuyerImages(false); 
+      setBuyerImages(false);
     } catch (error) {
       alert(error.response.data.msg);
     }
@@ -66,20 +81,40 @@ const ClientForm = () => {
   };
   const handleClient = async (e) => {
     e.preventDefault();
-    try {
-        let resp = await axios.post("/api/addClient", {...client,BuyerImages},{
-          headers: {Authorization:token}
+    console.log('yes');
+
+    if(isEdit)
+    {
+      console.log('if');
+      const data = await state.editClient({ ...client, BuyerImages });
+      console.log(data);
+      if(data.status)
+      {
+        alert(data.message);
+        setCallback(!callback);
+        setPopAdd(false);
+      }
+      else
+      {
+        alert("Something went wrong!");
+      }
+    }
+    else
+    {
+      try {
+        let resp = await axios.post("/api/addClient", { ...client, BuyerImages }, {
+          headers: { Authorization: token }
         });
         // alert(resp.data.msg);  
-        document.getElementById("success-msg").style.display = "block"; 
+        document.getElementById("success-msg").style.display = "block";
         const fis = document.getElementById("fes");
-        fis.innerText=`${resp.data.msg}`;
+        fis.innerText = `${resp.data.msg}`;
         setTimeout(() => {
-         document.getElementById("success-msg").style.display = "none"; 
-         navigate("/brokerProfile/dashboard");
+          document.getElementById("success-msg").style.display = "none";
+          navigate("/brokerProfile/dashboard");
         }, 2000);
-        setCallback(!callback)
-
+        setCallback(!callback);
+  
         setClient({
           BuyName: "",
           BuyerMobile: "",
@@ -87,34 +122,34 @@ const ClientForm = () => {
           BuyerBudget: "",
           BuyerBhk: "",
         });
-
+  
         setBuyerImages(false);
-    } 
-    
-    catch (error) {
-      document.getElementById("fuccess").style.display = "block"; 
-      const tis = document.querySelector(".tis");
-      tis.innerText=`${error.response.data.msg}`;
-      setTimeout(() => {
-         document.getElementById("fuccess").style.display = "none"; 
+      }
+      catch (error) {
+        document.getElementById("fuccess").style.display = "block";
+        const tis = document.querySelector(".tis");
+        tis.innerText = `${error.response.data.msg}`;
+        setTimeout(() => {
+          document.getElementById("fuccess").style.display = "none";
         }, 2000);
+      }
     }
-    
+
   };
 
- 
+
   return (
     <>
       <div className="wrapper">
         <div className="shadow">
-          <h2>Add New Client</h2>
+          {isEdit ? <h2>Edit Client</h2> : <h2>Add New Client</h2>}
         </div>
         <div className="success-message mrji" id="success-msg">
-              <Alert id='fes'  severity="success"></Alert>
-            </div>
-            <div id='fuccess' className="fuccess-msg">
-              <Alert   className='tis' severity="error"></Alert>
-            </div>
+          <Alert id='fes' severity="success"></Alert>
+        </div>
+        <div id='fuccess' className="fuccess-msg">
+          <Alert className='tis' severity="error"></Alert>
+        </div>
         <div className="hr">
           <hr className="small-hr" />
           <hr className="step-hr" />
@@ -173,12 +208,16 @@ const ClientForm = () => {
                       onChange={handleChange}
                     />
                   </div>
+                  {isEdit ? <div>
+                    <p className="mb-2">Uploaded Image</p>
+                    <img width={30} height={30} src={uploadedImage} alt={uploadedImage} />
+                  </div> : null}
                   <div className="inner-form inner-form-1 upload">
-                    <input onChange={handleUpload}  type="file" name="file" id="file_up" />
+                    <input onChange={handleUpload} type="file" name="file" id="file_up" />
                     <div id="file_img" style={styleUploads} >
-                               <img className="parrot" src={BuyerImages ? BuyerImages.url : ''} alt="not" />
-                                <span onClick={handleDestroy}>X</span>
-                        </div> 
+                      <img className="parrot" src={BuyerImages ? BuyerImages.url : ''} alt="not" />
+                      <span onClick={handleDestroy}>X</span>
+                    </div>
                   </div>
                 </div>
               </div>
