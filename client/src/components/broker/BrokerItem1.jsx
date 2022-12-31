@@ -7,6 +7,7 @@ import ClientsItem from '../ClientsPop/ClientsItem';
 import LoadMoreClients from '../ClientsPop/LoadMoreClients';
 import NewVisitModal from './modals/NewVisitModal';
 
+
 const weekUtil = {
     0: "S",
     1: "M",
@@ -92,6 +93,7 @@ const BrokerItem1 = () => {
                                         </button>
                                     </div>
                                 </div>
+                                
                                 <div className="broker-home12122">
                                     {
                                         clientLog.map((client) => {

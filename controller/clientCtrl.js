@@ -1,4 +1,5 @@
 const Clients = require("../models/ClientModel");
+const Users = require("../models/userModel");
 class APIfeature{
    constructor(query, queryString ) {
        this.query = query;
@@ -98,6 +99,20 @@ const clientCtrl = {
       
       catch (error) {
           return res.status(500).json({msg:error.message});
+      }
+   },
+
+   serachClient: async (req,res) =>{
+      try {
+         const client1 =  await Clients.find({BuyName: {$regex: req.query.BuyName}}).
+         limit(1).select("BuyName BuyerMobile BuyerLocation");
+         res.json({client1});
+      
+        
+      } 
+      
+      catch (error) {
+         return res.status(500).json({msg:error.message});
       }
    }
 }

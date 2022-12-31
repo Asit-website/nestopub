@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import HomePop from "../mainPages/home/HomePop";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
+import SearchClient from "../ClientsPop/SearchClient";
 const Header1 = ({ pop, setPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
@@ -74,7 +75,7 @@ const Header1 = ({ pop, setPop }) => {
             </div>
             <div className="flex head22">
               <div className="head2-input">
-                <form>
+                {/* <form>
                   <label htmlFor="head2-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -82,7 +83,8 @@ const Header1 = ({ pop, setPop }) => {
                     </div>
                     <input type="search" id="head2-search" className="block w-full p-4 py-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
                   </div>
-                </form>
+                </form> */}
+                <SearchClient/>
               </div>
               <div className="head2-noti cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bell" viewBox="0 0 16 16">
