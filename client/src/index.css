@@ -2140,8 +2140,14 @@ border-radius: 50%;
   display: none;
   margin-top: 50px;
 }
+#success4{
+  display: none;
+}
 .mrji{
   margin-top: 0px !important;
+}
+#fuccess4{
+  display: none;
 }
 #fuccess{
   display: none;
@@ -2175,14 +2181,19 @@ border-radius: 50%;
   width: 100% ;
   font-family: gilroy !important;
 }
-/* .usercard{
+.usercard{
   position: fixed;
-  z-index: 100;
-  background-color: #fff;
-  box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
- padding: 40px;
-} */
-
+  background-color: #ffffff;
+}
+.buyerimg{
+  width: 200px !important;
+  max-width: 100%;
+}
+.prof-img{
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+}
 /* ====================media query of contact us page============== */
 @media only screen and (max-width:1094px){
  .third-contact{
@@ -2191,5 +2202,4 @@ border-radius: 50%;
 }
 
 @media only screen and (max-width:990px){
-  
 }

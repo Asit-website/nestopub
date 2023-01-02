@@ -64,7 +64,7 @@ const brokerCtrl = {
             const data= await ScheduleVisit.find({user: req.user.id});
             res.json({
                 status: "success",
-                data
+                data,
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
@@ -74,6 +74,15 @@ const brokerCtrl = {
     postScheduledClients:async (req,res)=>{
         try {
             let { client, date }=req.body;
+            if(!client || !date){
+                return res.status(400).json({msg:"Plz choose a client and date"});
+            }
+            if(!client){
+                return res.status(400).json({msg:"plz Choose a client"});
+            }
+            if(!date){
+                return res.status(400).json({msg:"plz choose a date"});  
+            } 
             const newVisit=new ScheduleVisit({
                 user: req.user.id, 
                 client,
@@ -81,11 +90,38 @@ const brokerCtrl = {
             });
             const data=await newVisit.save();
             return res.json({
+                msg:"Meeting scheduled successfully",
                 status: "success",
                 data
             });
         } catch (error) {
             return res.status(500).json({ msg: error.message });
+        }
+    },
+
+
+
+    deleteSchedule: async (req,res) =>{
+       try {
+          await ScheduleVisit.findOneAndDelete(req.params.id);
+          res.json({msg:"delete successfully"});
+       } 
+       
+       catch (error) {
+        return res.status(500).json({ msg: error.message });
+       }
+    },
+    
+    editSchedule: async (req,res) =>{
+        try {
+            const {client,date} = req.body;
+            let updateObj = { client,date };
+            await ScheduleVisit.findOneAndUpdate({_id:req.params.id},{updateObj});
+            res.json({msg:"schedule Update Successfully"});
+        } 
+        
+        catch (error) {
+           return res.status(500).json({msg:error.message});
         }
     }
 };

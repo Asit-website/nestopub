@@ -105,7 +105,6 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
         let resp = await axios.post("/api/addClient", { ...client, BuyerImages }, {
           headers: { Authorization: token }
         });
-        // alert(resp.data.msg);  
         document.getElementById("success-msg").style.display = "block";
         const fis = document.getElementById("fes");
         fis.innerText = `${resp.data.msg}`;
@@ -223,7 +222,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
               </div>
             </div>
           </div>
-          <button className="Client-btn">Add</button>
+          <button className="Client-btn">{isEdit ? "Update" : "Add"}</button>
         </form>
       </div>
     </>

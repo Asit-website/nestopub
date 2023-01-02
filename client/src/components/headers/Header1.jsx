@@ -70,7 +70,7 @@ const Header1 = ({ pop, setPop }) => {
                 <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
               </svg>
               
-              <p className="text-lg font-semibold">{"Hey"} {user.firmName}{user.individualName}</p>
+             <NavLink to="/brokerProfile/myProfile"><p className="text-lg font-semibold">{"Hey"} {user.firmName}{user.individualName}</p></NavLink>
 
             </div>
             <div className="flex head22">
@@ -106,7 +106,7 @@ const Header1 = ({ pop, setPop }) => {
 
                 <div id="head2-drop" className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                   <div className="py-3 px-4 text-sm text-gray-900 dark:text-white">
-                    <div className="font-medium ">{user.firmName}{user.individualName}</div>
+                   <NavLink to="/brokerProfile/myProfile"><div className="font-medium ">{user.firmName}{user.individualName}</div></NavLink>
                     {/* <div className="truncate">name@flowbite.com</div> */}
                   </div>
                   <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
