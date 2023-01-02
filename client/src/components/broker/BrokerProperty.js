@@ -12,7 +12,49 @@ const BrokerProperty = ({setAuthFlag}) => {
         setAuthFlag(true);
       },[]);
 
-    const navigate = useNavigate();
+      const navigate = useNavigate();
+
+    const propertiesList = [
+        {
+            id : 1,
+        },
+        {
+            id : 2,
+        },
+        {
+            id : 3,
+        },
+        {
+            id : 4,
+        },
+    ]
+
+    const displayProperties = propertiesList.map((propertyList) => 
+        <div className='property-card flex' onClick={()=> navigate(`/brokerProfile/propertyDetails/${propertiesList.id}`)}>
+                                        <div className='property-card-img'>
+                                            <img src={propertyimg} />
+                                        </div>
+                                        <div className='property-card-detail'>
+                                            <p className='property-card-title'>Fully Furnished Smart Studio Apartment</p>
+                                            <div className='rating-section flex'>
+                                                <img className='star-icon' src={star} />
+                                                <p className='rating'>4.8</p>
+                                                <p>Noida</p>
+                                            </div>
+                                            <div className='property-detail flex'>
+                                                <p>2 guests| </p>
+                                                <p>3 bedroom| </p>
+                                                <p>2 bathroom</p>
+                                            </div>
+                                            <div className='flex'>
+                                                <div className='city-icon'></div>
+                                                <p>Noida</p>
+                                            </div>
+                                        </div>
+                                    </div>
+    )
+
+
     
     return (
         <>
@@ -62,30 +104,9 @@ const BrokerProperty = ({setAuthFlag}) => {
 
                                 <div className='properties'>
 
-                                    <div className='property-card flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
-                                        <div className='property-card-img'>
-                                            <img src={propertyimg} />
-                                        </div>
-                                        <div className='property-card-detail'>
-                                            <p className='property-card-title'>Fully Furnished Smart Studio Apartment</p>
-                                            <div className='rating-section flex'>
-                                                <img className='star-icon' src={star} />
-                                                <p className='rating'>4.8</p>
-                                                <p>Noida</p>
-                                            </div>
-                                            <div className='property-detail flex'>
-                                                <p>2 guests| </p>
-                                                <p>3 bedroom| </p>
-                                                <p>2 bathroom</p>
-                                            </div>
-                                            <div className='flex'>
-                                                <div className='city-icon'></div>
-                                                <p>Noida</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {displayProperties}
 
-                                    <div className='property-card flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
+                                    {/* <div className='property-card flex' onClick={()=> navigate('/brokerProfile/propertyDetails')}>
                                         <div className='property-card-img'>
                                             <img src={propertyimg} />
                                         </div>
@@ -152,7 +173,7 @@ const BrokerProperty = ({setAuthFlag}) => {
                                                 <p>Noida</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                 </div>
                             </div>
