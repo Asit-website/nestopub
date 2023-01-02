@@ -33,17 +33,17 @@ const BrokerItem1 = () => {
     const [visits, setVisits] = useState([]);
     const [popAdd, setPopAdd] = useState(false);
     const [editData, setEditData] = useState({});
-
+    const [editData1, setEditData1] = useState({});
+    const [isEdit1, setIsEdit1] = useState(false);
 
     useEffect(() => {
         getVisits();
     }, [refreshFlag]);
 
-
     const getVisits = async () => {
         const data = await state.getVisits();
         setVisits(data.data);
-        // console.log(data);
+        console.log(data);
     };
 
     const editClient = (data) => {
@@ -51,6 +51,10 @@ const BrokerItem1 = () => {
         setEditData(data);
         setPopAdd(true);
     };
+
+    const editSchedule = (data) => {
+        console.log(data);
+    }
 
     // const deleteSchedule = async() => {
     //     try {
@@ -60,26 +64,22 @@ const BrokerItem1 = () => {
     //       alert(res.data.msg);
     //       setRefreshFlag(!refreshFlag);
     //     } 
-        
+
     //     catch (error) {
     //        alert(error.response.data.msg);
     //     }
     // }
 
-   
-
-    
     return (
         <>
             {
                 popAdd && <Clientspop setPopAdd={setPopAdd} isEdit={true} editData={editData} />
             }
-            <NewVisitModal   isEdit = {true} refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
-           
+            <NewVisitModal isEdit1={isEdit1} editData1={editData1} refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
 
             <div className='broker-home'>
                 <div className="broker-home1 flex">
-                    <Sidebar/>
+                    <Sidebar />
                     <div className="broker-home12 flex">
                         <div className="broker-home121">
                             <div className="broker-home1211">
@@ -157,6 +157,7 @@ const BrokerItem1 = () => {
                             </div>
                             <div className="broker-home1222 pt-3">
                                 <div onClick={() => {
+                                    setIsEdit1(false);
                                     document.getElementById('newVisitModal').classList.toggle('hidden');
                                 }} className="broker-home12221 cursor-pointer flex items-center">
                                     <div>
@@ -174,15 +175,24 @@ const BrokerItem1 = () => {
                                         let info = clientLog.find(x => x._id === e.client);
                                         // console.log(info);
                                         return (
-                                            <div key={index} className="broker-home2-card flex mb-3 p-2">
+                                            <div key={index} className="relative broker-home2-card flex mb-3 p-2">
                                                 <div className="img mr-3">
                                                     <img src={info?.BuyerImages.url} alt="" />
                                                 </div>
                                                 <div className="text">
                                                     <h5 className='mb-0 font-semibold text-sm'>Visit with {info?.BuyName}</h5>
                                                     <p className='mb-0 text-xs'>Visting on {info?.BuyerLocation} ({info?.BuyerBhk})</p>
-                                                    {/* <p className='font-semibold text-sm'>12:30  November 10,2022</p> */}
-                                                    <p  className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
+                                                    <p className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
+                                                </div>
+                                                <div onClick={()=>{
+                                                    setIsEdit1(true);
+                                                    setEditData1(e);
+                                                    document.getElementById('newVisitModal').classList.toggle('hidden');
+                                                }} className='schedule-edit'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                        <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                    </svg>
                                                 </div>
                                             </div>
                                         )
