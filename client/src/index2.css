@@ -21,7 +21,7 @@
 }
 .similar-properties-card{
     width : 300px;
-    
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     margin-right : 50px;
 }
 
@@ -102,7 +102,180 @@
     max-height : 20px;
     max-width : 20px;
     height : 100%;
+    width : 100%;   
+}
+.propImgs{
+    justify-content : space-between;
+}
+.propSImg{
+    margin-right : 10px;
+}
+.propSImg img{
+    max-width : 300px;
+    max-height : 100px;
+    height : 100%;
     width : 100%;
-    
-    
+    margin-bottom : 10px;
+    border-radius : 5px;
+
+}
+.propLImg img{
+    max-height : 320px;
+    max-width : 500px;
+    height :  100%;
+    width : 100%;
+}
+
+.propDesc{
+    margin : 10px 0px;
+}
+
+.propTitle p{
+    font-size : 24px;
+    font-weight : 700;
+    max-width : 50%;
+}
+
+.propDetails{
+    max-width : 30%;
+    justify-content : space-between;
+    align-items : center;
+    margin : 10px 0px;
+}
+
+.propDetails div img{
+    margin-right : 2px;
+}
+
+.propBlog p{
+    font-size : 18px;
+}
+
+.priceCard{
+    background-color :#FAFBFF;
+    padding : 20px;
+    margin : 0px 20px 2px 20px;
+    border-radius : 5px;
+    border: 2px solid #E5EAF3;
+}
+
+.pCDesc{
+    justify-content : space-between;
+    align-items : center;
+    margin-bottom : 10px;
+}
+
+.pCPrice{
+    color : #0170C1;
+    font-size : 18px;
+    font-weight : 600;
+}
+
+.pCStatus{
+    color : #FFF;
+    background-color : #0170C1;
+    padding : 0px 10px;
+}
+
+.pCListDay, .pCDetail p{
+    color: #000000;
+    opacity: 0.5;
+}
+.sdescTitle{
+    margin : 20px;
+    font-size : 20px;
+    font-weight : 700;
+}
+
+.sdescCard{
+    background-color :#FAFBFF;
+    padding : 10px;
+    margin : 20px;
+    border-radius : 5px;
+    align-items : center;
+}
+
+.sdescCardImg img{
+    max-height : 80px;
+    max-width : 80px;
+    margin-right : 20px;
+}
+
+.sdescCardTitle{
+    font-weight : 700;
+}
+
+.sdescCardDesc{
+    color: #000000;
+    opacity: 0.5;
+    font-size : 12px;
+}
+.buttons{
+    margin : 0px 20px;
+    align-items : center;
+}
+.blue-button{
+    background-color : #0064E5;
+    color : #FFFFFF;
+    align-items : center;
+    margin-right : 30px;
+    padding : 5px 20px;
+    border-radius: 2px;
+
+}
+.white-button{
+    align-items : center;
+    padding : 5px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+.blue-button img, .white-button img{
+    height : 14px;
+    width : 12px;
+    margin-right : 5px;
+}
+
+.scheduleTourSec{
+    background-color :#FAFBFF;
+    padding : 20px;
+    margin : 40px 20px;
+    border-radius : 5px;
+    border: 2px solid #E5EAF3;
+}
+.sTTitle{
+    align-items : center;
+}
+
+.sTTitle img{
+    width : 30px;
+    height : 30px;
+    margin-right : 10px;
+}
+
+.sTTitle p{
+    font-size : 20px;
+    font-weight : 700;
+}
+
+.sTButtons{
+    justify-content : center;
+
+}
+
+.sTButtons a{
+    padding : 8px 16px;
+    margin : 0px 10px;
+}
+.sTGrayButton{
+    background: #D4E1F4;
+    color: #72767B;
+}
+
+.sTBlueButton{
+    background: #0170C1;
+    color: #FFFFFF;
+}
+
+.weekCalender{
+    margin : 20px 0px;
 }
