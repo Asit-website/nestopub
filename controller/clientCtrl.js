@@ -71,8 +71,8 @@ const clientCtrl = {
             return res.status(400).json({ msg: "not allowed" })
          };
 
-         await Clients.findByIdAndDelete(req.params.id);
-         res.json({ msg: "deleted Successfully" });
+      const client2 =   await Clients.findByIdAndDelete(req.params.id);
+         res.json({ msg: "deleted Successfully", result:client2.length});
       }
 
       catch (error) {
@@ -116,10 +116,8 @@ const clientCtrl = {
    serachClient: async (req, res) => {
       try {
          const client1 = await Clients.find({ BuyName: { $regex: req.query.BuyName } }).
-            limit(1).select("BuyName BuyerMobile BuyerLocation");
-         res.json({ client1 });
-
-
+            limit(5).select("BuyName BuyerMobile BuyerLocation BuyerImages").where({user:req.user.id});
+            res.json({ client1 });
       }
 
       catch (error) {

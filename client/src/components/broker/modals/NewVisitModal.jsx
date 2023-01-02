@@ -4,6 +4,7 @@ import { GlobalState } from '../../../GlobalState';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 import moment from 'moment';
+import Alert from '@mui/material/Alert';
 
 const NewVisitModal = (props) => {
     const state = useContext(GlobalState);
@@ -29,19 +30,40 @@ const NewVisitModal = (props) => {
         {
             props.setRefreshFlag(!props.refreshFlag);
             document.getElementById('newVisitModal').classList.toggle('hidden');
-            alert('Meeting scheduled successfully')
+            document.getElementById("success4").style.display = "block";
+        const fis = document.getElementById("fes2");
+        fis.innerText = `${data.msg}`;
+        setTimeout(() => {
+          document.getElementById("success4").style.display = "none";
+        }, 2000);
         }
-        // console.log(data);
+
+        else{
+            document.getElementById('newVisitModal').classList.toggle('hidden');
+            document.getElementById("fuccess4").style.display = "block";
+            const tis = document.querySelector(".tis2");
+            tis.innerText = `${data.msg}`;
+            setTimeout(() => {
+              document.getElementById("fuccess4").style.display = "none";
+            }, 2000);
+        }
     };
 
     return (
+        <>
+         <div className="success-message mrji" id="success4">
+          <Alert id='fes2' severity="success"></Alert>
+        </div>
+        <div id='fuccess4' className="fuccess-msg">
+          <Alert className='tis2' severity="error"></Alert>
+        </div>
         <div id="newVisitModal" className="clients-pop hidden">
             <div tabIndex="-1" aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
                 <div className="cus-modal relative w-full h-full max-w-2xl md:h-auto">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                Terms of Service
+                              Schudle New Visit
                             </h3>
                             <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" onClick={() => {
                                 document.getElementById('newVisitModal').classList.toggle('hidden');
@@ -73,7 +95,7 @@ const NewVisitModal = (props) => {
                 </div>
             </div>
         </div>
-
+</>
     )
 }
 

@@ -1,19 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { GlobalState } from '../../GlobalState';
 import Sidebar from '../common/Sidebar';
+import axios from 'axios';
+import { Alert } from '@mui/material';
 const MyProfile = ({setAuthFlag}) => {
     useEffect(()=>{
         setAuthFlag(true);
       },[]);
+
+      const state = useContext(GlobalState);
+      const [user] = state.BrokerApi.user;
+
+      const logoutUser = async () => {
+        await axios.get("/api/logout");
+        localStorage.removeItem("firstlogin");
+        
+        document.getElementById("success4").style.display = "block";
+        const fis = document.getElementById("fes2");
+        fis.innerText = "logout successfully";
+        setTimeout(() => {
+            window.location.href = "/";
+          document.getElementById("success4").style.display = "none";
+        }, 2000);
+      };
     return (
         <>
             <div className='broker-home'>
+            <div className="success-message mrji" id="success4">
+          <Alert id='fes2' severity="success"></Alert>
+        </div>
+        <div id='fuccess4' className="fuccess-msg">
+          <Alert className='tis2' severity="error"></Alert>
+        </div>
                 <div className="broker-home1 flex">
                     <Sidebar />
                     <div className="broker-home12 flex">
                         <div className="broker-myp1 mr-2 p-3">
                             <div className="broker-myp11 items-center flex mb-3 mt-7">
-                                <img src="/static/images/a10.png" alt="" className='mr-5' />
-                                <p className='font-bold text-lg'>Sudeep Sharma</p>
+                                <img  src={user.images.url} alt="notch" className='mr-5 prof-img' />
+                                <p className='font-bold text-lg'>{user.firmName}</p>
                             </div>
                             <div className="broker-my10 py-5 broker-myp11 cursor-pointer">
                                 <p>Saved Search</p>
@@ -45,7 +70,7 @@ const MyProfile = ({setAuthFlag}) => {
                             <div className="broker-my10 broker-myp17 py-5 cursor-pointer">
                                 <p>Nesto Support</p>
                             </div>
-                            <div className="broker-my18 cursor-pointer mt-12 flex items-center">
+                            <div onClick={logoutUser} className="broker-my18 cursor-pointer mt-12 flex items-center">
                                 <img className='mr-2' src="/static/images/logout.png" alt="" />
                                 <p>Sign Out</p>
                             </div>

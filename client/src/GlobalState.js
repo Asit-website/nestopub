@@ -75,6 +75,26 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const editSchedule = async({id,client,date}) =>{
+    try {
+       const response = await fetch(`http://localhost:5000/api/editSchedule/${id}`,{
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          "Authorization": token
+        },
+        body: JSON.stringify({client,date})
+       });
+
+       const data = await response.json();
+       console.log(data);
+       return data;
+    } 
+    
+    catch (error) {
+       console.log(error);
+    }
+  }
   const state = {
     token: [token, setToken],
     BrokerApi: BrokerApi(token),
@@ -82,7 +102,8 @@ export const DataProvider = ({ children }) => {
     ClientApi: ClientApi(token),
     getVisits,
     postVisit,
-    editClient
+    editClient,
+    editSchedule
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;

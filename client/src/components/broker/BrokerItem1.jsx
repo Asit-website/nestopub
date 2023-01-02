@@ -7,7 +7,12 @@ import ClientsItem from '../ClientsPop/ClientsItem';
 import LoadMoreClients from '../ClientsPop/LoadMoreClients';
 import NewVisitModal from './modals/NewVisitModal';
 import Clientspop from '../ClientsPop/Clientspop';
+import axios from 'axios';
 
+import Datetime from 'react-datetime';
+import "react-datetime/css/react-datetime.css";
+import moment from 'moment';
+import Alert from '@mui/material/Alert';
 
 const weekUtil = {
     0: "S",
@@ -23,14 +28,17 @@ const BrokerItem1 = () => {
     const [value, onChange] = useState(new Date());
     const state = useContext(GlobalState);
     const [clientLog] = state.ClientApi.clientLog;
+    const [token] = state.token;
     const [refreshFlag, setRefreshFlag] = useState(false);
     const [visits, setVisits] = useState([]);
     const [popAdd, setPopAdd] = useState(false);
     const [editData, setEditData] = useState({});
 
+
     useEffect(() => {
         getVisits();
     }, [refreshFlag]);
+
 
     const getVisits = async () => {
         const data = await state.getVisits();
@@ -44,15 +52,34 @@ const BrokerItem1 = () => {
         setPopAdd(true);
     };
 
+    // const deleteSchedule = async() => {
+    //     try {
+    //       const res = await axios.delete(`/api/deleteSchedule/${visits._id}`,{
+    //          headers:{Authorization:token}
+    //       });
+    //       alert(res.data.msg);
+    //       setRefreshFlag(!refreshFlag);
+    //     } 
+        
+    //     catch (error) {
+    //        alert(error.response.data.msg);
+    //     }
+    // }
+
+   
+
+    
     return (
         <>
             {
                 popAdd && <Clientspop setPopAdd={setPopAdd} isEdit={true} editData={editData} />
             }
-            <NewVisitModal refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
+            <NewVisitModal   isEdit = {true} refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
+           
+
             <div className='broker-home'>
                 <div className="broker-home1 flex">
-                    <Sidebar />
+                    <Sidebar/>
                     <div className="broker-home12 flex">
                         <div className="broker-home121">
                             <div className="broker-home1211">
@@ -81,7 +108,7 @@ const BrokerItem1 = () => {
                                     </div>
                                     <div className="broker-home12a">
                                         <p>Total Meetings</p>
-                                        <p className="text-xl font-semibold">110</p>
+                                        <p className="text-xl font-semibold">{visits.length}</p>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +182,7 @@ const BrokerItem1 = () => {
                                                     <h5 className='mb-0 font-semibold text-sm'>Visit with {info?.BuyName}</h5>
                                                     <p className='mb-0 text-xs'>Visting on {info?.BuyerLocation} ({info?.BuyerBhk})</p>
                                                     {/* <p className='font-semibold text-sm'>12:30  November 10,2022</p> */}
-                                                    <p className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
+                                                    <p  className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
                                                 </div>
                                             </div>
                                         )
