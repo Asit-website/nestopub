@@ -4,7 +4,11 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
+const socketServerRouter=require('./Router/socketServer');
+const http=require('http');
 const app = express();
+
+const server = http.createServer(app);
 
 //middleware
 app.use(express.json());
@@ -14,6 +18,10 @@ app.use(cors());
 app.use(fileUpload({
     useTempFiles:true
 }))
+
+app.use('/socketServer', socketServerRouter({
+    server
+}));
 
 app.use('/api',require('./Router/authRouter'));
 app.use('/api', require('./Router/brokerRouter'));
@@ -36,8 +44,10 @@ mongoose.connect(URI,{
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT,()=>{
+// app.listen(PORT,()=>{
+//     console.log('server is runing on port',PORT);
+// });
+
+server.listen(PORT,()=>{
     console.log('server is runing on port',PORT);
-})
-
-
+});

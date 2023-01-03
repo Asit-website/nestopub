@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const userModel = require('../models/userModel');
 // auth mai ham access token ko bhej rahe hote hai 
 const auth = (req, res, next) =>{
     try {
@@ -6,9 +7,10 @@ const auth = (req, res, next) =>{
         
         if(!token) return res.status(400).json({msg: "Invalid Authentication"})
 
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) =>{
             if(err) return res.status(400).json({msg: "Invalid Authentication"})
-            req.user = user; // getng the user after that start the next method
+            const user1=await userModel.findById(user.id);
+            req.user = user1; // getng the user after that start the next method
             next();
         })
     } 
