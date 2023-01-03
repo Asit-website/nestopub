@@ -33,7 +33,7 @@ const clientCtrl = {
          if (mobilebuy) return res.status(400).json({ msg: "a client added with a same phone Number" });
 
          const newClient = new Clients({
-            BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages, user: req.user.id
+            BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages, user: req.user._id
          });
 
          await newClient.save();
@@ -47,7 +47,7 @@ const clientCtrl = {
    },
    getClients: async (req, res) => {
       try {
-         const features = new APIfeature(Clients.find({ user: req.user.id }), req.query).
+         const features = new APIfeature(Clients.find({ user: req.user._id }), req.query).
             pagination();
          const clients = await features.query;
          res.json({
@@ -67,7 +67,7 @@ const clientCtrl = {
          let client = await Clients.findById(req.params.id);
          if (!client) return res.status(400).json({ msg: "not allowed" });
 
-         if (client.user.toString() !== req.user.id) {
+         if (client.user.toString() !== req.user._id) {
             return res.status(400).json({ msg: "not allowed" })
          };
 
@@ -94,7 +94,7 @@ const clientCtrl = {
          let client = await Clients.findById(req.params.id);
          if (!client) return res.status(400).json({ msg: "not allowed" });
 
-         if (client.user.toString() !== req.user.id)
+         if (client.user.toString() !== req.user._id)
             return res.status(400).json({ msg: "not allowed" });
 
          // await Clients.findOneAndUpdate({ _id: req.params.id }, {
@@ -116,7 +116,7 @@ const clientCtrl = {
    serachClient: async (req, res) => {
       try {
          const client1 = await Clients.find({ BuyName: { $regex: req.query.BuyName } }).
-            limit(5).select("BuyName BuyerMobile BuyerLocation BuyerImages").where({user:req.user.id});
+            limit(5).select("BuyName BuyerMobile BuyerLocation BuyerImages").where({user:req.user._id});
             res.json({ client1 });
       }
 

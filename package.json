@@ -29,6 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.8.1",
     "multiselect-react-dropdown": "^2.0.25",
-    "react-multi-form": "^1.0.5"
+    "react-multi-form": "^1.0.5",
+    "websocket": "^1.0.34"
   }
 }

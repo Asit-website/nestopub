@@ -166,7 +166,7 @@ const authCtrl = {
    getUser:async (req,res)=>{
       try {
           // user ko apan lenge uske id se
-          const user = await Users.findById(req.user.id);
+          const user = await Users.findById(req.user._id);
          // console.log(user)
           if(!user) return res.status(400).json({msg:"user does not exist"})
           res.json(user);

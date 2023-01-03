@@ -64,7 +64,7 @@ const brokerCtrl = {
     getScheduledClients: async (req, res) => {
         try {
             // console.log(req.user);
-            const data = await ScheduleVisit.find({ user: req.user.id });
+            const data = await ScheduleVisit.find({ user: req.user._id });
             res.json({
                 status: "success",
                 data,
@@ -87,7 +87,7 @@ const brokerCtrl = {
                 return res.status(400).json({ msg: "plz choose a date" });
             }
             const newVisit = new ScheduleVisit({
-                user: req.user.id,
+                user: req.user._id,
                 client,
                 date
             });
