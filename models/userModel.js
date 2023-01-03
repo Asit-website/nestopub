@@ -90,6 +90,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    date1:{
+      type:String,
+      set: xxx => xxx === '' ? undefined : xxx
+    },
+    date2:{
+      type:String,
+      set: yyy => yyy === '' ? undefined : yyy
+    }
   },
   {
     timestamps: true,

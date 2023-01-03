@@ -20,6 +20,7 @@ app.use('/api', require('./Router/brokerRouter'));
 app.use('/api',require('./Router/upload'));
 app.use('/api', require('./Router/clientRouter'));
 app.use('/user',require('./Router/ContactRouter'));
+app.use('/api',require('./Router/propertyRouter'));
 
 
 const URI = process.env.MONGODB_URL;

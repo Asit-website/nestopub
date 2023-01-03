@@ -2194,6 +2194,23 @@ border-radius: 50%;
   width: 55px;
   height: 55px;
 }
+.broker-home12223{
+  overflow-y: scroll;
+  height: 250px;
+  transition: all 0.5s;
+}
+.broker-home12223::-webkit-scrollbar{
+  display: none;
+}
+.broker-myp21{
+  position: relative;
+  top:-100%;
+  transition: all 0.5s;
+}
+input::-ms-reveal,
+      input::-ms-clear {
+        display: none;
+      }
 /* ====================media query of contact us page============== */
 @media only screen and (max-width:1094px){
  .third-contact{
