@@ -95,6 +95,10 @@ export const DataProvider = ({ children }) => {
        console.log(error);
     }
   }
+
+  // Web socket client
+  var client;
+
   const state = {
     token: [token, setToken],
     BrokerApi: BrokerApi(token),
@@ -103,7 +107,8 @@ export const DataProvider = ({ children }) => {
     getVisits,
     postVisit,
     editClient,
-    editSchedule
+    editSchedule,
+    client
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;
