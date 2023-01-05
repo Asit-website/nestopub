@@ -16,7 +16,7 @@ import Contact from "../Contact";
 import BrokerPropertyDetails from "../broker/BrokerPropertyDetails";
 import BrokerChat from "../broker/BrokerChat";
 
-const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop }) => {
+const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop,claimPop,setClaimPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
   const [isAdmin] = state.BrokerApi.isAdmin;
@@ -38,7 +38,7 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route path="/login" element={<Login setAuthFlag={setAuthFlag} resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
         <Route path="/brokerProfile/visitManagement" element={ isLogged ? <VisitManagement setAuthFlag={setAuthFlag} /> : adminstartor()}/>
         <Route path="/brokerProfile/paymentHistory" element={ isLogged ? <PaymentHistory setAuthFlag={setAuthFlag} /> : adminstartor()}/>
-        <Route path="/brokerProfile/myProfile" element={ isLogged ? <MyProfile setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/myProfile" element={ isLogged ? <MyProfile setAuthFlag={setAuthFlag} claimPop={claimPop} setClaimPop={setClaimPop} /> : adminstartor()} />
         <Route path="/brokerProfile/chat" element={ isLogged ? <BrokerChat setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/dashboard" element={isLogged ? <BrokerProfile setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />

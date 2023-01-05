@@ -64,12 +64,12 @@ const clientCtrl = {
    },
    deleteClients: async (req, res) => {
       try {
-         let client = await Clients.findById(req.params.id);
-         if (!client) return res.status(400).json({ msg: "not allowed" });
+         // let client = await Clients.findById(req.params.id);
+         // if (!client) return res.status(400).json({ msg: "not allowed" });
 
-         if (client.user.toString() !== req.user._id) {
-            return res.status(400).json({ msg: "not allowed" })
-         };
+         // if (client.user.toString() !== req.user._id) {
+         //    return res.status(400).json({ msg: "not allowed" })
+         // };
 
       const client2 =   await Clients.findByIdAndDelete(req.params.id);
          res.json({ msg: "deleted Successfully", result:client2.length});
@@ -91,11 +91,11 @@ const clientCtrl = {
             updateObj.BuyerImages = BuyerImages;
          }
 
-         let client = await Clients.findById(req.params.id);
-         if (!client) return res.status(400).json({ msg: "not allowed" });
+         // let client = await Clients.findById(req.params.id);
+         // if (!client) return res.status(400).json({ msg: "not allowed" });
 
-         if (client.user.toString() !== req.user._id)
-            return res.status(400).json({ msg: "not allowed" });
+         // if (client.user.toString() !== req.user._id)
+         //    return res.status(400).json({ msg: "not allowed" });
 
          // await Clients.findOneAndUpdate({ _id: req.params.id }, {
          //    BuyId,BuyName,BuyerMobile,BuyerLocation,BuyerBudget,BuyerBhk,BuyerImages

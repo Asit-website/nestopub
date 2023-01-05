@@ -3,13 +3,15 @@ import { GlobalState } from "../../GlobalState";
 import Sidebar from "../common/Sidebar";
 import axios from "axios";
 import { Alert } from "@mui/material";
-const MyProfile = ({ setAuthFlag }) => {
+import Bankdetails from "./Bankdetails";
+import ClamPop from "./ClamPop/ClamPop";
+const MyProfile = ({ setAuthFlag,claimPop,setClaimPop }) => {
   useEffect(() => {
     setAuthFlag(true);
   }, []);
 
   const [show, setShow] = useState(false);
-
+  const [show1,setShow1] = useState(false);
   const state = useContext(GlobalState);
   const [user] = state.BrokerApi.user;
   
@@ -33,6 +35,8 @@ const MyProfile = ({ setAuthFlag }) => {
   const styleUploads = {
     display: images ? "block" : "none",
   };
+
+
 
   useEffect(()=>{
     if(isEdit){
@@ -128,6 +132,10 @@ const MyProfile = ({ setAuthFlag }) => {
     top: show ? "0" : "-100%",
   };
 
+  const showStyle1 = {
+    display: show1 ? "block" : "none"
+  }
+
   
   return (
     <>
@@ -172,7 +180,7 @@ const MyProfile = ({ setAuthFlag }) => {
               </div>
               <div className="broker-my10 broker-myp14 broker-myp-bor cursor-pointer">
                 <p>Claim Brokerage (Payment)</p>
-                <div className="broker-10-alert text-sm">Claim</div>
+                <div onClick={()=> setClaimPop(true)} className="broker-10-alert text-sm">Claim</div>
               </div>
               <div className="broker-my10 broker-myp15 broker-myp-bor cursor-pointer">
                 <p>Download Legal Documents</p>
@@ -264,9 +272,10 @@ const MyProfile = ({ setAuthFlag }) => {
                       type="file"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       onChange={handleUpload}  name="file"
+                      required
                     />
                     {isEdit ? <div>
-                    <p className="mb-2">Uploaded Image</p>
+                    <p className="mb-2">Uploaded Profile pic</p>
                     <img width={30} height={30} src={uploadedImage1} alt={uploadedImage1} />
                   </div> : null}
                   <div id="file_img" style={styleUploads} >
@@ -363,11 +372,16 @@ const MyProfile = ({ setAuthFlag }) => {
                
               </div>
               <div className="broker-myp22 broker-myp20 p-3 mb-3 bg-white">
-                <div className="flex justify-between">
+                {/* <div className="flex justify-between">
                   <p className="font-bold">Bank Details</p>
-                  <p className="cursor-pointer text-blue-600">Add</p>
+                  <p  onClick={() => { 
+                     setIsEdit(true);
+                     setEditData(user);
+                     setShow1(!show1);
+                  }} className="cursor-pointer text-blue-600">Add</p>
                 </div>
-                {/* <div>
+
+                <div style={showStyle1} className="bank-hide bank-hide1" >
                  <div className="upper-b pb-2 mb-9"></div>
                  <div className="lower-b flex flex-wrap">
                   <div className="broker-myp-input">
@@ -386,6 +400,31 @@ const MyProfile = ({ setAuthFlag }) => {
                       required
                     />
                   </div>
+                  <div className="broker-myp-input">
+                    <input
+                      type="text"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Account Number"
+                      required
+                    />
+                  </div>
+                  <div className="broker-myp-input">
+                    <input
+                      type="text"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="IFSC code"
+                      required
+                    />
+                  </div>
+                  <div className="broker-myp-input">
+                    <input
+                      type="text"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Branch Address"
+                      required
+                    />
+                  </div>
+                  
                   <button
                     type="button"
                     className="text-white h-fit bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -394,6 +433,7 @@ const MyProfile = ({ setAuthFlag }) => {
                   </button>
                 </div>
                 </div> */}
+                 <Bankdetails/>
               </div>
 
 
@@ -431,6 +471,9 @@ const MyProfile = ({ setAuthFlag }) => {
           </div>
         </div>
       </div>
+      {
+        claimPop && <ClamPop setClaimPop={setClaimPop}/>
+      }
     </>
   );
 };

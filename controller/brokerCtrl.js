@@ -17,11 +17,15 @@ class APIfeature {
 const brokerCtrl = {
     editBroker: async (req, res) => {
         try {
-            const { firmName, authorizedName, city, mobile, individualName, city1, mobile1,date1, date2, images } = req.body;
+            const { firmName, authorizedName, city, mobile, individualName, city1, mobile1,date1, date2, images,bankAcountName,bankName,acountNumber,ifsc,branchAddress,cancelCheque,vpaId} = req.body;
 
-            let updateObj1 = {firmName, authorizedName, city, mobile, individualName, city1, mobile1,date1,date2}
+            let updateObj1 = {firmName, authorizedName, city, mobile, individualName, city1, mobile1,date1,date2,bankAcountName,bankName,acountNumber,ifsc,branchAddress,vpaId}
+            
             if(images){
                 updateObj1.images = images;
+            }
+            if(cancelCheque){
+                updateObj1.cancelCheque = cancelCheque;
             }
             await Users.findOneAndUpdate({ _id: req.params.id },updateObj1);
 

@@ -13,6 +13,8 @@ function App() {
   const [stepPop,setStepPop] = useState(false);
   const [authFlag, setAuthFlag] = useState(false);
 
+  const [claimPop,setClaimPop] = useState(false);
+
   return (
     <>
       <DataProvider>
@@ -21,6 +23,7 @@ function App() {
         { !authFlag ? <Header pop={pop} setPop={setPop} /> : null }
         <Pages setAuthFlag={setAuthFlag} pop={pop} setPop={setPop}  resetPop={resetPop}
           setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop}
+          claimPop={claimPop} setClaimPop={setClaimPop}
         />
        <Footer/>
        </Router>

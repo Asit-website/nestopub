@@ -1088,7 +1088,8 @@ footer {
 
 .form input[type="text"],
 .form textarea,
-.form input[type="email"] {
+.form input[type="email"],
+.form select {
   border: none;
   background-color: #eeeeee;
   padding: 20px 10px;
@@ -2211,6 +2212,25 @@ input::-ms-reveal,
       input::-ms-clear {
         display: none;
       }
+.bank-hide{
+ display: none;
+ transition: all 0.5s;
+}
+.bank-hide1{
+  transition: all 0.9s;
+}
+.upload-sign{
+  font-size: 15px !important;
+  opacity: 0.7;
+  font-family: "Medium" !important;
+}
+.client-container1{
+  max-width: 1040px;
+}
+.client-container1 input[type="text"]{
+  padding: 20px 20px !important;
+}
+
 /* ====================media query of contact us page============== */
 @media only screen and (max-width:1094px){
  .third-contact{
