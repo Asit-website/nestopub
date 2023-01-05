@@ -11,7 +11,8 @@ const MySchema=mongoose.Schema({
     },
     messages:[{
         user:String,
-        message:String
+        message:String,
+        ts:String
     }]
 });
 
