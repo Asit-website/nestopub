@@ -1,6 +1,9 @@
 const mongoose=require('mongoose');
 
 const MySchema=mongoose.Schema({
+    user:{
+        type:String
+    },
     broker:{
         id:String,
         name:String

@@ -14,14 +14,14 @@ const allViews = Object.keys(Views).map(k => Views[k]);
 console.log(allViews);
 // const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
 
-const VisitManagement = ({setAuthFlag}) => {
-    useEffect(()=>{
+const VisitManagement = ({ setAuthFlag }) => {
+    useEffect(() => {
         setAuthFlag(true);
-      },[]);
+    }, []);
 
-      const state = useContext(GlobalState);
-      const [clientLog] = state.ClientApi.clientLog;
-      const [visits, setVisits] = useState([]);
+    const state = useContext(GlobalState);
+    const [clientLog] = state.ClientApi.clientLog;
+    const [visits, setVisits] = useState([]);
     const [editData1, setEditData1] = useState({});
     const [isEdit1, setIsEdit1] = useState(false);
     const [refreshFlag, setRefreshFlag] = useState(false);
@@ -42,7 +42,7 @@ const VisitManagement = ({setAuthFlag}) => {
 
     return (
         <>
-         <NewVisitModal isEdit1={isEdit1} editData1={editData1} refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
+            <NewVisitModal isEdit1={isEdit1} editData1={editData1} refreshFlag={refreshFlag} setRefreshFlag={setRefreshFlag} />
 
             <div className='broker-home'>
                 <div className="broker-home1 flex">
@@ -62,29 +62,29 @@ const VisitManagement = ({setAuthFlag}) => {
                             </div>
                         </div>
                         <div className="broker-home12223">
-                        {
-                            visits.map((e,index)=>{
-                                let info = clientLog.find(x => x._id === e.client);
+                            {
+                                visits.map((e, index) => {
+                                    let info = clientLog.find(x => x._id === e.client);
 
-                                return(
-                                    <div className="broker-home2-card flex mb-3 p-2">
-                                <div className="img mr-3">
-                                    <img src={info?.BuyerImages.url} alt="" />
-                                </div>
-                                <div className="text">
-                                <h5 className='mb-0 font-semibold text-sm'>Visit with {info?.BuyName}</h5>
-                                                    <p className='mb-0 text-xs'>Visting on {info?.BuyerLocation} ({info?.BuyerBhk})</p>
-                                                    <p className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
-                                </div>
-                                <i onClick={()=>{
-                                    setIsEdit1(true);
-                                    setEditData1(e);
-                                    document.getElementById('newVisitModal').classList.toggle('hidden');
-                                }} className="fa-solid fa-pen-to-square farts"></i>
-                            </div>  
-                                )
-                            })
-                        }
+                                    return (
+                                        <div className="broker-home2-card flex mb-3 p-2">
+                                            <div className="img mr-3">
+                                                <img src={info?.BuyerImages.url} alt="" />
+                                            </div>
+                                            <div className="text">
+                                                <h5 className='mb-0 font-semibold text-sm'>Visit with {info?.BuyName}</h5>
+                                                <p className='mb-0 text-xs'>Visting on {info?.BuyerLocation} ({info?.BuyerBhk})</p>
+                                                <p className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
+                                            </div>
+                                            <i onClick={() => {
+                                                setIsEdit1(true);
+                                                setEditData1(e);
+                                                document.getElementById('newVisitModal').classList.toggle('hidden');
+                                            }} className="fa-solid fa-pen-to-square farts"></i>
+                                        </div>
+                                    )
+                                })
+                            }
                             {/* <div className="broker-home2-card flex mb-3 p-2">
                                 <div className="img mr-3">
                                     <img src="/static/images/cho.png" alt="" />
