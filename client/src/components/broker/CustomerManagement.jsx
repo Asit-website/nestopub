@@ -1,10 +1,27 @@
-import React, { useEffect } from 'react'
+import { sliderClasses } from '@mui/material';
+import React, { useContext, useEffect,useState } from 'react'
+import { GlobalState } from '../../GlobalState';
 import Sidebar from '../common/Sidebar';
 
 const CustomerManagement = ({setAuthFlag}) => {
     useEffect(()=>{
         setAuthFlag(true);
       },[]);
+
+      const state = useContext(GlobalState);
+      const [clientLog] = state.ClientApi.clientLog;
+      const [refreshFlag, setRefreshFlag] = useState(false);
+      const [visits, setVisits] = useState([]);
+
+      useEffect(() => {
+        getVisits();
+    }, [refreshFlag]);
+
+    const getVisits = async () => {
+        const data = await state.getVisits();
+        setVisits(data.data);
+        console.log(data);
+    };
     return (
         <>
             <div className='broker-home'>
@@ -89,7 +106,50 @@ const CustomerManagement = ({setAuthFlag}) => {
                                     </div>
                                 </div>
                                 <div className="broker-home12122">
-                                    <div className="broker-home-table broker-cus-table flex">
+                                  {
+                                      clientLog.map(client1=>{
+                                        return(
+                                            <div className="broker-home-table broker-cus-table flex">
+                                        <div className="broker-cus-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5 buymarImg' src={client1.BuyerImages.url} alt="" />
+                                            <div>
+                                                <p>{client1.BuyName}</p>
+                                                <p className="text-xs">{(client1._id).slice(0,9)}</p>
+                                            </div>
+                                        </div>
+                                        <div className="broker-cus-table1 broker-home-table12 flex items-center">
+                                            <img src="/static/images/a4.png" alt="" />
+                                            <img className='mx-3' src="/static/images/a3.png" alt="" />
+                                            <img src="/static/images/a2.png" alt="" />
+                                        </div>
+                                        <div className="broker-cus-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5' src="/static/images/Path11489.png" alt="" />
+                                            <p>{client1.BuyerLocation}</p>
+                                        </div>
+                                        <div className="broker-cus-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5' src="/static/images/Path11490.png" alt="" />
+                                            <p>{client1.BuyerBhk}</p>
+                                        </div>
+                                        <div className="broker-cus-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5 cursor-pointer' src="/static/images/a1.png" alt="" />
+                                            <div>
+                                                <p style={{ color: "#0A2E57" }} className="font-semibold">{new Date(client1.date).toLocaleString()}</p>
+                                              
+                                                {/* <p style={{ color: "#0A2E57" }} className="text-xs">10 : 45 AM</p> */}
+                                            </div>
+                                        </div>
+                                        <div className="broker-cus-table1 broker-home-table11 flex items-center">
+                                            <img className='mr-1.5' src="/static/images/Path11488(1).png" alt="" />
+                                            <p>{client1.BuyerBudget}</p>
+                                        </div>
+                                        <div className="broker-cus-table1 flex items-center">
+                                            <p className="font-semibold">YES</p>
+                                        </div>
+                                    </div>
+                                        )
+                                      })
+                                  }
+                                    {/* <div className="broker-home-table broker-cus-table flex">
                                         <div className="broker-cus-table1 broker-home-table11 flex items-center">
                                             <img className='mr-1.5' src="/static/images/Rectangle2151.png" alt="" />
                                             <div>
@@ -196,7 +256,7 @@ const CustomerManagement = ({setAuthFlag}) => {
                                         <div className="broker-cus-table1 flex items-center">
                                             <p className="font-semibold">YES</p>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

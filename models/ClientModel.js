@@ -39,6 +39,9 @@ const clientSchema = new mongoose.Schema({
         required:false,
         set: xy => xy === '' ? undefined : xy
     },
+    date:{
+        type:String
+    },
     role:{
         type:Number,
         default:3
