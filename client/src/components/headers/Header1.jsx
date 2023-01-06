@@ -49,7 +49,9 @@ const Header1 = ({ pop, setPop }) => {
   window.addEventListener("scroll", changeNavColor);
 
   const roundedImg = {
-    width:"40px !important"
+    width:"40px !important",
+    height:"40px",
+    borderRadius:"50%"
   }
 
   return (

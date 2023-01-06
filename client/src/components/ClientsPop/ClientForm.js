@@ -3,6 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
+import Datetime from 'react-datetime';
+
 import Alert from '@mui/material/Alert';
 const ClientForm = ({ isEdit, editData, setPopAdd }) => {
   const state = useContext(GlobalState);
@@ -22,6 +25,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
     BuyerLocation: "",
     BuyerBudget: "",
     BuyerBhk: "",
+    date:"",
   });
 
   useEffect(() => {
@@ -75,6 +79,9 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
     display: BuyerImages ? "block" : "none",
   };
 
+  const onchange = (e) => {
+    setClient({ ...client, date: moment(e).format() });
+};
 
   const handleChange = (e) => {
     setClient({ ...client, [e.target.name]: e.target.value });
@@ -207,6 +214,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
                       onChange={handleChange}
                     />
                   </div>
+                 
                   {isEdit ? <div>
                     <p className="mb-2">Uploaded Image</p>
                     <img width={30} height={30} src={uploadedImage} alt={uploadedImage} />
@@ -218,6 +226,14 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
                       <span onClick={handleDestroy}>X</span>
                     </div>
                   </div>
+                </div>
+
+                <div className="top-form">
+                  <div className="inner-form int-form2">
+                  <Datetime className='visit-date' onChange={onchange} inputProps={{ placeholder: "Choose date and time" }} />
+                  </div>
+                 
+                  
                 </div>
               </div>
             </div>

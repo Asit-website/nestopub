@@ -2230,7 +2230,15 @@ input::-ms-reveal,
 .client-container1 input[type="text"]{
   padding: 20px 20px !important;
 }
-
+.farts{
+  cursor: pointer;
+  font-weight: 400;
+}
+.buymarImg{
+  width: 40px !important;
+  height: 40px;
+  border-radius: 50%;
+}
 /* ====================media query of contact us page============== */
 @media only screen and (max-width:1094px){
  .third-contact{
