@@ -30,18 +30,25 @@ const init=(data)=>{
                 if(dataFromClient.type==='CHAT')
                 {
                     let data = dataFromClient.data;
+                    console.log(data);
 
-                    if(dataFromClient.type1==='GET_BROKER_ALL')
+                    if(dataFromClient.type1==='GET_USER_CHATS')
                     {
-
-                    }
-
-                    if(dataFromClient.type1==='GET_CLIENT_ALL')
-                    {
-
+                        // console.log('yes');
+                        
                     }
 
                     if(dataFromClient.type1==='GET_CHAT')
+                    {
+
+                    }
+
+                    if(dataFromClient.type1==='POST_CHAT_BROKER')
+                    {
+                        
+                    }
+
+                    if(dataFromClient.type1==='POST_CHAT_CLIENT')
                     {
 
                     }

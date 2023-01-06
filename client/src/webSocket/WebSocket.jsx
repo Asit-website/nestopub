@@ -18,19 +18,22 @@ const WebSocketHandler = (props) => {
         };
 
         // context.client = new ReconnectingWebSocket(`ws://127.0.0.1:5000/socketServer/${token}/${url}`, [], options);
-        context.client = new ReconnectingWebSocket(`ws://localhost:5000/socketServer/${url}`, [], options);
+        client = new ReconnectingWebSocket(`ws://localhost:5000/socketServer/${url}`, [], options);
+        // console.log(client);
+        props.setCli(client);
+        // console.log(context);
         // context.client = new ReconnectingWebSocket(`wss://${baseUrl}/socketServer/${token}/${url}`, [], options);
-        client = context.client;
+        context.client=client;
 
         window.addEventListener('offline', () => {
             console.log('offline');
-            context.client.close();
+            client.close();
         });
-        context.client.addEventListener('close', () => {
+        client.addEventListener('close', () => {
             console.log('close');
             // document.getElementById('dis_modal').style.display = 'block';
         });
-        context.client.addEventListener('open', () => {
+        client.addEventListener('open', () => {
             console.log('open');
             // document.getElementById('dis_modal').style.display = 'none';
         });
@@ -39,9 +42,9 @@ const WebSocketHandler = (props) => {
 
     // Reconnection of web socket 
     function reconnect() {
-        // console.log(context.client);
-        context.client.close();
-        context.client.reconnect();
+        // console.log(client);
+        client.close();
+        client.reconnect();
         // document.getElementById('dis_modal').style.display = 'none';
     }
 
