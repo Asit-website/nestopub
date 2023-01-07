@@ -18,7 +18,7 @@ const WebSocketHandler = (props) => {
         };
 
         // context.client = new ReconnectingWebSocket(`ws://127.0.0.1:5000/socketServer/${token}/${url}`, [], options);
-        client = new ReconnectingWebSocket(`ws://localhost:5000/socketServer/${url}/${context.token[0]}`, [], options);
+        client = new ReconnectingWebSocket(`ws://localhost:5000/socketServer/${url}/${JSON.parse(localStorage.getItem('nestoBroker'))._id}`, [], options);
         // console.log(client);
         props.setCli(client);
         // console.log(context);

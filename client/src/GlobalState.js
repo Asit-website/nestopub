@@ -15,6 +15,7 @@ export const DataProvider = ({ children }) => {
         const res = await axios.get("/api/refresh_token");
         // console.log(res.data.accesstoken);
         setToken(res.data.accesstoken); // accesstoken ... refresh token ke andar milta hai
+        localStorage.setItem('nestoToken', res.data.accesstoken);
 
         setTimeout(() => {
           refreshToken();

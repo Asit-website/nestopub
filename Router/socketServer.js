@@ -17,10 +17,10 @@ const init=(data)=>{
 
     wsServer.on('request', async(request)=>{
         let urls = request.resource.split('/');
-        console.log(urls);
+        // console.log(urls);
         let slug = urls[3];
         let userID=urls[2]+slug;
-        console.log(userID);
+        // console.log(userID);
         const connection = request.accept(null, request.origin);
         clients[userID] = connection;
 
@@ -38,9 +38,9 @@ const init=(data)=>{
                     if(dataFromClient.type1==='GET_USER_CHATS')
                     {
                         // console.log('yes');
-                        // const chats=await Chat.find({user: user._id});
-                        // json.data = { data: chats };
-                        // sendMessage(JSON.stringify(json), userID);
+                        const chats=await Chat.find({user: slug});
+                        json.data = { data: chats };
+                        sendMessage(JSON.stringify(json), userID);
                     }
 
                     if(dataFromClient.type1==='GET_CHAT')
@@ -52,7 +52,25 @@ const init=(data)=>{
 
                     if(dataFromClient.type1==='POST_CHAT_BROKER')
                     {
-                        
+                        const newChat=new Chat({
+                            user: slug,
+                            broker:{
+                                id: slug,
+                                name: dataFromClient.brokerName
+                            },
+                            client:{
+                                id: dataFromClient.clientId,
+                                name: dataFromClient.clientName
+                            },
+                            messaegs:[{
+                                user:'broker',
+                                messaegs:dataFromClient.messageText,
+                                ts:new Date().getTime()
+                            }]
+                        });
+                        const saveChat=await newChat.save();
+                        json.data = { data: saveChat };
+                        sendMessage(JSON.stringify(json), userID);
                     }
 
                     if(dataFromClient.type1==='POST_CHAT_CLIENT')

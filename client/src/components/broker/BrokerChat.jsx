@@ -19,6 +19,9 @@ const BrokerChat = (props) => {
     const [value, setValue] = useState({
         message: ''
     });
+    const [chatList, setChatList] = useState([]);
+    const [currentChat, setCurrentChat] = useState({});
+    const [isNewChat, setIsNewChat] = useState(false);
 
     const handleChange = (e) => {
         setValue({ ...value, [e.target.name]: e.target.value });
@@ -31,8 +34,28 @@ const BrokerChat = (props) => {
         }));
     };
 
-    const postChatBroker = (data) => {
-        console.log(data);
+    const getChat = (id) => {
+        client1.send(JSON.stringify({
+            type: "CHAT",
+            type1: "GET_CHAT",
+            data:id
+        }));
+    };
+
+    const postChatBroker = (e) => {
+        e.preventDefault();
+        console.log({
+            clientId: currentChat.clientId,
+            clientName: currentChat.clientName,
+            messageUser: 'broker',
+            messageText: value.message,
+            brokerId: JSON.parse(localStorage.getItem('nestoBroker'))._id,
+            brokerName: JSON.parse(localStorage.getItem('nestoBroker')).firmName
+        });
+        setValue({
+            message:''
+        });
+
         // client1.send(JSON.stringify({
         //     type: "CHAT",
         //     type1: "POST_CHAT_BROKER",
@@ -51,7 +74,7 @@ const BrokerChat = (props) => {
         if (props.cli) {
             client1 = props.cli;
 
-            console.log(client1);
+            // console.log(client1);
 
             client1.onopen = async () => {
                 console.log('yeah');
@@ -65,11 +88,18 @@ const BrokerChat = (props) => {
                 if (dataFromServer.type === 'CHAT') {
                     if (dataFromServer.type1 === "GET_USER_CHATS") {
                         // TODO
-                        console.log('yes');
+                        // console.log('yes');
+                        let tempArr=dataFromServer.data.data;
+                        for(let i of clientLog)
+                        {
+                            // todo
+                        }
+                        tempArr=clientLog; // temp
+                        setChatList(tempArr);
                     }
                     if(dataFromServer.type1 === "GET_CHAT")
                     {
-                        
+                        // setCurrentChat();
                     }
                     if(dataFromServer.type1 === "POST_CHAT_BROKER")
                     {
@@ -85,8 +115,26 @@ const BrokerChat = (props) => {
     };
 
     const handleSearch = (e) => {
-
+        // todo
     };
+
+    const getChatData=(data)=>{
+        console.log(data);
+        if(data.BuyName)
+        {
+            console.log('yes');
+            setIsNewChat(true);
+            setCurrentChat({
+                clientId: data.user,
+                clientName: data.BuyName
+            });
+        }
+        else
+        {
+            //
+        }
+        // getChat(id);
+    }
 
     return (
         <div className="chat-main">
@@ -116,9 +164,11 @@ const BrokerChat = (props) => {
                         <div className="chat-list mt-4">
 
                             {/* Demo api- Chat Api will be here */}
-                            {clientLog.map((e, index) => {
+                            {chatList.map((e, index) => {
                                 return (
-                                    <div key={index} className="chat-list-card cursor-pointer chat-list-card-active px-3 mb-3 py-2 flex justify-between items-center">
+                                    <div key={index} onClick={()=>{
+                                        getChatData(e);
+                                    }} className="chat-list-card cursor-pointer chat-list-card-active px-3 mb-3 py-2 flex justify-between items-center">
                                         <div className="chat-list-card1 mr-2">
                                             <img src={e.BuyerImages.url} alt="" />
                                         </div>
@@ -158,31 +208,37 @@ const BrokerChat = (props) => {
                     </div>
                     <div className="chat-body2 p-8">
                         <div className="chat-body21">
-                            <div className="chat-text chat-left">
-                                <div className="chat-text1">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, voluptatem.</p>
-                                    <b className='text-xs'>10:51</b>
+                            {isNewChat ? <>
+                                <p>Start a new chat</p>
+                            </> : <>
+                                <div className="chat-text chat-left">
+                                    <div className="chat-text1">
+                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, voluptatem.</p>
+                                        <b className='text-xs'>10:51</b>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="chat-text chat-left">
-                                <div className="chat-text1">
-                                    <p>Lorem ipsum, dolor sit amet consectetu.</p>
-                                    <b className='text-xs'>10:51</b>
+                                <div className="chat-text chat-left">
+                                    <div className="chat-text1">
+                                        <p>Lorem ipsum, dolor sit amet consectetu.</p>
+                                        <b className='text-xs'>10:51</b>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="chat-date">
-                                <p className='text-sm text-gray-800'>12-10-2022</p>
-                            </div>
-                            <div className="chat-text chat-right">
-                                <div className="chat-text1">
-                                    <p>Lorem ipsum, dolor sit amet consectetu. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, distinctio.</p>
-                                    <b className='text-xs'>10:51</b>
+                                <div className="chat-date">
+                                    <p className='text-sm text-gray-800'>12-10-2022</p>
                                 </div>
-                            </div>
+                                <div className="chat-text chat-right">
+                                    <div className="chat-text1">
+                                        <p>Lorem ipsum, dolor sit amet consectetu. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, distinctio.</p>
+                                        <b className='text-xs'>10:51</b>
+                                    </div>
+                                </div>
+                            </>}
                         </div>
                     </div>
                     <div className="chat-input">
-                        <form onSubmit={postChatBroker}>
+                        <form onSubmit={(e)=>{
+                            postChatBroker(e);
+                        }}>
                             <label htmlFor="broker-chat" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                             <div className="relative">
                                 <input type="text" id="broker-chat" name="message" onChange={handleChange} value={value.message} className="block w-full p-4 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type here .." required />
