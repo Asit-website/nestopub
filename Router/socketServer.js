@@ -1,5 +1,6 @@
 const webSocketServer = require('websocket').server;
 const express=require('express');
+const Chat = require('../models/chatModel');
 
 const sendMessage = (json, userId) => {
     clients[userId].sendUTF(json);
@@ -16,8 +17,10 @@ const init=(data)=>{
 
     wsServer.on('request', async(request)=>{
         let urls = request.resource.split('/');
+        console.log(urls);
         let slug = urls[3];
         let userID=urls[2]+slug;
+        console.log(userID);
         const connection = request.accept(null, request.origin);
         clients[userID] = connection;
 
@@ -35,12 +38,16 @@ const init=(data)=>{
                     if(dataFromClient.type1==='GET_USER_CHATS')
                     {
                         // console.log('yes');
-                        
+                        // const chats=await Chat.find({user: user._id});
+                        // json.data = { data: chats };
+                        // sendMessage(JSON.stringify(json), userID);
                     }
 
                     if(dataFromClient.type1==='GET_CHAT')
                     {
-
+                        const data = await Chat.findById(id);
+                        json.data = { data };
+                        sendMessage(JSON.stringify(json), userID);
                     }
 
                     if(dataFromClient.type1==='POST_CHAT_BROKER')
