@@ -37,7 +37,8 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
         BuyerMobile:editData.BuyerMobile,
         BuyerLocation: editData.BuyerLocation,
         BuyerBudget: editData.BuyerBudget,
-        BuyerBhk: editData.BuyerBhk
+        BuyerBhk: editData.BuyerBhk,
+        date: editData.date
       });
       setUploadedImage(editData.BuyerImages.url);
     }
@@ -127,6 +128,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
           BuyerLocation: "",
           BuyerBudget: "",
           BuyerBhk: "",
+          date:""
         });
   
         setBuyerImages(false);

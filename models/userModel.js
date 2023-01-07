@@ -132,6 +132,10 @@ const userSchema = new mongoose.Schema(
       type:String,
       required:false,
       set: xa => xa === '' ? undefined : xa
+    },
+    saved:{
+      type:Array,
+      default:[]
     }
   },
   {
