@@ -70,7 +70,7 @@ const CustomerManagement = ({setAuthFlag}) => {
                                         </div>
                                         <div className="broker-cus1-p broker-cus1-p4">
                                             <p className="text-xs">Meetings</p>
-                                            <p className="text-sm font-semibold">02</p>
+                                            <p className="text-sm font-semibold">{visits.length}</p>
                                         </div>
                                     </div>
                                     <div className="broker-home12a broker-cus-1a flex">
