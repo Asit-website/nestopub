@@ -55,7 +55,7 @@ const authCtrl = {
              maxAge:7*24*60*60*1000 //7d
          })
    
-         res.json({msg:"You are Login as an Broking Firm",accesstoken}); 
+         res.json({msg:"You are Login as an Broking Firm",accesstoken, user});
       } 
       
       catch (error) {
