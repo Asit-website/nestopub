@@ -7,7 +7,7 @@ const Notfound = ({setAuthFlag}) => {
   return (
     <div className="notFound">
       <h1> 404 | Not Found</h1>
-      <NavLink className="notFound-Link" exact to="/">Back to Home Page</NavLink>
+      <NavLink className="notFound-Link" to="/">Back to Home Page</NavLink>
     </div>
   );
 };
