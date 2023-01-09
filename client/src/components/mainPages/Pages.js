@@ -14,7 +14,7 @@ import PaymentHistory from "../broker/PaymentHistory";
 import MyProfile from "../broker/MyProfile";
 import Contact from "../Contact";
 import BrokerPropertyDetails from "../broker/BrokerPropertyDetails";
-
+import { ChatPage } from "../broker/ChatPage";
 const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
@@ -42,10 +42,11 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/brokerProperty" element={ isLogged ? <BrokerProperty setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/propertyDetails/:id" element={ isLogged ? <BrokerPropertyDetails setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/chat" element={ isLogged ? <ChatPage setAuthFlag={setAuthFlag} /> : adminstartor()} />
 
         <Route path="/dashboard" element={isAdmin ? <AdminDashBoard setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
         <Route path="/dashboard/manageBrok" element={isAdmin ? <BrokerManage setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
-
+        
         <Route path="/contact" element={<Contact setAuthFlag={setAuthFlag} />} />
         <Route path="*" element={<Notfound setAuthFlag={setAuthFlag} />} />
       </Routes>

@@ -14,6 +14,7 @@ import sImgBuilding from '../../images/sdescImgbuilding.png'
 import bookmarkIcon from '../../images/bookmark_added.png'
 import shareIcon from '../../images/ios_share.png'
 import calenderIcon from '../../images/calenderIcon.png'
+
 const BrokerPropertyDetails = () => {
     
   return (
