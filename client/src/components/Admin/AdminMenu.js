@@ -16,6 +16,7 @@ const AdminMenu = () => {
           <Sidebar className="menuside">
             <Menu className="menuside">
                 <MenuItem routerLink={<NavLink to="/dashboard/manageBrok"/>}  className="menu-item">Manage Brokers</MenuItem>
+                <MenuItem routerLink={<NavLink to="/dashboard/manageProperties"/>}  className="menu-item">Manage Properties</MenuItem>
                 <MenuItem className="menu-item"> Line charts </MenuItem>
               <MenuItem className="menu-item"> Documentation </MenuItem>
               <MenuItem className="menu-item"> Calendar </MenuItem>

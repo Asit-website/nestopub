@@ -17,6 +17,7 @@ import BrokerPropertyDetails from "../broker/BrokerPropertyDetails";
 import BrokerChat from "../broker/BrokerChat";
 import WebSocketHandler from "../../webSocket/WebSocket";
 import Propertyies from "../Property/Propertyies";
+import ManageProperties from "../Admin/ManageProperties";
 
 const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop, claimPop, setClaimPop }) => {
   const state = useContext(GlobalState);
@@ -34,7 +35,6 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
       <WebSocketHandler setCli={setCli} />
       <Routes>
         <Route
-          exact
           path="/"
           element={
             <Home setAuthFlag={setAuthFlag} setPop={setPop} />
@@ -52,6 +52,7 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
 
         <Route path="/dashboard" element={isAdmin ? <AdminDashBoard setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
         <Route path="/dashboard/manageBrok" element={isAdmin ? <BrokerManage setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
+        <Route path="/dashboard/manageProperties" element={isAdmin ? <ManageProperties setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
         
         <Route path="/contact" element={<Contact setAuthFlag={setAuthFlag} />} />
         <Route path="/properties" element={<Propertyies setAuthFlag={setAuthFlag}/>}/>
