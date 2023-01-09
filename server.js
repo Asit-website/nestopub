@@ -29,6 +29,7 @@ app.use('/api',require('./Router/upload'));
 app.use('/api', require('./Router/clientRouter'));
 app.use('/user',require('./Router/ContactRouter'));
 app.use('/api',require('./Router/propertyRouter'));
+app.use('/api',require('./Router/categoryRouter'));
 app.use('/chat',require('./Router/chatRouter'));
 
 

@@ -213,6 +213,7 @@ const Home = ({setAuthFlag, setPop}) => {
                 </div>
             </div>
         </div>
+        
      {/* =====================sixth section end================= */}
      {/* ===========================customer section=================== */}
       {/* <div className="our-customer">
