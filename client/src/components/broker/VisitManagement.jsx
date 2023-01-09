@@ -9,9 +9,9 @@ import NewVisitModal from './modals/NewVisitModal';
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment)
-console.log(Views);
+// console.log(Views);
 const allViews = Object.keys(Views).map(k => Views[k]);
-console.log(allViews);
+// console.log(allViews);
 // const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
 
 const VisitManagement = ({ setAuthFlag }) => {

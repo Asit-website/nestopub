@@ -5,6 +5,8 @@ import { GlobalState } from '../../GlobalState';
 import logo from "../../images/logo.png";
 
 var client1;
+var tc;
+// var initialDate = new Date().getTime() - (Number(new Date().getHours() * 60 * 60 * 1000) + Number(new Date().getMinutes() * 60 * 1000) + Number(new Date().getSeconds() * 1000));
 
 const BrokerChat = (props) => {
     const state = useContext(GlobalState);
@@ -20,8 +22,17 @@ const BrokerChat = (props) => {
         message: ''
     });
     const [chatList, setChatList] = useState([]);
+    const [chatList1, setChatList1] = useState([]);
     const [currentChat, setCurrentChat] = useState({});
     const [isNewChat, setIsNewChat] = useState(false);
+    const [refreshFlag, setRefreshFlag] = useState(false);
+    const [activeChat, setActiveChat] = useState(-1);
+
+    useEffect(() => {
+        document.querySelector('.header').style.display = 'none';
+        handleWebSocketData();
+        getAllChats();
+    }, [props.cli, refreshFlag]);
 
     const handleChange = (e) => {
         setValue({ ...value, [e.target.name]: e.target.value });
@@ -38,39 +49,48 @@ const BrokerChat = (props) => {
         client1.send(JSON.stringify({
             type: "CHAT",
             type1: "GET_CHAT",
-            data:id
+            data: id
         }));
     };
 
     const postChatBroker = (e) => {
         e.preventDefault();
-        console.log({
-            clientId: currentChat.clientId,
-            clientName: currentChat.clientName,
-            messageUser: 'broker',
-            messageText: value.message,
-            brokerId: JSON.parse(localStorage.getItem('nestoBroker'))._id,
-            brokerName: JSON.parse(localStorage.getItem('nestoBroker')).firmName
-        });
-        setValue({
-            message:''
-        });
+        let data;
+        if (isNewChat) {
+            data = {
+                isNewChat,
+                clientId: currentChat.clientId,
+                clientName: currentChat.clientName,
+                clientImage: currentChat.clientImage,
+                messageUser: 'broker',
+                messageText: value.message,
+                brokerId: JSON.parse(localStorage.getItem('nestoBroker'))._id,
+                brokerName: JSON.parse(localStorage.getItem('nestoBroker')).firmName,
+                brokerImage: JSON.parse(localStorage.getItem('nestoBroker')).images.url
+            };
+        }
+        else {
+            data = {
+                isNewChat,
+                id: currentChat.id,
+                messageText: value.message
+            };
+        }
 
-        // client1.send(JSON.stringify({
-        //     type: "CHAT",
-        //     type1: "POST_CHAT_BROKER",
-        //     data
-        // }));
+        // console.log(data);
+        client1.send(JSON.stringify({
+            type: "CHAT",
+            type1: "POST_CHAT_BROKER",
+            data
+        }));
+
+        setValue({
+            message: ''
+        });
     };
 
-    useEffect(() => {
-        document.querySelector('.header').style.display = 'none';
-        handleWebSocketData();
-        getAllChats();
-    }, []);
-
     const handleWebSocketData = () => {
-        console.log(props.cli);
+        // console.log(props.cli);
         if (props.cli) {
             client1 = props.cli;
 
@@ -83,31 +103,36 @@ const BrokerChat = (props) => {
 
             client1.onmessage = async (message) => {
                 const dataFromServer = JSON.parse(message.data);
-                console.log(dataFromServer);
+                // console.log(dataFromServer);
 
                 if (dataFromServer.type === 'CHAT') {
                     if (dataFromServer.type1 === "GET_USER_CHATS") {
-                        // TODO
-                        // console.log('yes');
-                        let tempArr=dataFromServer.data.data;
-                        for(let i of clientLog)
-                        {
-                            // todo
+                        let tempArr = dataFromServer.data.data;
+                        // console.log(clientLog);
+                        // console.log(tempArr);
+                        if (tempArr.length > 0) {
+                            for (let i of clientLog) {
+                                if (!tempArr.find(x => x.client.id === i._id)) {
+                                    tempArr.push(i);
+                                }
+                            }
                         }
-                        tempArr=clientLog; // temp
+                        else {
+                            tempArr = clientLog;
+                        }
+                        // console.log(tempArr);
                         setChatList(tempArr);
+                        setChatList1(tempArr);
                     }
-                    if(dataFromServer.type1 === "GET_CHAT")
-                    {
-                        // setCurrentChat();
+                    if (dataFromServer.type1 === "GET_CHAT") {
+                        getChatData(dataFromServer.data.data, activeChat);
                     }
-                    if(dataFromServer.type1 === "POST_CHAT_BROKER")
-                    {
-
+                    if (dataFromServer.type1 === "POST_CHAT_BROKER") {
+                        setRefreshFlag(!refreshFlag);
+                        getChatData(dataFromServer.data.data, activeChat);
                     }
-                    if(dataFromServer.type1 === "POST_CHAT_CLIENT")
-                    {
-
+                    if (dataFromServer.type1 === "POST_CHAT_CLIENT") {
+                        // For client side - no use here
                     }
                 }
             };
@@ -115,26 +140,46 @@ const BrokerChat = (props) => {
     };
 
     const handleSearch = (e) => {
-        // todo
-    };
-
-    const getChatData=(data)=>{
-        console.log(data);
-        if(data.BuyName)
+        if(e.target.value!=='')
         {
-            console.log('yes');
-            setIsNewChat(true);
-            setCurrentChat({
-                clientId: data.user,
-                clientName: data.BuyName
+            setChatList(()=>{
+                return chatList1.filter((f)=>{
+                    return f?.client?.name?.includes(e.target.value) || f?.BuyName?.includes(e.target.value);
+                });
             });
         }
         else
         {
-            //
+            console.log(chatList1);
+            setChatList(chatList1);
+        }
+    };
+
+    const getChatData = (data, index) => {
+        // console.log(data);
+        if (data.BuyName) {
+            console.log('yes');
+            setIsNewChat(true);
+            setCurrentChat({
+                clientId: data._id,
+                clientName: data.BuyName,
+                clientImage: data.BuyerImages.url
+            });
+        }
+        else {
+            setCurrentChat({
+                id: data._id,
+                messages: data.messages
+            });
+            setIsNewChat(false);
+            clearInterval(tc);
+            tc=setInterval(() => {
+                getChat(data._id);
+            }, 3000);
         }
         // getChat(id);
-    }
+        setActiveChat(index);
+    };
 
     return (
         <div className="chat-main">
@@ -162,27 +207,25 @@ const BrokerChat = (props) => {
                             </button>
                         </div>
                         <div className="chat-list mt-4">
-
-                            {/* Demo api- Chat Api will be here */}
                             {chatList.map((e, index) => {
                                 return (
-                                    <div key={index} onClick={()=>{
-                                        getChatData(e);
-                                    }} className="chat-list-card cursor-pointer chat-list-card-active px-3 mb-3 py-2 flex justify-between items-center">
+                                    <div key={index} onClick={() => {
+                                        getChatData(e, index);
+                                    }} className={`chat-list-card cursor-pointer ${activeChat === index ? 'chat-list-card-active' : null} px-3 mb-3 py-2 flex justify-between items-center`}>
                                         <div className="chat-list-card1 mr-2">
-                                            <img src={e.BuyerImages.url} alt="" />
+                                            <img src={e.client ? e.client?.image : e?.BuyerImages?.url} alt="" />
                                         </div>
                                         <div className="chat-list-card2 mr-2">
-                                            <p>{e.BuyName}</p>
-                                            <p className="text-sm">Okay</p>
+                                            <p>{e.client ? e.client?.name : e?.BuyName}</p>
+                                            {e.messages ? <p className="text-sm">{e.messages[e.messages.length - 1].message}</p> : null}
                                         </div>
                                         <div className="chat-list-card3">
-                                            <p className="text-gray-600">11-10</p>
+                                            {/* <p className="text-gray-600">11-10</p> */}
+                                            {e.messages ? <p className="text-gray-600">{new Date(Number(e.messages[e.messages.length - 1].ts)).toLocaleTimeString().slice(0,-3)}</p> : null}
                                         </div>
                                     </div>
                                 )
                             })}
-
                         </div>
                     </div>
                 </div>
@@ -211,7 +254,24 @@ const BrokerChat = (props) => {
                             {isNewChat ? <>
                                 <p>Start a new chat</p>
                             </> : <>
-                                <div className="chat-text chat-left">
+                                {currentChat?.messages?.map((e, index) => {
+                                    return (
+                                        <React.Fragment key={index}>
+                                            {e.newDayFlag==='true' ? <div className="chat-date">
+                                                {/* <p className='text-sm text-gray-800'>12-10-2022</p> */}
+                                                <p className='text-sm text-gray-800'>{new Date(Number(e.ts)).toLocaleDateString()}</p>
+                                            </div> : null}
+                                            <div className={`chat-text ${e.user === 'broker' ? 'chat-right' : 'chat-left'}`}>
+                                                <div className="chat-text1">
+                                                    <p>{e.message}</p>
+                                                    {/* <b className='text-xs'>10:51</b> */}
+                                                    <b className='text-xs'>{new Date(Number(e.ts)).toLocaleTimeString().slice(0,-3)}</b>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                    );
+                                })}
+                                {/* <div className="chat-text chat-left">
                                     <div className="chat-text1">
                                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, voluptatem.</p>
                                         <b className='text-xs'>10:51</b>
@@ -231,12 +291,12 @@ const BrokerChat = (props) => {
                                         <p>Lorem ipsum, dolor sit amet consectetu. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, distinctio.</p>
                                         <b className='text-xs'>10:51</b>
                                     </div>
-                                </div>
+                                </div> */}
                             </>}
                         </div>
                     </div>
                     <div className="chat-input">
-                        <form onSubmit={(e)=>{
+                        <form onSubmit={(e) => {
                             postChatBroker(e);
                         }}>
                             <label htmlFor="broker-chat" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -251,7 +311,63 @@ const BrokerChat = (props) => {
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default BrokerChat;
+
+/* 
+
+    if (new Date(e.ts).getTime() < initialDate) {
+        // initialDate=initialDate-(24*60*60*1000);
+        initialDate = new Date(e.ts).getTime();
+        return (
+            <>
+                <div className="chat-date">
+                   
+<p className='text-sm text-gray-800'>{new Date(e.ts).toLocaleDateString()}</p>
+                </div >
+    <div className={`chat-text ${e.user === 'broker' ? 'chat-right' : 'chat-left'}`}>
+        <div className="chat-text1">
+            <p>{e.message}</p>
+            <b className='text-xs'>{new Date(Number(e.ts)).toLocaleTimeString()}</b>
+        </div>
+    </div>
+            </>
+        );
+    }
+    else {
+    let nextDay = new Date(initialDate).toLocaleDateString();
+    nextDay = new Date(nextDay.split('/')[2], Number(nextDay.split('/')[1]) - 1, Number(nextDay.split('/')[2]) + 1, 0, 0, 0).getTime();
+    console.log(nextDay);
+    if (new Date(e.ts).getTime() > nextDay) {
+        initialDate = new Date(e.ts).getTime();
+        return (
+            <>
+                <div className="chat-date">
+<p className='text-sm text-gray-800'>{new Date(e.ts).toLocaleDateString()}</p>
+                </div >
+    <div className={`chat-text ${e.user === 'broker' ? 'chat-right' : 'chat-left'}`}>
+        <div className="chat-text1">
+            <p>{e.message}</p>
+            <b className='text-xs'>{new Date(Number(e.ts)).toLocaleTimeString()}</b>
+        </div>
+    </div>
+            </>
+        );
+    }
+    else {
+    return (
+        <>
+            <div className={`chat-text ${e.user === 'broker' ? 'chat-right' : 'chat-left'}`}>
+                <div className="chat-text1">
+                    <p>{e.message}</p>
+                    <b className='text-xs'>{new Date(Number(e.ts)).toLocaleTimeString()}</b>
+                </div>
+            </div>
+        </>
+    );
+}
+}
+
+*/
