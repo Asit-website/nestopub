@@ -52,7 +52,7 @@ const propertyCtrl = {
 
   createProperty: async (req,res) =>{
      try {
-        const {property_id, propertyContent,propertyPrice,category,location, propertyArea, parking, propertyOwners,images, bedroom, Guest, bathRoom, propertyDescription} = req.body;
+        const {property_id, propertyContent,propertyPrice,category,location, propertyArea, parking, propertyOwners,images, bedroom, Guest, bathRoom, propertyDescription, ownerImages} = req.body;
         
         // if(!images)
         // return res.status(400).json({msg:"plz add image"});
@@ -62,7 +62,7 @@ const propertyCtrl = {
         // return res.status(400).json({ msg: "This property already exist" });
 
         const newProperty = new Property({
-          property_id, propertyContent,propertyPrice,category,location, propertyArea, parking, propertyOwners,images, bedroom, Guest, bathRoom, propertyDescription
+          property_id, propertyContent,propertyPrice,category,location, propertyArea, parking, propertyOwners,images, bedroom, Guest, bathRoom, propertyDescription, ownerImages
         });
 
         await newProperty.save();
@@ -85,12 +85,15 @@ const propertyCtrl = {
 
   editProperty: async (req,res)=>{
     try {
-        const {propertyContent,propertyPrice,category,location, propertyArea, parking, propertyOwners,images, bedroom, Guest, bathRoom, propertyDescription} = req.body;
+        const {propertyContent,propertyPrice,category,location, propertyArea, parking, propertyOwners,images, bedroom, Guest, bathRoom, propertyDescription, ownerImages} = req.body;
 
         const updateObj = {propertyContent,propertyPrice,category,location, propertyArea, parking, propertyOwners, bedroom, Guest, bathRoom, propertyDescription}
 
         if(images){
           updateObj.images = images;
+      }
+      if(ownerImages){
+        updateObj.ownerImages = ownerImages;
       }
 
       await Property.findOneAndUpdate({_id:req.params.id},updateObj);

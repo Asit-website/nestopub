@@ -52,6 +52,11 @@ const propertySchema = new mongoose.Schema({
     required:false,
     set: b => b === '' ? undefined : b
   },
+  ownerImages:{
+    type:Object,
+      required: false,
+    set: xy => xy === '' ? undefined : xy
+  },
   images:{
     type:Array,
     required:false,
