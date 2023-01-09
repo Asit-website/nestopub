@@ -14,7 +14,7 @@ const authCtrl = {
          firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone,images
         })
 
-        await newBroker.save();
+        const data = await newBroker.save();
 
         const accesstoken =  createAccessToken({id:newBroker._id});
         const refreshtoken = createRefreshToken({id:newBroker._id});
@@ -25,7 +25,7 @@ const authCtrl = {
          maxAge:7*24*60*60*1000 //7d
      })
 
-         res.json({msg:"Registeration Successfully", accesstoken});
+         res.json({msg:"Registeration Successfully", accesstoken, user: data});
       } 
       
       catch (error) {
@@ -55,7 +55,7 @@ const authCtrl = {
              maxAge:7*24*60*60*1000 //7d
          })
    
-         res.json({msg:"You are Login as an Broking Firm",accesstoken}); 
+         res.json({msg:"You are Login as an Broking Firm",accesstoken, user});
       } 
       
       catch (error) {
@@ -165,8 +165,8 @@ const authCtrl = {
 
    getUser:async (req,res)=>{
       try {
-          // user ko apan lenge uske id se
-          const user = await Users.findById(req.user._id);
+          // user ko apan lenge uske id se _id
+          const user = await Users.findById(req.user.id);
          // console.log(user)
           if(!user) return res.status(400).json({msg:"user does not exist"})
           res.json(user);
@@ -177,6 +177,22 @@ const authCtrl = {
       }
   },
    
+  saved: async (req,res) =>{
+     try {
+        const user = await Users.findById(req.user.id);
+        if(!user)  return res.status(400).json({msg:"Users does Not exist."});
+
+        await Users.findOneAndUpdate({_id:req.user.id},{
+         cart:req.body.cart,
+     })
+
+     return res.json({msg:"Added to cart"})
+     } 
+     
+     catch (error) {
+        return res.status(500).json({msg:error.message});
+     }
+  }
 }
 
 const createAccessToken = (user) =>{

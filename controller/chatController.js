@@ -1,13 +1,12 @@
 const Chat = require("../models/chatModel");
 
+const getAllChats=async()=>{
+    const data = await Chat.find();
+    return {data};
+}
 
-const getBrokerChats=async ({user})=>{
-    const chats=await Chat.find({"broker.id": user._id});
-    return {data: chats};
-};
-
-const getClientChats=async ({user})=>{
-    const chats=await Chat.find({"client.id": user._id});
+const getUserChats=async ({user})=>{
+    const chats=await Chat.find({user: user._id});
     return {data: chats};
 };
 
@@ -35,10 +34,16 @@ const postChatClient=async ({user, id, broker, message})=>{
 
 };
 
+const deleteChats=async ()=>{
+    const data = await Chat.deleteMany();
+    return {data};
+};
+
 module.exports={
-    getBrokerChats,
-    getClientChats,
+    getUserChats,
     getChat,
     postChatBroker,
-    postChatClient
+    postChatClient,
+    getAllChats,
+    deleteChats
 };

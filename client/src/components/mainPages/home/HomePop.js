@@ -19,4 +19,4 @@ const HomePop = ({setPop,type,setType}) => {
   )
 }
 
-export default HomePop
+export default HomePop;

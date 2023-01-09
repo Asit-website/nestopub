@@ -36,5 +36,5 @@ const ClientApi = (token) => {
         result:[result,setResult]
     }
 }
-
+ 
 export default ClientApi;

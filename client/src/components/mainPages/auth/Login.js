@@ -112,7 +112,8 @@ const Login = ({setAuthFlag, resetPop,setResetPop,stepPop,setStepPop}) => {
     e.preventDefault();
     try {
     const res =  await axios.post('/api/loginBroker',{...user});
-    console.log(res);
+    // console.log(res.data.user);
+    localStorage.setItem('nestoBroker', JSON.stringify(res.data.user));
       localStorage.setItem("firstlogin", true);
       window.location.href="/brokerProfile/dashboard";
       alert(res.data.msg);

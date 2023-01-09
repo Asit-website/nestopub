@@ -456,6 +456,116 @@
     right: 10px;
     cursor: pointer;
 }
+.chat-list-card1{
+    width: 86px;
+    height: 47px;
+    border-radius: 50%;
+}
+.chat-list-card1 img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.chat-list-card2{
+    width: 100%;
+}
+.chat-list-card3{
+    width: 100px;
+}
+.chat-list-card-active{
+    background-color: rgb(243, 243, 243);
+}
+.chat-list-card:hover{
+    background-color: rgb(235, 235, 235);
+}
+.chat-body121{
+    padding-right: 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.13);
+}
+.chat-body122{
+    padding-left: 20px;
+}
+.chat-text{
+    margin-bottom: 14px;
+    width: 100%;
+}
+.chat-text1{
+    max-width: 25rem;
+    padding: 11px;
+    border-radius: 3px;
+}
+.chat-left{
+    display: flex;
+    justify-content: flex-start;
+}
+.chat-right{
+    display: flex;
+    justify-content: flex-end;
+}
+.chat-left .chat-text1{
+    position: relative;
+    background-color: #5E81F4;
+    color: white;
+    text-align: start;
+}
+.chat-text p{
+    margin-right: 50px;
+}
+.chat-text b{
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}
+.chat-right .chat-text1{
+    position: relative;
+    background-color: rgb(240, 240, 240);
+    color: black;
+    text-align: end;
+}
+.chat-date{
+    text-align: center;
+    padding: 5px 7px;
+    width: 7rem;
+    margin: auto;
+    border-radius: 5px;
+    background-color: rgb(235, 235, 235);
+    margin-bottom: 14px;
+}
+.chat-nav{
+    width: 25%;
+    box-shadow: 0px -2px 7px rgba(0, 0, 0, 0.246);
+    z-index: 1;
+}
+.chat-body{
+    width: 75%;
+    position: relative;
+}
+.chat-input{
+    position: absolute;
+    bottom: 0;
+    width: 97%;
+    left: 20px;
+}
+.chat-input input{
+    width: 100%;
+}
+.chat-main{
+    height: 98vh;
+}
+.chat-body12 img{
+    width: 17px;
+    height: 17px;
+}
+.chat-body12 .img1{
+    width: 20px;
+    height: 20px;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
 
 /* Properties CSS */
 .broker-property12{

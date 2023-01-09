@@ -97,6 +97,45 @@ const userSchema = new mongoose.Schema(
     date2:{
       type:String,
       set: yyy => yyy === '' ? undefined : yyy
+    },
+    bankAcountName:{
+      type:String,
+      required:false,
+      set: a => a === '' ?  undefined : a
+    },
+    bankName:{
+      type:String,
+      required:false,
+      set: a => a === '' ?  undefined : a
+    },
+    acountNumber:{
+      type:String,
+      required:false,
+      set: a => a === '' ?  undefined : a
+    },
+    ifsc:{
+      type:String,
+      required:false,
+      set: a => a === '' ?  undefined : a
+    },
+    branchAddress:{
+      type:String,
+      required:false,
+      set: a => a === '' ?  undefined : a
+    },
+    cancelCheque:{
+      type: Object,
+      required: false,
+      set: xy => xy === '' ? undefined : xy
+    },
+    vpaId:{
+      type:String,
+      required:false,
+      set: xa => xa === '' ? undefined : xa
+    },
+    saved:{
+      type:Array,
+      default:[]
     }
   },
   {

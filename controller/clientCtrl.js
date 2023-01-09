@@ -25,7 +25,7 @@ class APIfeature {
 const clientCtrl = {
    addClient: async (req, res) => {
       try {
-         const { BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages } = req.body;
+         const { BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages,date} = req.body;
 
          if (!BuyerImages) return res.status(400).json({ msg: "Plz Uplaod a Proffessional Image" });
 
@@ -33,7 +33,7 @@ const clientCtrl = {
          if (mobilebuy) return res.status(400).json({ msg: "a client added with a same phone Number" });
 
          const newClient = new Clients({
-            BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages, user: req.user._id
+            BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages,date, user: req.user._id
          });
 
          await newClient.save();
@@ -64,12 +64,12 @@ const clientCtrl = {
    },
    deleteClients: async (req, res) => {
       try {
-         let client = await Clients.findById(req.params.id);
-         if (!client) return res.status(400).json({ msg: "not allowed" });
+         // let client = await Clients.findById(req.params.id);
+         // if (!client) return res.status(400).json({ msg: "not allowed" });
 
-         if (client.user.toString() !== req.user._id) {
-            return res.status(400).json({ msg: "not allowed" })
-         };
+         // if (client.user.toString() !== req.user._id) {
+         //    return res.status(400).json({ msg: "not allowed" })
+         // };
 
       const client2 =   await Clients.findByIdAndDelete(req.params.id);
          res.json({ msg: "deleted Successfully", result:client2.length});
@@ -82,20 +82,20 @@ const clientCtrl = {
 
    clientEdit: async (req, res) => {
       try {
-         const { BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages } = req.body;
+         const { BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk, BuyerImages,date} = req.body;
 
          // if(!BuyerImages) return res.status(400).json({ msg: "Plz Uplaod a Proffessional Image"});
-         let updateObj = { BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk };
+         let updateObj = { BuyId, BuyName, BuyerMobile, BuyerLocation, BuyerBudget, BuyerBhk,date };
 
          if (BuyerImages) {
             updateObj.BuyerImages = BuyerImages;
          }
 
-         let client = await Clients.findById(req.params.id);
-         if (!client) return res.status(400).json({ msg: "not allowed" });
+         // let client = await Clients.findById(req.params.id);
+         // if (!client) return res.status(400).json({ msg: "not allowed" });
 
-         if (client.user.toString() !== req.user._id)
-            return res.status(400).json({ msg: "not allowed" });
+         // if (client.user.toString() !== req.user._id)
+         //    return res.status(400).json({ msg: "not allowed" });
 
          // await Clients.findOneAndUpdate({ _id: req.params.id }, {
          //    BuyId,BuyName,BuyerMobile,BuyerLocation,BuyerBudget,BuyerBhk,BuyerImages

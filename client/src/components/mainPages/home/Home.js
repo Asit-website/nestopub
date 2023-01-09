@@ -15,6 +15,7 @@ import card1 from '../../../images/card1.png';
 import card2 from '../../../images/card2.png';
 import card3 from '../../../images/card3.png';
 import women from '../../../images/women.png';
+import { NavLink } from "react-router-dom";
 const Home = ({setAuthFlag, setPop}) => {
   useEffect(()=>{
     setAuthFlag(false);
@@ -205,7 +206,7 @@ const Home = ({setAuthFlag, setPop}) => {
                       <h2>Need Something ? We are here, contact us anytime.</h2>
                       
                    </div>
-                   <button className="enquiry-btn">Enqire now</button>
+                   <NavLink to="/contact"><button className="enquiry-btn">Enqire now</button></NavLink>
                 </div>
                 <div className="second-red-women">
                    <img src={women} alt="wm" />
