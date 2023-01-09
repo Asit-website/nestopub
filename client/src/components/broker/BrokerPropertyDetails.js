@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../common/Sidebar'
 import car from '../../images/Car.png'
 import bathtub from '../../images/Bathtub.png'
@@ -14,7 +14,22 @@ import sImgBuilding from '../../images/sdescImgbuilding.png'
 import bookmarkIcon from '../../images/bookmark_added.png'
 import shareIcon from '../../images/ios_share.png'
 import calenderIcon from '../../images/calenderIcon.png'
+
 const BrokerPropertyDetails = () => {
+
+    const [propertyImg, setPropertyImg] = useState(0);
+
+    const imageHandle0 = () => {
+        setPropertyImg(0);
+    }
+
+    const imageHandle1 = () => {
+        setPropertyImg(1);
+    }
+
+    const imageHandle2 = () => {
+        setPropertyImg(2);
+    }
     
   return (
     <>
@@ -26,20 +41,29 @@ const BrokerPropertyDetails = () => {
                             <div className='broker-property121 border-10'>
                                     <div className='propImgs flex'>
                                         <div className='verticalPropImg'>
-                                            <div className='propSImg'>
+                                            <div className='propSImg' onClick={imageHandle0}>
+                                                <img src={propLimg}/>
+                                            </div>
+                                            <div className='propSImg' onClick={imageHandle1}>
                                                 <img src={propSimg}/>
                                             </div>
-                                            <div className='propSImg'>
-                                                <img src={propSimg}/>
-                                            </div>
-                                            <div className='propSImg'>
-                                                <img src={propSimg}/>
+                                            <div className='propSImg' onClick={imageHandle2}>
+                                                <img src={propLimg}/>
                                             </div>
                                         </div>
                                         <div className='verticalPropImg'>
-                                            <div className='propLImg'>
+                                            {propertyImg == 0 ? 
+                                                <div className='propLImg'>
                                                 <img src={propLimg}/>
-                                            </div>
+                                                </div>
+                                             : (propertyImg == 1) ? <div className='propLImg'>
+                                             <img src={propSimg}/>
+                                             </div> :
+                                             <div className='propLImg'>
+                                             <img src={propLimg}/>
+                                             </div>
+                                            }
+                                            
                                         </div>
                                     </div>
 
