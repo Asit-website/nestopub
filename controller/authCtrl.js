@@ -14,7 +14,7 @@ const authCtrl = {
          firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone,images
         })
 
-        await newBroker.save();
+        const data = await newBroker.save();
 
         const accesstoken =  createAccessToken({id:newBroker._id});
         const refreshtoken = createRefreshToken({id:newBroker._id});
@@ -25,7 +25,7 @@ const authCtrl = {
          maxAge:7*24*60*60*1000 //7d
      })
 
-         res.json({msg:"Registeration Successfully", accesstoken});
+         res.json({msg:"Registeration Successfully", accesstoken, user: data});
       } 
       
       catch (error) {

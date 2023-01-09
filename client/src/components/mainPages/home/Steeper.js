@@ -10,35 +10,35 @@ import axios from "axios";
 import { GlobalState } from "../../../GlobalState";
 import { Alert } from "@mui/material";
 
-const steps = ["Create Account", "Mobile,Email OTP Verification","profile"];
+const steps = ["Create Account", "Mobile,Email OTP Verification", "profile"];
 
 export default function Steeper({ type, setType, ty }) {
- 
+
   const navigate = useNavigate();
   const [details, setDetails] = useState({
-      firmName:"",
-      authorizedName:"",
-      city:"",
-      mobile:"",
-      mobileOtp1:"",
-      mobileOtp2:"",
-      mobileOtp3:"",
-      mobileOtp4:"",
-      individualName:"",
-      city1:"",
-      mobile1:"",
-      name:"",
-      phone:""
+    firmName: "",
+    authorizedName: "",
+    city: "",
+    mobile: "",
+    mobileOtp1: "",
+    mobileOtp2: "",
+    mobileOtp3: "",
+    mobileOtp4: "",
+    individualName: "",
+    city1: "",
+    mobile1: "",
+    name: "",
+    phone: ""
   });
-    // const [details, setDetails] = useState({});
+  // const [details, setDetails] = useState({});
 
   const state = useContext(GlobalState);
-  const [images,setImages] = useState(false);
+  const [images, setImages] = useState(false);
   const [isAdmin] = state.BrokerApi.isAdmin;
   const [tabIndex, setTabIndex] = useState(1);
   // const [isActive, setIsActive] = useState(false);
 
-  
+
 
   var css = {
     background: "#EBF7FF",
@@ -47,7 +47,7 @@ export default function Steeper({ type, setType, ty }) {
     height: "60px",
     color: "#1B84C9",
     opacity: "1",
-    fontFamily:"Bold"
+    fontFamily: "Bold"
   };
 
   var secondCss = {
@@ -59,7 +59,7 @@ export default function Steeper({ type, setType, ty }) {
     fontFamily: "Regular",
   };
 
-  
+
   const tabChange = (e) => {
     e.preventDefault();
     setTabIndex(1);
@@ -82,7 +82,7 @@ export default function Steeper({ type, setType, ty }) {
     }
   };
 
-  const tabAnother1 = (e) =>{
+  const tabAnother1 = (e) => {
     e.preventDefault();
     setTabIndex(3);
   }
@@ -94,57 +94,58 @@ export default function Steeper({ type, setType, ty }) {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
 
-  const handleUpload = async (e)=>{
+  const handleUpload = async (e) => {
     e.preventDefault();
     try {
-        const file = e.target.files[0];
-        if(!file)  return alert("Files doesnt exit");
-        if(file.size > 1024*1024) 
-         return alert("size to large")
- 
-         if(file.type!=='image/jpeg' && file.type!=='image/png')
-         return alert("File Format is incorrect")
-          // formdata important factor hai 
-         let formData = new FormData();
-         formData.append('file',file);
-         const res = await axios.post('/api/upload',formData)
-         setImages(res.data);
+      const file = e.target.files[0];
+      if (!file) return alert("Files doesnt exit");
+      if (file.size > 1024 * 1024)
+        return alert("size to large")
+
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png')
+        return alert("File Format is incorrect")
+      // formdata important factor hai 
+      let formData = new FormData();
+      formData.append('file', file);
+      const res = await axios.post('/api/upload', formData)
+      setImages(res.data);
     }
-    
+
     catch (error) {
       alert(error.response.data.msg);
     }
- }
+  };
 
- const handleDestroy = async () => {
-  try {
-    await axios.post(
-      "/api/destroy",
-      { public_id: images.public_id }
-    );
-    setImages(false); 
-  } catch (error) {
-    alert(error.response.data.msg);
-  }
-};
+  const handleDestroy = async () => {
+    try {
+      await axios.post(
+        "/api/destroy",
+        { public_id: images.public_id }
+      );
+      setImages(false);
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
 
 
-const styleUploads = {
-  display: images ? "block" : "none",
-};
+  const styleUploads = {
+    display: images ? "block" : "none",
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let resp = await axios.post("/api/registerBroker", {...details,images});
+      let resp = await axios.post("/api/registerBroker", { ...details, images });
+      localStorage.setItem('nestoBroker', JSON.stringify(resp.data.user));
       localStorage.setItem("firstlogin", true);
-        window.location.href="/brokerProfile/dashboard";
+      window.location.href = "/brokerProfile/dashboard";
       // setCallback(!callback);
       let t = document.getElementById("git");
-      t.style.display="block"
-      t.innerText=`${resp.data.msg}`;
+      t.style.display = "block"
+      t.innerText = `${resp.data.msg}`;
       setTimeout(() => {
-        t.style.display="none";
+        t.style.display = "none";
       }, 5000);
     }
 
@@ -211,7 +212,7 @@ const styleUploads = {
 
   const deepStyle = {
     backgroundColor: "#D9D9D9",
-    textAlign:"center"
+    textAlign: "center"
   };
 
   const handleSkip = () => {
@@ -304,7 +305,7 @@ const styleUploads = {
                   >
                     Individual broker
                   </button>
-                 <button style={{display:'none'}} onClick={tabAnother1}>admin</button>
+                  <button style={{ display: 'none' }} onClick={tabAnother1}>admin</button>
                 </div>
 
                 <div id="myForm" className="dance">
@@ -431,7 +432,7 @@ const styleUploads = {
                   <h2 className="step123">Mobile Verification</h2>
                 </div>
                 <p className="wrap-para">
-                Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
+                  Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
                 </p>
                 <div id="myForm" className="dance">
                   <div className="form">
@@ -484,60 +485,60 @@ const styleUploads = {
                     <span className="resend">Resend</span>
                   </div>
                 </div>
-                
+
               </div>
             )}
 
             {
               activeStep === 2 && (
                 <div className="wrapper">
-                <div className="shadow">
-                  <h2 className="step123">Mobile Verification</h2>
-                </div>
-                <p className="wrap-para">
-                Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
-                </p>
-                <div id="myForm" className="dance">
-                  <div className="form">
-                    <div className="top-form">
-                      <div className="inner-form inner-form-1 upload">
-                        <input required type="file" name="file" id="file_up" onChange={handleUpload} />
-                      <div id="file_img" style={styleUploads} >
-                               <img src={images ? images.url : ''} alt="not" />
-                                <span onClick={handleDestroy}>X</span>
-                        </div> 
-                      </div>
-                    </div>
-                    <span className="resend">Resend</span>
+                  <div className="shadow">
+                    <h2 className="step123">Mobile Verification</h2>
                   </div>
+                  <p className="wrap-para">
+                    Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
+                  </p>
+                  <div id="myForm" className="dance">
+                    <div className="form">
+                      <div className="top-form">
+                        <div className="inner-form inner-form-1 upload">
+                          <input required type="file" name="file" id="file_up" onChange={handleUpload} />
+                          <div id="file_img" style={styleUploads} >
+                            <img src={images ? images.url : ''} alt="not" />
+                            <span onClick={handleDestroy}>X</span>
+                          </div>
+                        </div>
+                      </div>
+                      <span className="resend">Resend</span>
+                    </div>
+                  </div>
+
                 </div>
-                
-              </div>
               )
             }
 
-           
-          
-           
+
+
+
             <Box
               style={{ padding: "30px 40px" }}
               sx={{
                 display: "flex",
                 flexDirection: "row",
                 pt: 2,
-                
+
               }}
             >
-            <div className="next-btn">
-              <Button
-                style={stylepeer}
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
+              <div className="next-btn">
+                <Button
+                  style={stylepeer}
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  Back
+                </Button>
               </div>
               <Box sx={{ flex: "1 1 auto" }} />
 
@@ -549,9 +550,9 @@ const styleUploads = {
 
               {activeStep === steps.length - 1 ? (
                 <div className="next-btn">
-                <Button type="submit" style={stylepeer} className="next-btn">
-                  Submit
-                </Button>
+                  <Button type="submit" style={stylepeer} className="next-btn">
+                    Submit
+                  </Button>
                 </div>
               ) : (
                 <div className="next-btn">

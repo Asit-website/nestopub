@@ -6,16 +6,19 @@ const MySchema=mongoose.Schema({
     },
     broker:{
         id:String,
-        name:String
+        name:String,
+        image:String
     },
     client:{
         id:String,
-        name:String
+        name:String,
+        image:String
     },
     messages:[{
         user:String,
         message:String,
-        ts:String
+        ts:String,
+        newDayFlag:String
     }]
 });
 

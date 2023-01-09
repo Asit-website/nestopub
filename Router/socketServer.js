@@ -32,9 +32,6 @@ const init=(data)=>{
 
                 if(dataFromClient.type==='CHAT')
                 {
-                    let data = dataFromClient.data;
-                    console.log(data);
-
                     if(dataFromClient.type1==='GET_USER_CHATS')
                     {
                         // console.log('yes');
@@ -45,37 +42,66 @@ const init=(data)=>{
 
                     if(dataFromClient.type1==='GET_CHAT')
                     {
-                        const data = await Chat.findById(id);
+                        const data = await Chat.findById(dataFromClient.data);
                         json.data = { data };
                         sendMessage(JSON.stringify(json), userID);
                     }
 
                     if(dataFromClient.type1==='POST_CHAT_BROKER')
                     {
-                        const newChat=new Chat({
-                            user: slug,
-                            broker:{
-                                id: slug,
-                                name: dataFromClient.brokerName
-                            },
-                            client:{
-                                id: dataFromClient.clientId,
-                                name: dataFromClient.clientName
-                            },
-                            messaegs:[{
+                        // console.log(dataFromClient.data);
+                        if(dataFromClient.data.isNewChat)
+                        {
+                            const newChat=new Chat({
+                                user: slug,
+                                broker:{
+                                    id: slug,
+                                    name: dataFromClient.data.brokerName,
+                                    image:dataFromClient.data.brokerImage
+                                },
+                                client:{
+                                    id: dataFromClient.data.clientId,
+                                    name: dataFromClient.data.clientName,
+                                    image:dataFromClient.data.clientImage
+                                },
+                                messages:[{
+                                    user:'broker',
+                                    message:dataFromClient.data.messageText,
+                                    ts:new Date().getTime(),
+                                    newDayFlag:"true"
+                                }]
+                            });
+                            const saveChat=await newChat.save();
+                            json.data = { data: saveChat };
+                        }
+                        else
+                        {
+                            let newDayFlag='false';
+                            const chat=await Chat.findById(dataFromClient.data.id);
+                            let prevMessages=chat.messages;
+
+                            if(new Date(Number(prevMessages[prevMessages.length-1].ts)).getDate()<new Date().getDate())
+                            {
+                                newDayFlag='true';
+                            }
+
+                            prevMessages.push({
                                 user:'broker',
-                                messaegs:dataFromClient.messageText,
-                                ts:new Date().getTime()
-                            }]
-                        });
-                        const saveChat=await newChat.save();
-                        json.data = { data: saveChat };
+                                message: dataFromClient.data.messageText,
+                                ts: new Date().getTime(),
+                                newDayFlag
+                            });
+                            console.log(prevMessages);
+                            const data=await Chat.findByIdAndUpdate(dataFromClient.data.id, {$set:{messages:prevMessages}},{new:true});
+                            json.data = { data };
+                        }
+                        
                         sendMessage(JSON.stringify(json), userID);
                     }
 
                     if(dataFromClient.type1==='POST_CHAT_CLIENT')
                     {
-
+                        // todo 
                     }
                 }
             }
