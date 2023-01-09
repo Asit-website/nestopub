@@ -42,13 +42,13 @@ const BrokerPropertyDetails = () => {
                                     <div className='propImgs flex'>
                                         <div className='verticalPropImg'>
                                             <div className='propSImg' onClick={imageHandle0}>
-                                                <img src={propSimg}/>
+                                                <img src={propLimg}/>
                                             </div>
                                             <div className='propSImg' onClick={imageHandle1}>
                                                 <img src={propSimg}/>
                                             </div>
                                             <div className='propSImg' onClick={imageHandle2}>
-                                                <img src={propSimg}/>
+                                                <img src={propLimg}/>
                                             </div>
                                         </div>
                                         <div className='verticalPropImg'>
