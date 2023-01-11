@@ -95,7 +95,62 @@ export const DataProvider = ({ children }) => {
     catch (error) {
        console.log(error);
     }
-  }
+  };
+
+
+  const getProperties = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/getProperty`, {
+        method: "GET",
+        headers: {
+          "Authorization": token
+        }
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const postProperty = async ({content, price, category, location, area, description, parking, images, bedroom, guest, bathroom}) => {
+    try {
+      console.log(images);
+      let formdata=new FormData();
+      formdata.append('propertyContent',content);
+      formdata.append('propertyPrice',price);
+      formdata.append('category',category);
+      formdata.append('location',location);
+      formdata.append('propertyArea',area);
+      formdata.append('propertyDescription',description);
+      formdata.append('parking',parking);
+      // formdata.append('images',JSON.stringify(images));
+      if(images.length>0)
+      {
+        for(let i of images)
+        {
+          formdata.append('images',i);
+        }
+      }
+      // formdata.append('images',images);
+      formdata.append('bedroom',bedroom);
+      formdata.append('Guest',guest);
+      formdata.append('bathRoom',bathroom);
+
+      const response = await fetch(`http://localhost:5000/api/registerProperty`, {
+        method: "POST",
+        headers: {
+          
+          "Authorization": token
+        },
+        body: formdata
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Web socket client
   var client;
@@ -109,7 +164,9 @@ export const DataProvider = ({ children }) => {
     postVisit,
     editClient,
     editSchedule,
-    client
+    client,
+    getProperties,
+    postProperty
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;

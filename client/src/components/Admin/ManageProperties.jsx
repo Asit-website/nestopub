@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { GlobalState } from '../../GlobalState';
 import AdminMenu from './AdminMenu';
 
 const ManageProperties = () => {
+    const context = useContext(GlobalState);
     const [value, setValue] = useState({
         content: '',
         price: '',
@@ -27,9 +29,11 @@ const ManageProperties = () => {
         }
     };
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault();
         console.log(value);
+        let ans = await context.postProperty(value);
+        console.log(ans);
     };
 
     return (
