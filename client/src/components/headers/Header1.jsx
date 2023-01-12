@@ -10,11 +10,12 @@ const Header1 = ({ pop, setPop }) => {
   const [isLogged] = state.BrokerApi.isLogged;
   const [isAdmin] = state.BrokerApi.isAdmin;
   // const [user] = state.BrokerApi.user;
-  const user=state.user1;
+  // const user=state.user1;
+  const user=JSON.parse(localStorage.getItem('nestoBroker'));
 
   const [broker] = state.IndividualApi.broker;
 
-  console.log(user);
+  // console.log(user);
 
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);

@@ -22,7 +22,11 @@ import ManageProperties from "../Admin/ManageProperties";
 const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop, claimPop, setClaimPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
-  const isLogged1=state.isLogged1;
+  let isLogged1=state.isLogged1;
+  if(isLogged)
+  {
+    isLogged1=true;
+  }
   const [isAdmin] = state.BrokerApi.isAdmin;
   const adminstartor = () => {
     return (
