@@ -113,10 +113,9 @@ export default function Steeper({ type, setType, ty }) {
       localStorage.setItem('nestoBroker', JSON.stringify(ans.user));
       localStorage.setItem("firstlogin", true);
       // window.location.href = "/brokerProfile/dashboard";
-      navigate("/brokerProfile/dashboard");
       console.log(ans);
-      console.log(ans.images);
-  
+      console.log(ans.user.images);
+      navigate("/brokerProfile/dashboard");
     } 
     
     catch (error) {

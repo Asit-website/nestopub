@@ -28,7 +28,7 @@ const multiUpload = multer({ storage }).fields([
         name: 'images',
         maxCount: 10
     }
-])
+]);
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,

@@ -6,6 +6,8 @@ import axios from "axios";
 export const GlobalState = createContext();
 export const DataProvider = ({ children }) => {
   const [token, setToken] = useState(false);
+  const [isLogged1,setIsLogged1] = useState(false);
+  const [user1,setUser1] = useState(false);
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstlogin");
@@ -29,6 +31,7 @@ export const DataProvider = ({ children }) => {
 
   const getVisits = async () => {
     try {
+      console.log(token);
       const response = await fetch(`http://localhost:5000/api/getScheduledClients`, {
         method: "GET",
         headers: {
@@ -186,6 +189,9 @@ export const DataProvider = ({ children }) => {
               body: formData
             });
             const data = await response.json();
+            setToken(data.accesstoken);
+            setIsLogged1(true);
+            setUser1(data.user);
             return data;
            
         } 
@@ -210,6 +216,8 @@ export const DataProvider = ({ children }) => {
     getProperties,
     postProperty,
     registerBroker,
+    isLogged1,
+    user1
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;
