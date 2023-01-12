@@ -18,16 +18,16 @@ var storage = multer.diskStorage({
         cb(null, "./uploads");
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname+new Date().getTime());
+        cb(null, file.originalname + new Date().getTime());
     },
 });
 
 // const upload = multer({ storage }).single('image');
 const multiUpload = multer({ storage }).fields([
-   {
-       name: 'images',
-       maxCount: 10
-   }
+    {
+        name: 'images',
+        maxCount: 10
+    }
 ])
 
 cloudinary.config({
@@ -36,37 +36,12 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET
 });
 
-async function uploadToCloudinary(locaFilePath) {
-   var mainFolderName = "main";
-   var filePathOnCloudinary =
-       mainFolderName + "/" + locaFilePath;
-
-   return cloudinary.uploader
-       .upload(locaFilePath, { public_id: filePathOnCloudinary })
-       .then((result) => {
-
-           fs.unlinkSync(locaFilePath);
-
-           return {
-               message: "Success",
-               url: result.url,
-           };
-       })
-       .catch((error) => {
-
-           fs.unlinkSync(locaFilePath);
-           return { message: "Fail" };
-       });
-};
-
-
-
-router.post('/registerBroker', multiUpload ,authCtrl.resgisterBroker);
-router.post('/loginBroker',authCtrl.loginBroker);
-router.post('/loginAdmin',authCtrl.adminLogin);
-router.post('/individual',authCtrl.brokerIndividual);
-router.get('/logout',authCtrl.logout);
-router.get('/refresh_token',authCtrl.refreshToken);
-router.get('/infor',auth,authCtrl.getUser);
+router.post('/registerBroker', multiUpload, authCtrl.resgisterBroker);
+router.post('/loginBroker', authCtrl.loginBroker);
+router.post('/loginAdmin', authCtrl.adminLogin);
+router.post('/individual', authCtrl.brokerIndividual);
+router.get('/logout', authCtrl.logout);
+router.get('/refresh_token', authCtrl.refreshToken);
+router.get('/infor', auth, authCtrl.getUser);
 
 module.exports = router;
