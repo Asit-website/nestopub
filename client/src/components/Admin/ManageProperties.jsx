@@ -33,7 +33,8 @@ const ManageProperties = () => {
         e.preventDefault();
         console.log(value);
         let ans = await context.postProperty(value);
-        console.log(ans);
+        console.log(ans.data);
+        console.log(ans.images);
     };
 
     return (

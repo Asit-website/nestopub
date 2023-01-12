@@ -11,8 +11,8 @@ const BuilderSchema = new mongoose.Schema({
         trim:true
     },
     role:{
-        type:Number,
-        default:2
+       type:mongoose.Schema.Types.ObjectId,
+       ref:'user',
     }
 },{
     timestamps:true

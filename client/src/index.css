@@ -1105,7 +1105,9 @@ footer {
   opacity: 0.7;
   font-family: "Medium";
 }
-
+.tab{
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 .form .fileup {
   border: none;
   background-color: #eeeeee;
