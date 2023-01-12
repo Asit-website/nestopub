@@ -2,16 +2,91 @@ const Users = require('../models/userModel');
 // const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const fs = require("fs");
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+
+if (!fs.existsSync("./uploads")) {
+    fs.mkdirSync("./uploads");
+}
+
+// Multer setup
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "./uploads");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname+new Date().getTime());
+    },
+});
+
+// const upload = multer({ storage }).single('image');
+const multiUpload = multer({ storage }).fields([
+   {
+       name: 'images',
+       maxCount: 10
+   }
+])
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
+});
+
+async function uploadToCloudinary(locaFilePath) {
+   console.log("hi");
+   var mainFolderName = "main";
+   var filePathOnCloudinary =
+       mainFolderName + "/" + locaFilePath;
+
+   return cloudinary.uploader
+       .upload(locaFilePath, { public_id: filePathOnCloudinary })
+       .then((result) => {
+
+           fs.unlinkSync(locaFilePath);
+
+           return {
+               message: "Success",
+               url: result.url,
+           };
+       })
+       .catch((error) => {
+
+           fs.unlinkSync(locaFilePath);
+           return { message: "Fail" };
+       });
+};
+
+
+
+
 const authCtrl = {
    resgisterBroker: async(req,res)=>{
       try {
-        const {firmName,authorizedName,city,mobile,individualName,city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone,images} = req.body      
+        const {firmName,authorizedName,city,mobile,individualName,city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone} = req.body      
 
-        if(!images){
-         return res.status(400).json({msg:"plz upload a Professional Image"});
-        }
+      //   if(!images){
+      //    return res.status(400).json({msg:"plz upload a Professional Image"});
+      //   }
+
+      const { images } = req.files;
+
+      var imageUrlList = [];
+
+      for (var i = 0; i < images.length; i++) {
+          console.log(images[i].path);
+          var locaFilePath = images[i].path;
+
+          var result = await uploadToCloudinary(locaFilePath);
+          imageUrlList.push(result.url);
+      }
+
+      console.log(imageUrlList);
+
+
         const newBroker = new Users({
-         firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone,images
+         firmName,authorizedName,city,mobile,individualName,city1, mobile1,mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4,name,phone,images:imageUrlList
         })
 
         const data = await newBroker.save();

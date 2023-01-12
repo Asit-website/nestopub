@@ -152,6 +152,48 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+
+   const registerBroker = async({firmName,authorizedName, city, mobile, mobileOtp1,mobileOtp2,mobileOtp3,mobileOtp4,individualName,city1,mobile1,name,phone,images}) => {
+        try {
+          console.log(images);
+            let formData = new FormData();
+            formData.append("firmName",firmName);
+            formData.append("authorizedName",authorizedName);
+            formData.append("city",city);
+            formData.append("mobile",mobile);
+            formData.append("mobileOtp1",mobileOtp1);
+            formData.append("mobileOtp2",mobileOtp2);
+            formData.append("mobileOtp3",mobileOtp3);
+            formData.append("mobileOtp4",mobileOtp4);
+            formData.append("individualName",individualName);
+            formData.append("city1",city1);
+            formData.append("mobile1",mobile1);
+            formData.append("name",name);
+            formData.append("phone",phone);
+
+            if(images.length>0)
+            {
+              for(let i of images)
+              {
+                formData.append("images",i);
+              }
+            }
+
+            const response = await fetch(`http://localhost:5000/api/registerBroker`, {
+
+              method: "POST",
+              
+              body: formData
+            });
+            const data = await response.json();
+            return data;
+           
+        } 
+        
+        catch (error) {
+           console.log(error);
+        }
+   }
   // Web socket client
   var client;
 
@@ -166,7 +208,8 @@ export const DataProvider = ({ children }) => {
     editSchedule,
     client,
     getProperties,
-    postProperty
+    postProperty,
+    registerBroker,
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;

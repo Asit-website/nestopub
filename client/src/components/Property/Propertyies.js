@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ListBullets from '../../../src/images/ListBullets.png'
 import car from '../../images/Car.png'
 import bathtub from '../../images/Bathtub.png'
@@ -11,10 +11,26 @@ import ghar from '../../../src/images/ghar.png'
 import LoadMoreProperty from './LoadMoreProperty'
 import MapPin from '../../../src/images/MapPin.png'
 import ArrowLeft from '../../../src/images/ArrowLeft.png';
+import { GlobalState } from '../../GlobalState'
+import { NavLink } from 'react-router-dom'
+
 const Propertyies = ({ setAuthFlag }) => {
+    const [property,setProperty] = useState([]);
     useEffect(() => {
         setAuthFlag(false);
     }, []);
+
+    const state = useContext(GlobalState);
+
+    useEffect(()=>{
+        getProperties();
+    },[]);
+
+    const getProperties = async() =>{
+        const data = await state.getProperties();
+        console.log(data);
+        setProperty(data);
+    }
     return (
         <>
             <div className="sell-prop">
@@ -29,7 +45,7 @@ const Propertyies = ({ setAuthFlag }) => {
               <div className='locations'></div>
           </div> */}
 
-                    <div className="relative table123  overflow-x-auto">
+                    <div className="relative table123 overflow-x-auto tab">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-900 uppercase dark:text-gray-400">
                             </thead>
@@ -113,8 +129,145 @@ const Propertyies = ({ setAuthFlag }) => {
                         </div>
                     </div>
                 </div>
+                 {
+                    property.map((val=>{
+                         return(
+                            <div key={val._id} className="property-flex property-flex2">
+                    <div className="first-property">
 
-                <div className="property-flex property-flex2">
+                        <div className='similar-properties-card similar2'>
+                            <div className='sp-card-img'>
+                                <img src={val.images[0]} alt="" />
+                            </div>
+                            <div className='sp-card-detail'>
+                                <p className='sp-card-text'>Lorem Ipsum in graphical and textual context.</p>
+                                <p className='sp-card-price'>&#8377; 5000</p>
+                                <div className='property-props flex'>
+                                    <div className='property-prop flex'>
+                                        <img src={car} />
+                                        <p>4</p>
+                                    </div>
+                                    <div className='property-prop  flex'>
+                                        <img src={bathtub} />
+                                        <p>4</p>
+                                    </div>
+                                    <div className='property-prop  flex'>
+                                        <img src={zoomout} />
+                                        <p>2,096.00 ft</p>
+                                    </div>
+                                </div>
+                                <div className='sp-broker-sec flex'>
+                                    <div className='sp-broker-img flex'>
+                                        <img src={brokerimg} />
+                                        <p>Jenny Wilson</p>
+                                    </div>
+                                    <div className='sp-actions flex'>
+                                        <div className='flex action-box'>
+                                            <img src={share} />
+                                        </div>
+                                        <div className='flex action-box'>
+                                            <img src={wishlist} />
+                                        </div>
+                                        <div className='flex action-box'>
+                                            <img src={addProperty} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className="second-property">
+                        <div className='similar-properties-card similar2'>
+                            <div className='sp-card-img'>
+                                <img src={ghar} alt="" />
+                            </div>
+                            <div className='sp-card-detail'>
+                                <p className='sp-card-text'>Lorem Ipsum in graphical and textual context.</p>
+                                <p className='sp-card-price'>&#8377; 5000</p>
+                                <div className='property-props flex'>
+                                    <div className='property-prop flex'>
+                                        <img src={car} />
+                                        <p>4</p>
+                                    </div>
+                                    <div className='property-prop  flex'>
+                                        <img src={bathtub} />
+                                        <p>4</p>
+                                    </div>
+                                    <div className='property-prop  flex'>
+                                        <img src={zoomout} />
+                                        <p>2,096.00 ft</p>
+                                    </div>
+                                </div>
+                                <div className='sp-broker-sec flex'>
+                                    <div className='sp-broker-img flex'>
+                                        <img src={brokerimg} />
+                                        <p>Jenny Wilson</p>
+                                    </div>
+                                    <div className='sp-actions flex'>
+                                        <div className='flex action-box'>
+                                            <img src={share} />
+                                        </div>
+                                        <div className='flex action-box'>
+                                            <img src={wishlist} />
+                                        </div>
+                                        <div className='flex action-box'>
+                                            <img src={addProperty} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className="third-property">
+                        <div className='similar-properties-card similar2'>
+                            <div className='sp-card-img'>
+                                <img src={ghar} alt="" />
+                            </div>
+                            <div className='sp-card-detail'>
+                                <p className='sp-card-text'>Lorem Ipsum in graphical and textual context.</p>
+                                <p className='sp-card-price'>&#8377; 5000</p>
+                                <div className='property-props flex'>
+                                    <div className='property-prop flex'>
+                                        <img src={car} />
+                                        <p>4</p>
+                                    </div>
+                                    <div className='property-prop  flex'>
+                                        <img src={bathtub} />
+                                        <p>4</p>
+                                    </div>
+                                    <div className='property-prop  flex'>
+                                        <img src={zoomout} />
+                                        <p>2,096.00 ft</p>
+                                    </div>
+                                </div>
+                                <div className='sp-broker-sec flex'>
+                                    <div className='sp-broker-img flex'>
+                                        <img src={brokerimg} />
+                                        <p>Jenny Wilson</p>
+                                    </div>
+                                    <div className='sp-actions flex'>
+                                        <div className='flex action-box'>
+                                            <img src={share} />
+                                        </div>
+                                        <div className='flex action-box'>
+                                            <img src={wishlist} />
+                                        </div>
+                                        <div className='flex action-box'>
+                                            <img src={addProperty} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                         ) 
+                    }))
+                 }
+                {/* <div className="property-flex property-flex2">
                     <div className="first-property">
 
                         <div className='similar-properties-card similar2'>
@@ -245,7 +398,7 @@ const Propertyies = ({ setAuthFlag }) => {
                         </div>
 
                     </div>
-                </div>
+                </div> */}
                 <div className="property-flex">
                     <div className="first-property">
 
@@ -639,7 +792,7 @@ const Propertyies = ({ setAuthFlag }) => {
                 <div className="finds">
                     <h2>Find Best Properties</h2>
                     <p>Spend vacations in best hotels and resorts find the great place of your <br /> choice using different searching options.</p>
-                    <button>Contact Us</button>
+                   <NavLink to="/contact"><button>Contact Us</button></NavLink>
                 </div>
             </div>
         </>
