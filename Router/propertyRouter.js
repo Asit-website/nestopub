@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const propertyCtrl = require("../controller/propertyCtrl");
 const auth = require("../middleware/auth");
-const authAdmin = require("../middleware/authAdmin");
 const Property = require("../models/propertyModel");
 
 const fs = require("fs");
@@ -110,8 +109,9 @@ async function uploadToCloudinary(locaFilePath) {
 
 // router.post('/registerProperty', upload.array("images", 12), propertyCtrl.createProperty);
 // router.post('/registerProperty', upload.array("images", 12), async (req, res) => {
-router.post('/registerProperty', multiUpload, async (req, res) => {
+router.post('/registerProperty', multiUpload, auth, async (req, res) => {
     try {
+        console.log('try');
         const { propertyContent, propertyPrice, category, location, propertyArea, parking, bedroom, Guest, bathRoom, propertyDescription } = req.body;
 
         const { images } = req.files;
@@ -129,7 +129,7 @@ router.post('/registerProperty', multiUpload, async (req, res) => {
         console.log(imageUrlList);
 
         const newProperty = new Property({
-          propertyContent, propertyPrice, category, location, propertyArea, parking, images: imageUrlList, bedroom, Guest, bathRoom, propertyDescription
+          propertyContent, propertyPrice, category, location, propertyArea, parking, images: imageUrlList, bedroom, Guest, bathRoom, propertyDescription, user: JSON.stringify(req.user)
         });
 
         const saveProp=await newProperty.save();
@@ -137,6 +137,7 @@ router.post('/registerProperty', multiUpload, async (req, res) => {
     }
 
     catch (error) {
+        console.log('yes');
         return res.status(500).json({ msg: error.message });
     }
 });

@@ -107,9 +107,9 @@ const CustomerManagement = ({setAuthFlag}) => {
                                 </div>
                                 <div className="broker-home12122">
                                   {
-                                      clientLog.map(client1=>{
+                                      clientLog.map((client1,index)=>{
                                         return(
-                                            <div className="broker-home-table broker-cus-table flex">
+                                            <div key={index} className="broker-home-table broker-cus-table flex">
                                         <div className="broker-cus-table1 broker-home-table11 flex items-center">
                                             <img className='mr-1.5 buymarImg' src={client1.BuyerImages.url} alt="" />
                                             <div>

@@ -43,7 +43,7 @@ const BrokerItem1 = () => {
     const getVisits = async () => {
         const data = await state.getVisits();
         setVisits(data.data);
-        console.log(data);
+        // console.log(data);
     };
 
     const editClient = (data) => {
