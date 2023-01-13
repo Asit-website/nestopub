@@ -31,7 +31,7 @@ export const DataProvider = ({ children }) => {
 
   const getVisits = async () => {
     try {
-      console.log(token);
+      // console.log(token);
       const response = await fetch(`http://localhost:5000/api/getScheduledClients`, {
         method: "GET",
         headers: {

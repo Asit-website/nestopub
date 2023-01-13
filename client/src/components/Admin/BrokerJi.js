@@ -12,7 +12,7 @@ const BrokerJi = ({ broker,DeleteProfile,isAdmin,handleCheck}) => {
           <>
             <div className="broking-faram">
               <h2>Broking Firm</h2>
-              <img src={broker.images.url} alt="" />
+              <img src={broker.images[0]} alt="" />
               <p>
                 <span>FirmName</span>: {broker.firmName}
               </p>
@@ -33,7 +33,7 @@ const BrokerJi = ({ broker,DeleteProfile,isAdmin,handleCheck}) => {
           <>
             <div className="individual-broker">
               <h2>Individual Broker</h2>
-              <img src={broker.images.url} alt="" />
+              <img src={broker.images[0]} alt="" />
               <p>
                 {" "}
                 <span>Broker Name</span>: {broker.individualName}

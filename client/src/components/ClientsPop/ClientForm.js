@@ -38,7 +38,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
         BuyerLocation: editData.BuyerLocation,
         BuyerBudget: editData.BuyerBudget,
         BuyerBhk: editData.BuyerBhk,
-        date: editData.date
+        date: new Date(editData.date)
       });
       setUploadedImage(editData.BuyerImages.url);
     }
@@ -57,6 +57,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
       let formData = new FormData();
       formData.append('file', file);
       const res = await axios.post('/api/upload', formData)
+      console.log(res);
       setBuyerImages(res.data);
     }
     catch (error) {
@@ -81,19 +82,23 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
   };
 
   const onchange = (e) => {
-    setClient({ ...client, date: moment(e).format() });
+    setClient({ ...client, date: new Date(moment(e).format()) });
 };
 
   const handleChange = (e) => {
     setClient({ ...client, [e.target.name]: e.target.value });
   };
+
   const handleClient = async (e) => {
     e.preventDefault();
     console.log('yes');
+    // setClient({...client, date: new Date(client.date).getTime()});
+    client['date']=new Date(client.date).getTime();
 
     if(isEdit)
     {
       console.log('if');
+      console.log(client);
       const data = await state.editClient({ ...client, BuyerImages });
       console.log(data);
       if(data.status)
@@ -144,7 +149,6 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
     }
 
   };
-
 
   return (
     <>
@@ -232,11 +236,10 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
 
                 <div className="top-form">
                   <div className="inner-form int-form2">
-                  <Datetime className='visit-date' onChange={onchange} inputProps={{ placeholder: "Choose date and time" }} />
+                  <Datetime className='visit-date' onChange={onchange} value={client.date} inputProps={{ placeholder: "Choose date and time" }} />
                   </div>
-                 
-                  
                 </div>
+
               </div>
             </div>
           </div>

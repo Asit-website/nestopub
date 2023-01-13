@@ -67,7 +67,7 @@ const VisitManagement = ({ setAuthFlag }) => {
                                     let info = clientLog.find(x => x._id === e.client);
 
                                     return (
-                                        <div className="broker-home2-card flex mb-3 p-2">
+                                        <div key={index} className="broker-home2-card flex mb-3 p-2">
                                             <div className="img mr-3">
                                                 <img src={info?.BuyerImages.url} alt="" />
                                             </div>

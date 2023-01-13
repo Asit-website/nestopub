@@ -2359,13 +2359,14 @@ input::-ms-reveal,
 }
 .property-flex{
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
- margin: 15px 0px;
+  margin: 15px 0px;
 }
-.similar2{
-  margin-right: 0px !important;
-  margin: 0 15px;
+.first-property{
+  width: 30%;
+  margin: 10px;
 }
 .property-flex2{
   margin-top: 30px;

@@ -25,14 +25,6 @@ const propertySchema = new mongoose.Schema({
     type: String,
     default:"abc",
   },
-  propertyOwners: {
-    type: String,
-    default:"abc",
-  },
-  ownerImages: {
-    type: Object,
-    default:{},
-  },
   images: {
     type: Array,
   },
@@ -58,8 +50,7 @@ const propertySchema = new mongoose.Schema({
     default: []
   },
   user: {
-    type: String,
-    default: "user1"
+    type: String
   }
 }, {
   timestamps: true
