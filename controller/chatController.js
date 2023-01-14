@@ -16,7 +16,7 @@ const getChat=async ({user, id})=>{
 };
 
 const postChatBroker=async ({user, id, client, message})=>{
-    console.log(user);
+    // console.log(user);
     // const isAvailable=await Chat.findById(id);
     // if(isAvailable)
     // {

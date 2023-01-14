@@ -67,7 +67,7 @@ const brokerCtrl = {
 
     getScheduledClients: async (req, res) => {
         try {
-            console.log(req.user);
+            // console.log(req.user);
 
             const data = await ScheduleVisit.find({ user: req.user._id });
             res.json({
@@ -124,8 +124,8 @@ const brokerCtrl = {
         try {
             const { client, date } = req.body;
             let updateObj = { client, date };
-            console.log(updateObj);
-            console.log(req.params.id);
+            // console.log(updateObj);
+            // console.log(req.params.id);
             let data = await ScheduleVisit.findOneAndUpdate({ _id: req.params.id }, { $set:updateObj }, {new:true});
             res.json({ status: "success", msg: "schedule Update Successfully", data });
         }

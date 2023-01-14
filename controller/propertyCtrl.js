@@ -53,43 +53,34 @@ const propertyCtrl = {
 
   createProperty: async (req, res) => {
     try {
-      const { property_id, propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, bedroom, Guest, bathRoom, propertyDescription, ownerImages } = req.body;
+      const { propertyContent, propertyPrice, category, location, propertyArea, parking, bedroom, Guest, bathRoom, propertyDescription } = req.body;
 
       const { images } = req.files;
-      console.log(images);
 
       var imageUrlList = [];
 
       for (var i = 0; i < images.length; i++) {
+        // console.log(images[i].path);
         var locaFilePath = images[i].path;
 
-        // Upload the local image to Cloudinary
-        // and get image url as response
         var result = await uploadToCloudinary(locaFilePath);
         imageUrlList.push(result.url);
       }
 
-      console.log(imageUrlList);
+      // console.log(imageUrlList);
 
-      // if(!images)
-      // return res.status(400).json({msg:"plz add image"});
+      const newProperty = new Property({
+        propertyContent, propertyPrice, category, location, propertyArea, parking, images: imageUrlList, bedroom, Guest, bathRoom, propertyDescription, user: JSON.stringify(req.user)
+      });
 
-      // const properti = await Property.findOne({property_id});
-      // if(properti)
-      // return res.status(400).json({ msg: "This property already exist" });
-
-      // const newProperty = new Property({
-      //   property_id, propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, images, bedroom, Guest, bathRoom, propertyDescription, ownerImages
-      // });
-
-      // await newProperty.save();
-      res.json({ msg: "Created a new Property" });
+      const saveProp = await newProperty.save();
+      res.json({ msg: "Created a new Property", data: saveProp });
     }
-
     catch (error) {
       return res.status(500).json({ msg: error.message });
     }
   },
+
   deleteProperty: async (req, res) => {
     try {
       await Property.findByIdAndDelete(req.params.id);
@@ -177,6 +168,6 @@ const propertyCtrl = {
       return res.status(500).json({ msg: error.message });
     }
   }
-}
+};
 
 module.exports = propertyCtrl;

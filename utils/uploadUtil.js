@@ -1,9 +1,16 @@
 const fs = require("fs");
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
 
 if (!fs.existsSync("./uploads")) {
     fs.mkdirSync("./uploads");
 }
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
+});
 
 // Multer setup
 var storage = multer.diskStorage({
@@ -25,6 +32,7 @@ const multiUpload = multer({ storage }).fields([
 ]);
 
 const uploadToCloudinary = async (locaFilePath) => {
+    locaFilePath = locaFilePath.replace("\\", "/");
     var mainFolderName = "main";
     var filePathOnCloudinary =
         mainFolderName + "/" + locaFilePath;
@@ -47,4 +55,10 @@ const uploadToCloudinary = async (locaFilePath) => {
             fs.unlinkSync(locaFilePath);
             return { message: "Fail" };
         });
+};
+
+module.exports={
+    upload,
+    multiUpload,
+    uploadToCloudinary
 };
