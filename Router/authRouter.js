@@ -6,7 +6,6 @@ const authAdmin = require("../middleware/authAdmin");
 
 const fs = require("fs");
 const multer = require("multer");
-const cloudinary = require("cloudinary").v2;
 
 if (!fs.existsSync("./uploads")) {
     fs.mkdirSync("./uploads");
@@ -28,13 +27,7 @@ const multiUpload = multer({ storage }).fields([
         name: 'images',
         maxCount: 10
     }
-])
-
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_API_KEY,
-    api_secret: process.env.CLOUD_API_SECRET
-});
+]);
 
 router.post('/registerBroker', multiUpload, authCtrl.resgisterBroker);
 router.post('/loginBroker', authCtrl.loginBroker);
