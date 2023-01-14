@@ -47,10 +47,6 @@ const authCtrl = {
       try {
          const { firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone } = req.body
 
-         //   if(!images){
-         //    return res.status(400).json({msg:"plz upload a Professional Image"});
-         //   }
-
          const { images } = req.files;
 
          var imageUrlList = [];

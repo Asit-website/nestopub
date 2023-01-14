@@ -7,11 +7,7 @@ cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET
-})
-
-// app.use(fileUpload({
-//     useTempFiles: true
-// }))
+});
 
 // Multer setup
 var storage = multer.diskStorage({
@@ -86,7 +82,7 @@ router.post('/upload', upload, async(req, res) =>{
     catch (err) {
         return res.status(500).json({msg: err.message})
     }
-})
+});
 
 router.post('/destroy', (req, res) =>{
     try {
@@ -103,13 +99,13 @@ router.post('/destroy', (req, res) =>{
         return res.status(500).json({msg: err.message})
     }
     
-})
+});
 
 
 const removeTmp = (path) =>{
     fs.unlink(path, err=>{
         if(err) throw err;
     })
-}
+};
 
 module.exports = router;
