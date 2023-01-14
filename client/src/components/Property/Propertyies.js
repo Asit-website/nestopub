@@ -31,7 +31,8 @@ const Propertyies = ({ setAuthFlag }) => {
         console.log(data);
         console.log(JSON.parse(data[7].user));
         setProperty(data);
-    }
+    };
+
     return (
         <>
             <div className="sell-prop">
@@ -312,8 +313,8 @@ const Propertyies = ({ setAuthFlag }) => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Propertyies;
 

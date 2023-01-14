@@ -27,6 +27,7 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
   {
     isLogged1=true;
   }
+  
   const [isAdmin] = state.BrokerApi.isAdmin;
   const adminstartor = () => {
     return (
@@ -50,8 +51,11 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route path="/brokerProfile/paymentHistory" element={isLogged ? <PaymentHistory setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/myProfile" element={isLogged ? <MyProfile setAuthFlag={setAuthFlag} claimPop={claimPop} setClaimPop={setClaimPop} /> : adminstartor()} />
         <Route path="/brokerProfile/chat" element={isLogged ? <BrokerChat cli={cli} setAuthFlag={setAuthFlag} /> : adminstartor()} />
+
         {/* <Route path="/brokerProfile/dashboard" element={isLogged ? <BrokerProfile setAuthFlag={setAuthFlag} /> : adminstartor()} /> */}
+
         <Route path="/brokerProfile/dashboard" element={isLogged1 ? <BrokerProfile setAuthFlag={setAuthFlag} /> : adminstartor()} />
+
         <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/brokerProperty" element={isLogged ? <BrokerProperty setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/propertyDetails/:id" element={isLogged ? <BrokerPropertyDetails setAuthFlag={setAuthFlag} /> : adminstartor()} />

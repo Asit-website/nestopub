@@ -18,8 +18,7 @@ export default function LoginSteeper() {
   const [skipped, setSkipped] = React.useState(new Set());
   const styleUpload = {
     opacity: activeStep === 0 || activeStep === 1 ? '0' : '1',
-  }
-
+  };
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -27,9 +26,7 @@ export default function LoginSteeper() {
 
   const deepStyle = {
     backgroundColor:'#D9D9D9',
-  }
-
-  
+  };
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -67,7 +64,6 @@ export default function LoginSteeper() {
   const handleReset = () => {
     setActiveStep(0);
   };
-
  
   const stylepeer = {
     backgroundColor: "#c00000",
@@ -246,4 +242,4 @@ export default function LoginSteeper() {
    
     </>
   );
-}
+};

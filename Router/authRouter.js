@@ -3,31 +3,7 @@ const authCtrl = require('../controller/authCtrl');
 const auth = require("../middleware/auth");
 // const authBroker = require('../middleware/authBroker');
 const authAdmin = require("../middleware/authAdmin");
-
-const fs = require("fs");
-const multer = require("multer");
-
-if (!fs.existsSync("./uploads")) {
-    fs.mkdirSync("./uploads");
-}
-
-// Multer setup
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "./uploads");
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname + new Date().getTime());
-    },
-});
-
-// const upload = multer({ storage }).single('image');
-const multiUpload = multer({ storage }).fields([
-    {
-        name: 'images',
-        maxCount: 10
-    }
-]);
+const { multiUpload } = require('../utils/uploadUtil');
 
 router.post('/registerBroker', multiUpload, authCtrl.resgisterBroker);
 router.post('/loginBroker', authCtrl.loginBroker);

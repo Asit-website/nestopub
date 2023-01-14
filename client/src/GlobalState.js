@@ -12,6 +12,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstlogin");
     if (firstLogin) {
+      console.log('i am');
       const refreshToken = async () => {
         // refreshtoken cookie wala hai
         const res = await axios.get("/api/refresh_token");
@@ -100,7 +101,6 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-
   const getProperties = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/getProperty`, {
@@ -153,7 +153,6 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-
   const registerBroker = async ({ firmName, authorizedName, city, mobile, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, individualName, city1, mobile1, name, phone, images }) => {
     try {
       console.log(images);
@@ -179,9 +178,8 @@ export const DataProvider = ({ children }) => {
       }
 
       const response = await fetch(`http://localhost:5000/api/registerBroker`, {
-
         method: "POST",
-
+        credentials: 'include',
         body: formData
       });
       const data = await response.json();
@@ -192,11 +190,11 @@ export const DataProvider = ({ children }) => {
       localStorage.setItem("firstlogin", true);
       return data;
     }
-
     catch (error) {
       console.log(error);
     }
-  }
+  };
+
   // Web socket client
   var client;
 

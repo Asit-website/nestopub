@@ -54,7 +54,7 @@ const BrokerManage = ({ setAuthFlag }) => {
 
     setBroker([...broker])
     setIsCheck(!isCheck);
-  }
+  };
 
   const deleteAll = () => {
     broker.forEach(broker => {
@@ -62,7 +62,8 @@ const BrokerManage = ({ setAuthFlag }) => {
         return DeleteProfile(broker._id);
       }
     })
-  }
+  };
+
   return (
     <>
       <AdminMenu />
@@ -94,7 +95,7 @@ const BrokerManage = ({ setAuthFlag }) => {
         broker.length === 0 && <h2 className='no-broker'>No Broker To Display</h2>
       }
     </>
-  )
-}
+  );
+};
 
-export default BrokerManage
+export default BrokerManage;
