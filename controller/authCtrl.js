@@ -17,7 +17,10 @@ cloudinary.config({
 });
 
 async function uploadToCloudinary(locaFilePath) {
-   console.log("hi");
+   // console.log("hi");
+   // console.log(locaFilePath);
+   locaFilePath = locaFilePath.replace("\\", "/");
+   // console.log(locaFilePath);
    var mainFolderName = "main";
    var filePathOnCloudinary =
       mainFolderName + "/" + locaFilePath;
@@ -29,7 +32,7 @@ async function uploadToCloudinary(locaFilePath) {
       .then((result) => {
 
          fs.unlinkSync(locaFilePath);
-
+         console.log(result);
          return {
             message: "Success",
             url: result.url,

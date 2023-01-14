@@ -51,7 +51,8 @@ const MyProfile = ({ setAuthFlag,claimPop,setClaimPop }) => {
          individualName:editData.individualName,
          city1:editData.city1,
          mobile1:editData.mobile1,
-         date2: editData.date2
+         date2: editData.date2,
+         images: editData.images
       });
       setUploadedImage1(editData.images.url);
     }
@@ -152,7 +153,7 @@ const MyProfile = ({ setAuthFlag,claimPop,setClaimPop }) => {
             <div className="broker-myp1 mr-2 p-3">
               <div className="broker-myp11 items-center flex mb-3 mt-7">
                 <img
-                  src={user.images.url}
+                  src={user.images[0]}
                   alt="notch"
                   className="mr-5 prof-img"
                 />
