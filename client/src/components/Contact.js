@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import corporate from '../images/corporate.jpg';
 import fb1 from '../images/fb1.png';
 import twit1 from '../images/twit1.png';
 import instagram from '../images/Instagram.png';
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
+import { GlobalState } from '../GlobalState';
 const Contact = ({setAuthFlag}) => {
    useEffect(()=>{
       setAuthFlag(false);
@@ -12,8 +13,11 @@ const Contact = ({setAuthFlag}) => {
    const [contactUser,setContactUser] = useState({
       name1:"",
       email1:"",
-      message1:""
+      message1:"",
    });
+
+   const state = useContext(GlobalState);
+   const [callback,setCallback] = state.BrokerApi.callback
 
    const handleInputs = (e) =>{
       setContactUser({...contactUser,[e.target.name]: e.target.value});
@@ -51,7 +55,60 @@ const Contact = ({setAuthFlag}) => {
       }
      
    }
+
+
+   const [builderDetails,setBuilderDetails] = useState({
+      builderName:"",
+      builderPhone:"",
+      builderEmail:"",
+      role:2
+      // role:""
+   });
+
+   const handleBuilderInput = (e) =>{
+      setBuilderDetails({...builderDetails,[e.target.name]: e.target.value})
+   }
+
+   const handleBuilder = async(e) =>{
+        e.preventDefault();
+      try {
+         let resp = await axios.post("/api/registerBuilder", { ...builderDetails });
+             localStorage.setItem('nestoBroker', JSON.stringify(resp.data.user));
+             localStorage.setItem("firstlogin", true);
+            setCallback(!callback);
+             console.log(resp);
+
+      } 
+      catch (error) {
+        console.log(error)   
+      }
+   }
+
+   const [builderLogin,setBuilderLogin] = useState({
+      builderName:"",
+      builderPhone:""
+   })
+
+   const handleBuilderInput1 = (e) =>{
+       setBuilderLogin({...builderLogin,[e.target.name]: e.target.value});
+   };
+
+   const loginBuilders = async(e) =>{
+      e.preventDefault();
+      try {
+         const res = await axios.post('/api/loginBuilder', { ...builderLogin });
+         localStorage.setItem('nestoBroker', JSON.stringify(res.data.user));
+         localStorage.setItem("firstlogin", true);
+         window.location.href = "/";
+         alert(res.data.msg); 
+      } 
+      
+      catch (error) {
+          console.log(error);
+      }
+   }
   return (
+   <>
     <div className='contact'>
        <div className="contact-sect">
            <div className='first-contact'>
@@ -152,6 +209,42 @@ const Contact = ({setAuthFlag}) => {
          </div>
        </div>
     </div>
+   <div className="builder flex justify-evenly">
+    <div className="builderRegister">
+        <h2>Builder Register</h2>
+        <form onSubmit={handleBuilder}>
+           <input type="text" placeholder='name' value={builderDetails.builderName}
+           onChange={handleBuilderInput} name="builderName" />
+           <br />
+           <input className='mt-2' type="text" placeholder='phone' value={builderDetails.builderPhone}
+            onChange={handleBuilderInput} name="builderPhone" />
+             <br />
+           <input className='mt-2' type="text" placeholder='email' value={builderDetails.builderEmail}
+            onChange={handleBuilderInput} name="builderEmail" />
+            <input hidden placeholder='role'   type="text" value={builderDetails.role} onChange={handleBuilderInput}
+            name="role"  />
+            <br />
+            <br />
+            <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Register</button>
+        </form>
+    </div>
+    <div className="builderLogin">
+    <h2>Builder Login</h2>
+        <form onSubmit={loginBuilders}>
+           <input type="text" placeholder='name' value={builderLogin.builderName}
+           onChange={handleBuilderInput1} name="builderName" />
+           <br />
+           <input className='mt-2' type="text" placeholder='phone' value={builderLogin.builderPhone}
+            onChange={handleBuilderInput1} name="builderPhone" />
+             <br />
+             <br />
+             <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
+        </form>
+    </div>
+    </div>
+    </>
+
+    
   )
 }
 

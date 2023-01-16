@@ -8,6 +8,7 @@ const Header = ({ pop, setPop }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
   const [isAdmin] = state.BrokerApi.isAdmin;
+  const [isBuilder] = state.BrokerApi.isBuilder
   const [user] = state.BrokerApi.user;
 
   const [click, setClick] = useState(false);
@@ -21,6 +22,19 @@ const Header = ({ pop, setPop }) => {
     localStorage.removeItem("firstlogin");
     window.location.href = "/";
   };
+  
+
+  const builderRouter = () => {
+    return (
+      <>
+        <li className="nav-item">
+          <NavLink to="/login" onClick={closeMenu}>
+             Builder Here
+          </NavLink>
+        </li>
+      </>
+    );
+  }
 
   // ============admin router===============
   const adminRouter = () => {
@@ -61,7 +75,7 @@ const Header = ({ pop, setPop }) => {
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
               <NavLink to="/contact" onClick={closeMenu}>
-                 Why Join Nestohub?
+                  Why Join Nestohub?
               </NavLink>
             </li>
             <li className="nav-item">
@@ -76,6 +90,7 @@ const Header = ({ pop, setPop }) => {
               </span>
             </li>
             {isAdmin && adminRouter()}
+            {isBuilder && builderRouter()}
             {isLogged ? (
               <>
                 <li className="nav-item">

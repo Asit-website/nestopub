@@ -197,6 +197,62 @@ const authCtrl = {
       catch (error) {
          return res.status(500).json({ msg: error.message });
       }
+   },
+
+   builderRegister: async (req,res) =>{
+       try {
+           const {builderName,builderPhone,builderEmail,role} = req.body;
+
+           const newBuilder = new Users({
+              builderName,builderPhone,builderEmail,role
+           })
+
+           const data = await newBuilder.save();
+
+           const accesstoken = createAccessToken({ id: data._id });
+           const refreshtoken = createRefreshToken({ id: data._id });
+
+           res.cookie("refreshtoken", refreshtoken, {
+            httpOnly: true,
+            path: '/api/refresh_token', // user ka token login krne pr milega
+            maxAge: 7 * 24 * 60 * 60 * 1000 //7d
+         });
+
+         res.json({ msg: "Registeration Successfully", accesstoken, user: data });
+
+       } 
+       
+       catch (error) {
+          return res.status(500).json({msg:error.message});
+       }
+   },
+   builderLogin : async (req,res) =>{
+      try {
+         const { builderName, builderPhone } = req.body;
+         const user = await Users.findOne({ builderName: builderName });
+         const builderMobile = await Users.findOne({ builderPhone: builderPhone });
+         if (!user) {
+            return res.status(400).json({ msg: "Broker Does Not Exist" });
+         }
+         if (!builderMobile) {
+            return res.status(400).json({ msg: "Brokers Mobile does not exist" });
+         }
+         const accesstoken = createAccessToken({ id: user._id });
+         const refreshtoken = createRefreshToken({ id: user._id });
+
+         res.cookie("refreshtoken", refreshtoken, {
+            httpOnly: true,
+            path: '/api/refresh_token',
+            maxAge: 7 * 24 * 60 * 60 * 1000 //7d
+         });
+
+         res.json({ msg: "You are Login as an Builder", accesstoken, user });
+      }
+
+      catch (error) {
+         return res.status(500).json({ msg: error.message })
+      }
+
    }
 };
 
