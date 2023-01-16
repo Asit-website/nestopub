@@ -67,6 +67,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
 
   const handleDestroy = async () => {
     try {
+      console.log(BuyerImages);
       await axios.post(
         "/api/destroy",
         { public_id: BuyerImages.public_id }
@@ -91,13 +92,11 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
 
   const handleClient = async (e) => {
     e.preventDefault();
-    console.log('yes');
     // setClient({...client, date: new Date(client.date).getTime()});
     client['date']=new Date(client.date).getTime();
 
     if(isEdit)
     {
-      console.log('if');
       console.log(client);
       const data = await state.editClient({ ...client, BuyerImages });
       console.log(data);

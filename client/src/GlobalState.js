@@ -8,6 +8,7 @@ export const DataProvider = ({ children }) => {
   const [token, setToken] = useState(false);
   const [isLogged1, setIsLogged1] = useState(false);
   const [user1, setUser1] = useState(false);
+  const [headerFlag, setHeaderFlag] = useState(false);
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstlogin");
@@ -212,7 +213,9 @@ export const DataProvider = ({ children }) => {
     postProperty,
     registerBroker,
     isLogged1,
-    user1
+    user1,
+    setHeaderFlag,
+    headerFlag
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;
