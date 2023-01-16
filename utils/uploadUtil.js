@@ -22,7 +22,7 @@ var storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage }).single('image');
+const upload = multer({ storage }).single('file');
 
 const multiUpload = multer({ storage }).fields([
     {
@@ -48,6 +48,7 @@ const uploadToCloudinary = async (locaFilePath) => {
             return {
                 message: "Success",
                 url: result.url,
+                public_id: result.public_id
             };
         })
         .catch((error) => {

@@ -27,9 +27,9 @@ const brokerCtrl = {
             if(cancelCheque){
                 updateObj1.cancelCheque = cancelCheque;
             }
-            await Users.findOneAndUpdate({ _id: req.params.id },updateObj1);
+            const data = await Users.findOneAndUpdate({ _id: req.params.id },updateObj1,{new:true});
 
-            res.json({ msg: "update profile successfully" });
+            res.json({ msg: "update profile successfully", data });
 
         }
 

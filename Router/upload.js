@@ -29,11 +29,9 @@ router.post('/upload', upload, async (req, res) => {
                     res.json({public_id: result.public_id, url: result.secure_url});
                 }) */
 
-        // console.log(req.file);
         var locaFilePath = req.file.path;
         var result = await uploadToCloudinary(locaFilePath);
         // console.log(result);
-
         res.json({ url: result.url, public_id: result.public_id });
     }
     catch (err) {
