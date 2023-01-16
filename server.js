@@ -39,6 +39,7 @@ app.use('/user', require('./Router/ContactRouter'));
 app.use('/api', require('./Router/propertyRouter'));
 app.use('/api', require('./Router/categoryRouter'));
 app.use('/chat', require('./Router/chatRouter'));
+// app.use("/api",require('./Router/builderRouter'));
 
 
 const URI = process.env.MONGODB_URL;

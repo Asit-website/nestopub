@@ -136,8 +136,18 @@ const userSchema = new mongoose.Schema(
     saved:{
       type:Array,
       default:[]
+    },
+    builderName:{
+      type:String,
+    },
+    builderEmail:{
+      type:String,
+    },
+    builderPhone:{
+      type:String,
     }
   },
+  
   {
     timestamps: true,
   }

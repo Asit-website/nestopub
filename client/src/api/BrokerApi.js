@@ -3,6 +3,7 @@ import axios from 'axios';
 const BrokerApi = (token) => {
    const [isLogged, setIsLogged] = useState(false);
    const [isAdmin, setIsAdmin] = useState(false);
+   const [isBuilder,setIsBuilder] = useState(false);
    const [user, setUser] = useState([]);
    const [callback, setCallback] = useState(false);
    useEffect(() => {
@@ -16,6 +17,7 @@ const BrokerApi = (token) => {
                setUser(res.data);
                // console.log('sdfdsf');
                res.data.role === 1 ? setIsAdmin(true) : setIsAdmin(false);
+               res.data.role === 2 ? setIsBuilder(true) : setIsBuilder(false);
             }
             catch (error) {
                alert(error.response.data.msg);
@@ -26,12 +28,15 @@ const BrokerApi = (token) => {
       }
    }, [token, callback]);
 
+   
+
 
    return {
       isLogged: [isLogged, setIsLogged],
       isAdmin: [isAdmin, setIsAdmin],
       user: [user, setUser],
-      callback: [callback, setCallback]
+      callback: [callback, setCallback],
+      isBuilder: [isBuilder,setIsBuilder]
    }
 }
 
