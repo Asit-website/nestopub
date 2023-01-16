@@ -96,7 +96,7 @@ const authCtrl = {
             maxAge: 7 * 24 * 60 * 60 * 1000 //7d
          })
 
-         res.json({ msg: "You are Login as an Individual Broker", accesstoken });
+         res.json({ msg: "You are Login as an Individual Broker", accesstoken, user: individual });
       }
 
       catch (error) {
@@ -128,9 +128,8 @@ const authCtrl = {
             maxAge: 7 * 24 * 60 * 60 * 1000 //7d
          })
 
-         res.json({ msg: "You are Login as an Admin", accesstoken });
+         res.json({ msg: "You are Login as an Admin", accesstoken, user: admin });
       }
-
       catch (error) {
          return res.status(500).json({ msg: error.message })
       }

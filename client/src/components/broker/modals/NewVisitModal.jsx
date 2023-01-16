@@ -17,9 +17,9 @@ const NewVisitModal = (props) => {
     useEffect(()=>{
         console.log(props.editData1);
         setValue({
-            id: props.editData1._id,
-            client: props.editData1.client,
-            date: new Date(props.editData1.date)
+            id: props?.editData1?._id,
+            client: props?.editData1?.client,
+            date: new Date(Number(props?.editData1?.date))
         });
     },[props.editData1]);
 
@@ -37,12 +37,10 @@ const NewVisitModal = (props) => {
         let data;
         if(!props.isEdit1)
         {
-            console.log('if');
             data = await state.postVisit(value.client, new Date(value.date).getTime());
         }
         else
         {
-            console.log('else');
             data = await state.editSchedule({id: value.id,client: value.client, date: new Date(value.date).getTime()});
         }
 

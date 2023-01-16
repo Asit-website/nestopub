@@ -10,8 +10,11 @@ const WebSocketHandler = (props) => {
     const state = useContext(GlobalState);
     const [isLogged] = state.BrokerApi.isLogged;
 
+
     // Constantly check for web socket connection
     useEffect(() => {
+        // console.log(localStorage.getItem('nestoToken'));
+        // console.log(localStorage.getItem('nestoBroker'));
         if(localStorage.getItem('nestoToken'))
         {
             let url = window.location.pathname.replace(/\//g, '-');
@@ -22,6 +25,8 @@ const WebSocketHandler = (props) => {
             };
     
             // context.client = new ReconnectingWebSocket(`ws://127.0.0.1:5000/socketServer/${token}/${url}`, [], options);
+            // console.log(JSON.parse(localStorage.getItem('nestoBroker')));
+
             client = new ReconnectingWebSocket(`ws://localhost:5000/socketServer/${url}/${JSON.parse(localStorage.getItem('nestoBroker'))._id}`, [], options);
             // console.log(client);
             props.setCli(client);
@@ -33,10 +38,12 @@ const WebSocketHandler = (props) => {
                 console.log('offline');
                 client.close();
             });
+
             client.addEventListener('close', () => {
                 console.log('close');
                 // document.getElementById('dis_modal').style.display = 'block';
             });
+            
             client.addEventListener('open', () => {
                 console.log('open');
                 // document.getElementById('dis_modal').style.display = 'none';

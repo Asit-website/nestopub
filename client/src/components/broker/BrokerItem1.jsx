@@ -182,7 +182,7 @@ const BrokerItem1 = () => {
                                                 <div className="text">
                                                     <h5 className='mb-0 font-semibold text-sm'>Visit with {info?.BuyName}</h5>
                                                     <p className='mb-0 text-xs'>Visting on {info?.BuyerLocation} ({info?.BuyerBhk})</p>
-                                                    <p className='font-semibold text-sm'>{new Date(e?.date).toLocaleString()}</p>
+                                                    <p className='font-semibold text-sm'>{new Date(Number(e?.date)).toLocaleString()}</p>
                                                 </div>
                                                 <div onClick={()=>{
                                                     setIsEdit1(true);
