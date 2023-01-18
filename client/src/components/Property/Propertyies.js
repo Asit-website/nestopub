@@ -21,16 +21,19 @@ const Propertyies = ({ setAuthFlag }) => {
     }, []);
 
     const state = useContext(GlobalState);
+    const [page] = state.page
+   const [result,setResult] = state.result;
 
     useEffect(() => {
         getProperties();
-    }, []);
+    }, [page]);
 
     const getProperties = async () => {
         const data = await state.getProperties();
         console.log(data);
-        console.log(JSON.parse(data[7].user));
-        setProperty(data);
+        // console.log(JSON.parse(data[7].user));
+        setProperty(data.property);
+        setResult(data.result);
     };
 
     return (
@@ -56,7 +59,13 @@ const Propertyies = ({ setAuthFlag }) => {
                                     <th className="px-6 py-4 ">
                                         <h3 className='font-medium text-gray-900  dark:text-white'>Locations</h3>
                                         <select name="" id="city">
-                                            <option value="">Select your city</option>
+                                        <option value="">Select your city</option>
+                                        {/* {
+                                           property.map((val)=>{
+                                              return <option key={val._id} value={val._id}>{val.location}</option>
+                                           })
+                                        } */}
+                                           
                                         </select>
                                     </th>
 
@@ -64,12 +73,22 @@ const Propertyies = ({ setAuthFlag }) => {
                                         <h3 className='propji  font-medium text-gray-900  dark:text-white'>Property Type</h3>
                                         <select name="" id="city">
                                             <option value="">Select property type</option>
+                                            {/* {
+                                                property.map(val=>{
+                                                    return <option key={val._id}  value={val._id}>{val.category}</option>
+                                                })
+                                            } */}
                                         </select>
                                     </td>
                                     <td className="px-6 py-4 ">
                                         <h3 className='price font-medium text-gray-900  dark:text-white'>Price</h3>
                                         <select name="" id="city">
                                             <option value="">Select price</option>
+                                            {/* {
+                                                property.map(val=>{
+                                                    return <option key={val._id} value={val._id}>{val.price}</option>
+                                                })
+                                            } */}
                                         </select>
                                     </td>
                                     <td className="px-6 py-4 ">
@@ -135,7 +154,8 @@ const Propertyies = ({ setAuthFlag }) => {
                     {
                         property.map(((val, index) => {
                             return (
-                                <div key={val._id} className="first-property">
+                               <div key={val._id} className="first-property">
+                                   <NavLink to={`/detail/${val._id}`}>
                                     <div className='similar-properties-card similar2'>
                                         <div className='sp-card-img'>
                                             <img src={val.images[0]} alt="" />
@@ -159,8 +179,8 @@ const Propertyies = ({ setAuthFlag }) => {
                                             </div>
                                             <div className='sp-broker-sec flex'>
                                                 <div className='sp-broker-img flex'>
-                                                    <img src={brokerimg} />
-                                                    <p>Jenny Wilson</p>
+                                                    <img src={JSON.parse(val.user).images.url} />
+                                                    <p>{JSON.parse(val.user).name}</p>
                                                 </div>
                                                 <div className='sp-actions flex'>
                                                     <div className='flex action-box'>
@@ -176,7 +196,9 @@ const Propertyies = ({ setAuthFlag }) => {
                                             </div>
                                         </div>
                                     </div>
+                                    </NavLink>
                                 </div>
+                               
                             )
                         }))
                     }

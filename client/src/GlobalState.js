@@ -10,6 +10,9 @@ export const DataProvider = ({ children }) => {
   const [user1, setUser1] = useState(false);
   const [headerFlag, setHeaderFlag] = useState(false);
 
+  const [result,setResult] = useState(0);
+  const [page,setPage] = useState(1);
+
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstlogin");
     if (firstLogin) {
@@ -104,13 +107,14 @@ export const DataProvider = ({ children }) => {
 
   const getProperties = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/getProperty`, {
+      const response = await fetch(`http://localhost:5000/api/getProperty?limit=${page*6}`, {
         method: "GET",
-        headers: {
-          "Authorization": token
-        }
+        // headers: {
+        //   "Authorization": token
+        // }
       });
       const data = await response.json();
+      setResult(data.result);
       return data;
     } catch (error) {
       console.log(error);
@@ -142,15 +146,15 @@ export const DataProvider = ({ children }) => {
       const response = await fetch(`http://localhost:5000/api/registerProperty`, {
         method: "POST",
         headers: {
-
           "Authorization": token
         },
         body: formdata
       });
       const data = await response.json();
+      console.log(data);
       return data;
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
@@ -215,7 +219,9 @@ export const DataProvider = ({ children }) => {
     isLogged1,
     user1,
     setHeaderFlag,
-    headerFlag
+    headerFlag,
+    page:[page,setPage],
+    result:[result,setResult]
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;

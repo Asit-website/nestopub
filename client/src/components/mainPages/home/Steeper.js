@@ -29,12 +29,12 @@ export default function Steeper({ type, setType, ty }) {
       mobile1: "",
       name: "",
       phone: "",
-      images: ""
+      // images: ""
    });
    // const [details, setDetails] = useState({});
 
    const state = useContext(GlobalState);
-   // const [images, setImages] = useState(false);
+   const [images, setImages] = useState(false);
    const [isAdmin] = state.BrokerApi.isAdmin;
    const [tabIndex, setTabIndex] = useState(1);
    // const [isActive, setIsActive] = useState(false);
@@ -89,93 +89,93 @@ export default function Steeper({ type, setType, ty }) {
       if (document.getElementsByName(e.target.name)[0].nextElementSibling) {
          document.getElementsByName(e.target.name)[0].nextElementSibling.remove();
       }
-      // setDetails({ ...details, [e.target.name]: e.target.value });
+      setDetails({ ...details, [e.target.name]: e.target.value });
 
-      if (e.target.name === 'images') {
-         setDetails({ ...details, [e.target.name]: e.target.files });
-      }
-      else {
-         setDetails({ ...details, [e.target.name]: e.target.value });
-      }
+      // if (e.target.name === 'images') {
+      //    setDetails({ ...details, [e.target.name]: e.target.files });
+      // }
+      // else {
+      //    setDetails({ ...details, [e.target.name]: e.target.value });
+      // }
+   };
+
+   // const handleSubmit = async (e) => {
+   //    e.preventDefault();
+   //    try {
+   //       // console.log(details);
+
+   //       let ans = await state.registerBroker(details);
+   //       localStorage.setItem('nestoBroker', JSON.stringify(ans.user));
+   //       localStorage.setItem("firstlogin", true);
+   //       // window.location.href = "/brokerProfile/dashboard";
+   //       // console.log(ans);
+   //       // console.log(ans.user.images);
+   //       navigate("/brokerProfile/dashboard");
+   //    }
+   //    catch (error) {
+   //       console.log(error);
+   //    }
+   // };
+
+   const handleUpload = async (e) => {
+     e.preventDefault();
+     try {
+       const file = e.target.files[0];
+       if (!file) return alert("Files doesnt exit");
+       if (file.size > 1024 * 1024)
+         return alert("size to large")
+
+       if (file.type !== 'image/jpeg' && file.type !== 'image/png')
+         return alert("File Format is incorrect")
+
+       let formData = new FormData();
+       formData.append('file', file);
+       const res = await axios.post('/api/upload', formData)
+       setImages(res.data);
+     }
+
+     catch (error) {
+       alert(error.response.data.msg);
+     }
+   };
+
+   const handleDestroy = async () => {
+     try {
+       await axios.post(
+         "/api/destroy",
+         { public_id: images.public_id }
+       );
+       setImages(false);
+     } catch (error) {
+       alert(error.response.data.msg);
+     }
+   };
+
+
+   const styleUploads = {
+     display: images ? "block" : "none",
    };
 
    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-         // console.log(details);
+     e.preventDefault();
+     try {
+       let resp = await axios.post("/api/registerBroker", { ...details, images });
+       localStorage.setItem('nestoBroker', JSON.stringify(resp.data.user));
+       localStorage.setItem("firstlogin", true);
+       window.location.href = "/brokerProfile/dashboard";
 
-         let ans = await state.registerBroker(details);
-         localStorage.setItem('nestoBroker', JSON.stringify(ans.user));
-         localStorage.setItem("firstlogin", true);
-         // window.location.href = "/brokerProfile/dashboard";
-         // console.log(ans);
-         // console.log(ans.user.images);
-         navigate("/brokerProfile/dashboard");
-      }
-      catch (error) {
-         console.log(error);
-      }
+       let t = document.getElementById("git");
+       t.style.display = "block"
+       t.innerText = `${resp.data.msg}`;
+       setTimeout(() => {
+         t.style.display = "none";
+       }, 5000);
+     }
+
+     catch (error) {
+       alert(error.response.data.msg)
+     }
    };
-
-   // const handleUpload = async (e) => {
-   //   e.preventDefault();
-   //   try {
-   //     const file = e.target.files[0];
-   //     if (!file) return alert("Files doesnt exit");
-   //     if (file.size > 1024 * 1024)
-   //       return alert("size to large")
-
-   //     if (file.type !== 'image/jpeg' && file.type !== 'image/png')
-   //       return alert("File Format is incorrect")
-
-   //     let formData = new FormData();
-   //     formData.append('file', file);
-   //     const res = await axios.post('/api/upload', formData)
-   //     setImages(res.data);
-   //   }
-
-   //   catch (error) {
-   //     alert(error.response.data.msg);
-   //   }
-   // };
-
-   // const handleDestroy = async () => {
-   //   try {
-   //     await axios.post(
-   //       "/api/destroy",
-   //       { public_id: images.public_id }
-   //     );
-   //     setImages(false);
-   //   } catch (error) {
-   //     alert(error.response.data.msg);
-   //   }
-   // };
-
-
-   // const styleUploads = {
-   //   display: images ? "block" : "none",
-   // };
-
-   // const handleSubmit = async (e) => {
-   //   e.preventDefault();
-   //   try {
-   //     let resp = await axios.post("/api/registerBroker", { ...details, images });
-   //     localStorage.setItem('nestoBroker', JSON.stringify(resp.data.user));
-   //     localStorage.setItem("firstlogin", true);
-   //     window.location.href = "/brokerProfile/dashboard";
-
-   //     let t = document.getElementById("git");
-   //     t.style.display = "block"
-   //     t.innerText = `${resp.data.msg}`;
-   //     setTimeout(() => {
-   //       t.style.display = "none";
-   //     }, 5000);
-   //   }
-
-   //   catch (error) {
-   //     alert(error.response.data.msg)
-   //   }
-   // };
 
    const [activeStep, setActiveStep] = React.useState(0);
    const [skipped, setSkipped] = React.useState(new Set());
@@ -525,11 +525,11 @@ export default function Steeper({ type, setType, ty }) {
                               <div className="form">
                                  <div className="top-form">
                                     <div className="inner-form inner-form-1 upload">
-                                       <input required type="file" name="images" multiple id="images" onChange={handleChange} />
-                                       {/* <div id="file_img" style={styleUploads} >
+                                       <input required type="file" name="file"  id="file_up" onChange={handleUpload} />
+                                       <div id="file_img" style={styleUploads} >
                             <img src={images ? images.url : ''} alt="not" />
                             <span onClick={handleDestroy}>X</span>
-                          </div> */}
+                          </div>
                                     </div>
                                  </div>
                                  <span className="resend">Resend</span>

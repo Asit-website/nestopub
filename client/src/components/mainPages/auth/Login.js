@@ -148,7 +148,7 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
          alert(res.data.msg);
       }
       catch (error) {
-         alert(error.response.data.msg)
+         alert(error.response.data.msg);
       }
    };
 
