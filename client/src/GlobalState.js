@@ -105,9 +105,10 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const getProperties = async () => {
+  const getProperties = async (category, sortBy) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/getProperty?limit=${page*6}`, {
+      console.log(category, sortBy);
+      const response = await fetch(`http://localhost:5000/api/getProperty?limit=${page*6}&category=${category}&sortBy=${sortBy}`, {
         method: "GET",
         // headers: {
         //   "Authorization": token

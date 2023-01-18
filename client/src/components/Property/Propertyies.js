@@ -22,18 +22,41 @@ const Propertyies = ({ setAuthFlag }) => {
 
     const state = useContext(GlobalState);
     const [page] = state.page
-   const [result,setResult] = state.result;
+    const [result, setResult] = state.result;
+    const [category, setCategory] = useState("all");
+    const [sortBy, setSortBy] = useState("");
+    const [filter, setFilter] = useState({
+        city: "",
+        type: "",
+        price: ""
+    });
 
     useEffect(() => {
-        getProperties();
-    }, [page]);
+        // console.log(category);
+        getProperties(category, sortBy);
+    }, [page, category, sortBy]);
 
-    const getProperties = async () => {
-        const data = await state.getProperties();
-        console.log(data);
-        // console.log(JSON.parse(data[7].user));
+    const getProperties = async (category, sortBy) => {
+        const data = await state.getProperties(category, sortBy);
+        // console.log(data);
         setProperty(data.property);
         setResult(data.result);
+    };
+
+    const handleSortChange = (e) => {
+        setSortBy(e.target.value);
+        console.log(sortBy);
+    };
+
+    const handleChange = (e) => {
+        setFilter({ ...filter, [e.target.name]: e.target.value });
+    };
+
+    const toggleCatgory = (e, category) => {
+        console.log(e.target);
+        document.querySelector('.ac').classList.remove('ac');
+        e.target.classList.add('ac');
+        setCategory(category);
     };
 
     return (
@@ -58,20 +81,20 @@ const Propertyies = ({ setAuthFlag }) => {
                                 <tr className="bg-white dark:bg-gray-800">
                                     <th className="px-6 py-4 ">
                                         <h3 className='font-medium text-gray-900  dark:text-white'>Locations</h3>
-                                        <select name="" id="city">
-                                        <option value="">Select your city</option>
-                                        {/* {
-                                           property.map((val)=>{
-                                              return <option key={val._id} value={val._id}>{val.location}</option>
-                                           })
-                                        } */}
-                                           
+                                        <select name="city" onChange={handleChange} value={filter.city} id="city">
+                                            <option value="">Select your city</option>
+                                            {
+                                                property.map((val) => {
+                                                    return <option key={val._id} value={val.location}>{val.location}</option>
+                                                })
+                                            }
+
                                         </select>
                                     </th>
 
                                     <td className="px-6 py-4 ">
                                         <h3 className='propji  font-medium text-gray-900  dark:text-white'>Property Type</h3>
-                                        <select name="" id="city">
+                                        <select name="type" onChange={handleChange} value={filter.city} id="ptype">
                                             <option value="">Select property type</option>
                                             {/* {
                                                 property.map(val=>{
@@ -82,7 +105,7 @@ const Propertyies = ({ setAuthFlag }) => {
                                     </td>
                                     <td className="px-6 py-4 ">
                                         <h3 className='price font-medium text-gray-900  dark:text-white'>Price</h3>
-                                        <select name="" id="city">
+                                        <select name="price" onChange={handleChange} value={filter.city} id="price">
                                             <option value="">Select price</option>
                                             {/* {
                                                 property.map(val=>{
@@ -95,34 +118,6 @@ const Propertyies = ({ setAuthFlag }) => {
                                         <button className='btnserach'>Search</button>
                                     </td>
                                 </tr>
-                                {/* <tr className="bg-white dark:bg-gray-800">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    $99
-                </td>
-            </tr> */}
                             </tbody>
                         </table>
                     </div>
@@ -137,16 +132,26 @@ const Propertyies = ({ setAuthFlag }) => {
                 <div className='sort-flex'>
                     <div className="sort-flex1">
                         <img src={ListBullets} alt="" />
-                        <span>sort by: <select name="" id="">
+                        <span>sort by: <select value={sortBy} onChange={handleSortChange}>
                             <option value="">Default Order</option>
+                            <option value={1}>Price (Low to High)</option>
+                            <option value={-1}>Price (High to Low)</option>
                         </select></span>
                     </div>
                     <div className="sort-flex2">
                         <div className="allp">
-                            <p className='ac cursor-pointer'>All Properties</p>
-                            <p className='act cursor-pointer'>For Buy</p>
-                            <p className='act cursor-pointer'>For Sale</p>
-                            <p className='act cursor-pointer'>For Rent</p>
+                            <p onClick={(e) => {
+                                toggleCatgory(e, "all");
+                            }} className='ac cursor-pointer'>All Properties</p>
+                            <p onClick={(e) => {
+                                toggleCatgory(e, "buy");
+                            }} className='act cursor-pointer'>For Buy</p>
+                            <p onClick={(e) => {
+                                toggleCatgory(e, "sell");
+                            }} className='act cursor-pointer'>For Sale</p>
+                            <p onClick={(e) => {
+                                toggleCatgory(e, "rent");
+                            }} className='act cursor-pointer'>For Rent</p>
                         </div>
                     </div>
                 </div>
@@ -154,51 +159,51 @@ const Propertyies = ({ setAuthFlag }) => {
                     {
                         property.map(((val, index) => {
                             return (
-                               <div key={val._id} className="first-property">
-                                   <NavLink to={`/detail/${val._id}`}>
-                                    <div className='similar-properties-card similar2'>
-                                        <div className='sp-card-img'>
-                                            <img src={val.images[0]} alt="" />
-                                        </div>
-                                        <div className='sp-card-detail'>
-                                            <p className='sp-card-text'>{val.propertyContent}</p>
-                                            <p className='sp-card-price'>&#8377; {val.propertyPrice}</p>
-                                            <div className='property-props flex'>
-                                                <div className='property-prop flex'>
-                                                    <img src={car} />
-                                                    <p>{val.parking}</p>
+                                <div key={val._id} className="first-property">
+                                    <NavLink to={`/detail/${val._id}`}>
+                                        <div className='similar-properties-card similar2'>
+                                            <div className='sp-card-img'>
+                                                <img src={val.images[0]} alt="" />
+                                            </div>
+                                            <div className='sp-card-detail'>
+                                                <p className='sp-card-text'>{val.propertyContent}</p>
+                                                <p className='sp-card-price'>&#8377; {val.propertyPrice}</p>
+                                                <div className='property-props flex'>
+                                                    <div className='property-prop flex'>
+                                                        <img src={car} />
+                                                        <p>{val.parking}</p>
+                                                    </div>
+                                                    <div className='property-prop  flex'>
+                                                        <img src={bathtub} />
+                                                        <p>{val.bathRoom}</p>
+                                                    </div>
+                                                    <div className='property-prop  flex'>
+                                                        <img src={zoomout} />
+                                                        <p>{val.propertyArea} ft</p>
+                                                    </div>
                                                 </div>
-                                                <div className='property-prop  flex'>
-                                                    <img src={bathtub} />
-                                                    <p>{val.bathRoom}</p>
-                                                </div>
-                                                <div className='property-prop  flex'>
-                                                    <img src={zoomout} />
-                                                    <p>{val.propertyArea} ft</p>
+                                                <div className='sp-broker-sec flex'>
+                                                    <div className='sp-broker-img flex'>
+                                                        <img src={JSON.parse(val.user).images.url} />
+                                                        <p>{JSON.parse(val.user).name}</p>
+                                                    </div>
+                                                    <div className='sp-actions flex'>
+                                                        <div className='flex action-box'>
+                                                            <img src={share} />
+                                                        </div>
+                                                        <div className='flex action-box'>
+                                                            <img src={wishlist} />
+                                                        </div>
+                                                        <div className='flex action-box'>
+                                                            <img src={addProperty} />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className='sp-broker-sec flex'>
-                                                <div className='sp-broker-img flex'>
-                                                    <img src={JSON.parse(val.user).images.url} />
-                                                    <p>{JSON.parse(val.user).name}</p>
-                                                </div>
-                                                <div className='sp-actions flex'>
-                                                    <div className='flex action-box'>
-                                                        <img src={share} />
-                                                    </div>
-                                                    <div className='flex action-box'>
-                                                        <img src={wishlist} />
-                                                    </div>
-                                                    <div className='flex action-box'>
-                                                        <img src={addProperty} />
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
-                                    </div>
                                     </NavLink>
                                 </div>
-                               
+
                             )
                         }))
                     }
@@ -339,90 +344,3 @@ const Propertyies = ({ setAuthFlag }) => {
 };
 
 export default Propertyies;
-
-/* 
-<div className="second-property">
-    <div className='similar-properties-card similar2'>
-        <div className='sp-card-img'>
-            <img src={ghar} alt="" />
-        </div>
-        <div className='sp-card-detail'>
-            <p className='sp-card-text'>Lorem Ipsum in graphical and textual context.</p>
-            <p className='sp-card-price'>&#8377; 5000</p>
-            <div className='property-props flex'>
-                <div className='property-prop flex'>
-                    <img src={car} />
-                    <p>4</p>
-                </div>
-                <div className='property-prop  flex'>
-                    <img src={bathtub} />
-                    <p>4</p>
-                </div>
-                <div className='property-prop  flex'>
-                    <img src={zoomout} />
-                    <p>2,096.00 ft</p>
-                </div>
-            </div>
-            <div className='sp-broker-sec flex'>
-                <div className='sp-broker-img flex'>
-                    <img src={brokerimg} />
-                    <p>Jenny Wilson</p>
-                </div>
-                <div className='sp-actions flex'>
-                    <div className='flex action-box'>
-                        <img src={share} />
-                    </div>
-                    <div className='flex action-box'>
-                        <img src={wishlist} />
-                    </div>
-                    <div className='flex action-box'>
-                        <img src={addProperty} />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div className="third-property">
-    <div className='similar-properties-card similar2'>
-        <div className='sp-card-img'>
-            <img src={ghar} alt="" />
-        </div>
-        <div className='sp-card-detail'>
-            <p className='sp-card-text'>Lorem Ipsum in graphical and textual context.</p>
-            <p className='sp-card-price'>&#8377; 5000</p>
-            <div className='property-props flex'>
-                <div className='property-prop flex'>
-                    <img src={car} />
-                    <p>4</p>
-                </div>
-                <div className='property-prop  flex'>
-                    <img src={bathtub} />
-                    <p>4</p>
-                </div>
-                <div className='property-prop  flex'>
-                    <img src={zoomout} />
-                    <p>2,096.00 ft</p>
-                </div>
-            </div>
-            <div className='sp-broker-sec flex'>
-                <div className='sp-broker-img flex'>
-                    <img src={brokerimg} />
-                    <p>Jenny Wilson</p>
-                </div>
-                <div className='sp-actions flex'>
-                    <div className='flex action-box'>
-                        <img src={share} />
-                    </div>
-                    <div className='flex action-box'>
-                        <img src={wishlist} />
-                    </div>
-                    <div className='flex action-box'>
-                        <img src={addProperty} />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-*/
