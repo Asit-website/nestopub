@@ -1,6 +1,6 @@
 const Property = require("../models/propertyModel");
 const Users = require("../models/userModel");
-
+const { uploadToCloudinary } = require('../utils/uploadUtil');
 class APIfeatures {
   constructor(query, queryString) {
     this.query = query;
@@ -32,7 +32,7 @@ class APIfeatures {
 
   pagination() {
     const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 9;
+    const limit = this.queryString.limit * 1 || 6;
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit)
     return this;
@@ -43,8 +43,19 @@ class APIfeatures {
 const propertyCtrl = {
   getProperty: async (req, res) => {
     try {
-      const property = await Property.find();
-      res.json(property);
+      const features = new APIfeatures(Property.find(), req.query).
+      pagination();
+
+      const property = await features.query;
+
+      res.json({
+        status:"success",
+        result:property.length,
+        property:property
+      })
+
+      // const property = await Property.find();
+      // res.json(property);
     }
     catch (error) {
       return res.status(500).json({ msg: error.message });

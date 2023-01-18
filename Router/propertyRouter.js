@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const propertyCtrl = require("../controller/propertyCtrl");
 const auth = require("../middleware/auth");
+const authAdmin = require("../middleware/authAdmin");
+const authBuilder = require("../middleware/authBuilder");
 const Property = require("../models/propertyModel");
 const { multiUpload, uploadToCloudinary } = require("../utils/uploadUtil");
 
@@ -34,10 +36,10 @@ const { multiUpload, uploadToCloudinary } = require("../utils/uploadUtil");
 //     }
 // });
 
-router.post('/registerProperty', multiUpload, auth, propertyCtrl.createProperty);
+router.post('/registerProperty', multiUpload,auth,authAdmin,authBuilder,propertyCtrl.createProperty);
 router.get('/getProperty', propertyCtrl.getProperty);
-router.delete('/deleteProperty/:id', propertyCtrl.deleteProperty);
-router.delete('/deleteProperty', propertyCtrl.deletePropertyAll);
+router.delete('/deleteProperty/:id', auth, authAdmin, propertyCtrl.deleteProperty);
+router.delete('/deleteProperty',auth,authAdmin, propertyCtrl.deletePropertyAll);
 router.patch('/editProperty/:id', propertyCtrl.editProperty);
 
 

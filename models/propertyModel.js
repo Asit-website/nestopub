@@ -4,7 +4,7 @@ const propertySchema = new mongoose.Schema({
     type: String,
   },
   propertyPrice: {
-    type: Number,
+    type: String,
   },
   category: {
     type: String,

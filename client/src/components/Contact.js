@@ -76,11 +76,16 @@ const Contact = ({setAuthFlag}) => {
              localStorage.setItem('nestoBroker', JSON.stringify(resp.data.user));
              localStorage.setItem("firstlogin", true);
             setCallback(!callback);
-             console.log(resp);
+            alert(resp.data.msg);
+            setBuilderDetails({
+               builderName:"",
+               builderPhone:"",
+               builderEmail:"",
+            });
 
       } 
       catch (error) {
-        console.log(error)   
+        alert(error.response.data.msg);
       }
    }
 
@@ -104,7 +109,7 @@ const Contact = ({setAuthFlag}) => {
       } 
       
       catch (error) {
-          console.log(error);
+          alert(error.response.data.msg);
       }
    }
   return (

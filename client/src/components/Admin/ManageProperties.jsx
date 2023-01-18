@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { GlobalState } from '../../GlobalState';
 import AdminMenu from './AdminMenu';
-
+import { useNavigate } from 'react-router-dom';
 const ManageProperties = () => {
     const context = useContext(GlobalState);
     const [value, setValue] = useState({
@@ -18,6 +18,8 @@ const ManageProperties = () => {
         bathroom: '',
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         if (e.target.name === 'images') {
             setValue({ ...value, [e.target.name]: e.target.files });
@@ -31,6 +33,8 @@ const ManageProperties = () => {
         e.preventDefault();
         console.log(value);
         let ans = await context.postProperty(value);
+        alert("list a Property");
+        navigate("/dashboard/manageProp");
         // console.log(ans.data);
         // console.log(ans.data.images);
     };

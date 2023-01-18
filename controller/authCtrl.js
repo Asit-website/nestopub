@@ -6,24 +6,24 @@ const { uploadToCloudinary } = require('../utils/uploadUtil');
 const authCtrl = {
    resgisterBroker: async (req, res) => {
       try {
-         const { firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone } = req.body;
+         const { firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone,images } = req.body;
 
-         const { images } = req.files;
+         // const { images } = req.files;
 
-         var imageUrlList = [];
+         // var imageUrlList = [];
 
-         for (var i = 0; i < images.length; i++) {
-            // console.log(images[i].path);
-            var locaFilePath = images[i].path;
+         // for (var i = 0; i < images.length; i++) {
+           
+         //    var locaFilePath = images[i].path;
 
-            var result = await uploadToCloudinary(locaFilePath);
-            imageUrlList.push(result.url);
-         }
+         //    var result = await uploadToCloudinary(locaFilePath);
+         //    imageUrlList.push(result.url);
+         // }
 
          // console.log(imageUrlList);
 
          const newBroker = new Users({
-            firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone, images: imageUrlList
+            firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone, images
          });
 
          const data = await newBroker.save();
@@ -217,7 +217,7 @@ const authCtrl = {
             maxAge: 7 * 24 * 60 * 60 * 1000 //7d
          });
 
-         res.json({ msg: "Registeration Successfully", accesstoken, user: data });
+         res.json({ msg: "Builder Registered Successfully", accesstoken, user: data });
 
        } 
        

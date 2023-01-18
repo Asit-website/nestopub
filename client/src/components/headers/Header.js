@@ -79,9 +79,9 @@ const Header = ({ pop, setPop }) => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <a href="!#" onClick={closeMenu}>
-                Agent Case Studies
-              </a>
+              <NavLink to="/properties" onClick={closeMenu}>
+                Properties
+              </NavLink>
             </li>
             <li className="nav-item">
               <span onClick={() => setPop(true)}>

@@ -78,9 +78,9 @@ const userSchema = new mongoose.Schema(
       set: x => x === '' ? undefined : x
     },
     images: {
-      type: Array,
-      // required: false,
-      // set: xy => xy === '' ? undefined : xy
+      type: Object,
+      required: false,
+      set: xy => xy === '' ? undefined : xy
     },
     role: {
       type: Number,
