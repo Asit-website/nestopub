@@ -43,19 +43,44 @@ class APIfeatures {
 const propertyCtrl = {
   getProperty: async (req, res) => {
     try {
-      const features = new APIfeatures(Property.find(), req.query).
-      pagination();
+      // const features = new APIfeatures(Property.find(), req.query).
+      // pagination();
 
-      const property = await features.query;
+      // const property = await features.query;
+
+      let limit=req.query.limit;
+      let category=req.query.category;
+      let sortBy=req.query.sortBy;
+      let property;
+
+      if(sortBy==="")
+      {
+        if(category==="all")
+        {
+          property = await Property.find().limit(limit);
+        }
+        else
+        {
+          property = await Property.find({category}).limit(limit);
+        }
+      }
+      else
+      {
+        if(category==="all")
+        {
+          property = await Property.find().sort({"propertyPrice": sortBy}).limit(limit);
+        }
+        else
+        {
+          property = await Property.find({category}).sort({"propertyPrice": sortBy}).limit(limit);
+        }
+      }
 
       res.json({
         status:"success",
         result:property.length,
         property:property
-      })
-
-      // const property = await Property.find();
-      // res.json(property);
+      });
     }
     catch (error) {
       return res.status(500).json({ msg: error.message });
