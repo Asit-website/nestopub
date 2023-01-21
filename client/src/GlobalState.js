@@ -122,7 +122,7 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const postProperty = async ({ content, price, category, location, area, description, parking, images, bedroom, guest, bathroom }) => {
+  const postProperty = async ({ content, price, category, location, area, description, parking, images, bedroom, guest, bathroom,bhk }) => {
     try {
       console.log(images);
       let formdata = new FormData();
@@ -143,6 +143,8 @@ export const DataProvider = ({ children }) => {
       formdata.append('bedroom', bedroom);
       formdata.append('Guest', guest);
       formdata.append('bathRoom', bathroom);
+      formdata.append('bhk',bhk);
+
 
       const response = await fetch(`http://localhost:5000/api/registerProperty`, {
         method: "POST",

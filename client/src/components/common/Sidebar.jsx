@@ -60,7 +60,7 @@ const Sidebar = () => {
                 <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
                     <div className="flex">
                         <img src="/static/images/Group19872.png" alt="" />
-                        <p className='ml-4'>Raise request for Loan support</p>
+                       <Link to="/brokerProfile/support"><p className={window.location.pathname === '/brokerProfile/support' ? 'sidebar-active ml-4' : 'ml-4'}>Raise request for Loan support</p></Link>
                     </div>
                 </div>
 

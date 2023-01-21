@@ -219,13 +219,13 @@ const Contact = ({setAuthFlag}) => {
         <h2>Builder Register</h2>
         <form onSubmit={handleBuilder}>
            <input type="text" placeholder='name' value={builderDetails.builderName}
-           onChange={handleBuilderInput} name="builderName" />
+           onChange={handleBuilderInput} name="builderName" required />
            <br />
            <input className='mt-2' type="text" placeholder='phone' value={builderDetails.builderPhone}
-            onChange={handleBuilderInput} name="builderPhone" />
+            onChange={handleBuilderInput} name="builderPhone" required />
              <br />
            <input className='mt-2' type="text" placeholder='email' value={builderDetails.builderEmail}
-            onChange={handleBuilderInput} name="builderEmail" />
+            onChange={handleBuilderInput} name="builderEmail" required />
             <input hidden placeholder='role'   type="text" value={builderDetails.role} onChange={handleBuilderInput}
             name="role"  />
             <br />
@@ -237,10 +237,10 @@ const Contact = ({setAuthFlag}) => {
     <h2>Builder Login</h2>
         <form onSubmit={loginBuilders}>
            <input type="text" placeholder='name' value={builderLogin.builderName}
-           onChange={handleBuilderInput1} name="builderName" />
+           onChange={handleBuilderInput1} name="builderName" required />
            <br />
            <input className='mt-2' type="text" placeholder='phone' value={builderLogin.builderPhone}
-            onChange={handleBuilderInput1} name="builderPhone" />
+            onChange={handleBuilderInput1} name="builderPhone" required />
              <br />
              <br />
              <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>

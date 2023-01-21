@@ -78,6 +78,7 @@ const Header = ({ pop, setPop }) => {
                   Why Join Nestohub?
               </NavLink>
             </li>
+    
             <li className="nav-item">
               <NavLink to="/properties" onClick={closeMenu}>
                 Properties

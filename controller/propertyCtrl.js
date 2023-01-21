@@ -89,7 +89,7 @@ const propertyCtrl = {
 
   createProperty: async (req, res) => {
     try {
-      const { propertyContent, propertyPrice, category, location, propertyArea, parking, bedroom, Guest, bathRoom, propertyDescription } = req.body;
+      const { propertyContent, propertyPrice, category, location, propertyArea, parking, bedroom, Guest, bathRoom, propertyDescription,bhk } = req.body;
 
       const { images } = req.files;
 
@@ -106,7 +106,7 @@ const propertyCtrl = {
       // console.log(imageUrlList);
 
       const newProperty = new Property({
-        propertyContent, propertyPrice, category, location, propertyArea, parking, images: imageUrlList, bedroom, Guest, bathRoom, propertyDescription, user: JSON.stringify(req.user)
+        propertyContent, propertyPrice, category, location, propertyArea, bhk, parking, images: imageUrlList, bedroom, Guest, bathRoom, propertyDescription, user: JSON.stringify(req.user)
       });
 
       const saveProp = await newProperty.save();
@@ -139,16 +139,16 @@ const propertyCtrl = {
 
   editProperty: async (req, res) => {
     try {
-      const { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, images, bedroom, Guest, bathRoom, propertyDescription, ownerImages } = req.body;
+      const { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, images, bedroom, Guest, bathRoom, propertyDescription,bhk} = req.body;
 
-      const updateObj = { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, bedroom, Guest, bathRoom, propertyDescription }
+      const updateObj = { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, bedroom, Guest, bathRoom, propertyDescription,bhk }
 
       if (images) {
         updateObj.images = images;
       }
-      if (ownerImages) {
-        updateObj.ownerImages = ownerImages;
-      }
+      // if (ownerImages) {
+      //   updateObj.ownerImages = ownerImages;
+      // }
 
       await Property.findOneAndUpdate({ _id: req.params.id }, updateObj);
       res.json({ msg: "Property Update successfully" });

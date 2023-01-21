@@ -181,16 +181,16 @@ const authCtrl = {
       }
    },
 
-   saved: async (req, res) => {
+   savedProperty: async (req, res) => {
       try {
          const user = await Users.findById(req.user.id);
          if (!user) return res.status(400).json({ msg: "Users does Not exist." });
 
          await Users.findOneAndUpdate({ _id: req.user.id }, {
-            cart: req.body.cart,
+            saved: req.body.saved,
          })
 
-         return res.json({ msg: "Added to cart" })
+         return res.json({ msg: "Saved the Property" });
       }
 
       catch (error) {

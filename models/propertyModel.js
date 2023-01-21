@@ -49,6 +49,9 @@ const propertySchema = new mongoose.Schema({
     type: Array,
     default: []
   },
+  bhk:{
+    type:String
+  },
   user: {
     type: String
   }

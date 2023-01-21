@@ -29,18 +29,21 @@ const [detailProperty,setDetailProperty] = useState([]);
 const state = useContext(GlobalState);
 const [page] = state.page
 const [result,setResult] = state.result;
+const [category, setCategory] = useState("all");
+const [sortBy, setSortBy] = useState("");
 
 useEffect(() => {
-  getProperties();
-}, [page]);
+    // console.log(category);
+    getProperties(category, sortBy);
+}, [page, category, sortBy]);
 
-const getProperties = async () => {
-  const data = await state.getProperties();
-  console.log(data);
-  // console.log(JSON.parse(data[7].user));
-  setProperty(data.property);
-  setResult(data.result);
+const getProperties = async (category, sortBy) => {
+    const data = await state.getProperties(category, sortBy);
+    // console.log(data);
+    setProperty(data.property);
+    setResult(data.result);
 };
+
 
 useEffect(()=>{
   if(param.id){
