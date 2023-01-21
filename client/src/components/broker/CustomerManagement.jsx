@@ -133,7 +133,7 @@ const CustomerManagement = ({setAuthFlag}) => {
                                         <div className="broker-cus-table1 broker-home-table11 flex items-center">
                                             <img className='mr-1.5 cursor-pointer' src="/static/images/a1.png" alt="" />
                                             <div>
-                                                <p style={{ color: "#0A2E57" }} className="font-semibold">{new Date(client1.date).toLocaleString()}</p>
+                                                <p style={{ color: "#0A2E57" }} className="font-semibold">{new Date(Number(client1.date)).toLocaleString().slice(0,16)}</p>
                                               
                                                 {/* <p style={{ color: "#0A2E57" }} className="text-xs">10 : 45 AM</p> */}
                                             </div>

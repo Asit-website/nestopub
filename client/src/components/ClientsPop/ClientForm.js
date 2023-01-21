@@ -38,7 +38,7 @@ const ClientForm = ({ isEdit, editData, setPopAdd }) => {
         BuyerLocation: editData.BuyerLocation,
         BuyerBudget: editData.BuyerBudget,
         BuyerBhk: editData.BuyerBhk,
-        date: new Date(editData.date)
+        date: new Date(editData.date) 
       });
       setUploadedImage(editData.BuyerImages.url);
     }

@@ -12,6 +12,7 @@ router.post('/individual', authCtrl.brokerIndividual);
 router.get('/logout', authCtrl.logout);
 router.get('/refresh_token', authCtrl.refreshToken);
 router.get('/infor', auth, authCtrl.getUser);
+router.patch('/save',auth,authCtrl.savedProperty);
 router.post("/registerBuilder", authCtrl.builderRegister);
 router.post("/loginBuilder", authCtrl.builderLogin);
 

@@ -20,6 +20,8 @@ import Propertyies from "../Property/Propertyies";
 import ManageProperties from "../Admin/ManageProperties";
 import ManageProperties1 from "../Admin/ManageProperties1";
 import DetailsProperty from "../Property/DetailsProperty";
+import Support from "../broker/Support";
+import SavedProperty from "../broker/SavedProperty";
 
 const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop, claimPop, setClaimPop }) => {
   const state = useContext(GlobalState);
@@ -60,6 +62,7 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
 
         <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/brokerProperty" element={isLogged ? <BrokerProperty setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/support" element={<Support/>}/>
         <Route path="/brokerProfile/propertyDetails/:id" element={isLogged ? <BrokerPropertyDetails setAuthFlag={setAuthFlag} /> : adminstartor()} />
 
         <Route path="/dashboard" element={isAdmin ? <AdminDashBoard setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
@@ -71,6 +74,8 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route path="/contact" element={<Contact setAuthFlag={setAuthFlag} />} />
         <Route path="/properties" element={<Propertyies setAuthFlag={setAuthFlag}/>}/>
         <Route path="/detail/:id" element={<DetailsProperty setAuthFlag={setAuthFlag} />}/>
+
+        <Route path="/propertySaved" element={<SavedProperty/>}/>
         <Route path="*" element={<Notfound setAuthFlag={setAuthFlag} />} />
       </Routes>
     </>

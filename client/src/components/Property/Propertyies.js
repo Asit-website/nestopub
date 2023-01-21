@@ -3,16 +3,13 @@ import ListBullets from '../../../src/images/ListBullets.png'
 import car from '../../images/Car.png'
 import bathtub from '../../images/Bathtub.png'
 import zoomout from '../../images/ArrowsOut.png'
-import brokerimg from '../../images/brokerpng.png'
 import share from '../../images/ShareNetwork.png'
 import wishlist from '../../images/Heart.png'
 import addProperty from '../../images/Plus.png'
-import ghar from '../../../src/images/ghar.png'
 import LoadMoreProperty from './LoadMoreProperty'
 import MapPin from '../../../src/images/MapPin.png'
-import ArrowLeft from '../../../src/images/ArrowLeft.png';
 import { GlobalState } from '../../GlobalState'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const Propertyies = ({ setAuthFlag }) => {
     const [property, setProperty] = useState([]);
@@ -22,7 +19,9 @@ const Propertyies = ({ setAuthFlag }) => {
 
     const state = useContext(GlobalState);
     const [page] = state.page
+    const savedProperty = state.BrokerApi.savedProperty;
     const [result, setResult] = state.result;
+    const [isLogged] = state.BrokerApi.isLogged
     const [category, setCategory] = useState("all");
     const [sortBy, setSortBy] = useState("");
     const [filter, setFilter] = useState({
@@ -58,6 +57,8 @@ const Propertyies = ({ setAuthFlag }) => {
         e.target.classList.add('ac');
         setCategory(category);
     };
+
+    const navigate = useNavigate();
 
     return (
         <>
@@ -160,11 +161,13 @@ const Propertyies = ({ setAuthFlag }) => {
                         property.map(((val, index) => {
                             return (
                                 <div key={val._id} className="first-property">
-                                    <NavLink to={`/detail/${val._id}`}>
+                                  
                                         <div className='similar-properties-card similar2'>
+                                          <NavLink to={`/detail/${val._id}`}>
                                             <div className='sp-card-img'>
                                                 <img src={val.images[0]} alt="" />
                                             </div>
+                                            </NavLink>
                                             <div className='sp-card-detail'>
                                                 <p className='sp-card-text'>{val.propertyContent}</p>
                                                 <p className='sp-card-price'>&#8377; {val.propertyPrice}</p>
@@ -194,14 +197,19 @@ const Propertyies = ({ setAuthFlag }) => {
                                                         <div className='flex action-box'>
                                                             <img src={wishlist} />
                                                         </div>
-                                                        <div className='flex action-box'>
+                                                        <div onClick={()=> {
+                                                            savedProperty(val);
+                                                        //    isLogged &&
+                                                        //    navigate("/propertySaved");
+
+                                                        }}  className='flex action-box'>
                                                             <img src={addProperty} />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </NavLink>
+                                   
                                 </div>
 
                             )
