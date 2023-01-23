@@ -39,6 +39,9 @@ const BrokerApi = (token) => {
        if(!isLogged){
          alert("to saved The property You have to logged in");
        }
+       if(isAdmin){
+         alert("not allowed")
+       }
          const check = saved.every(item=>{
             return item._id !== property._id
          });

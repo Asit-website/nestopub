@@ -2704,6 +2704,10 @@ input::-ms-reveal,
   font-size: 13px;
   cursor: pointer;
 }
+.similar-properties-card2{
+  margin: 0 15px;
+  margin-right: 0px !important;
+}
 /* =========================property page css end================ */
 /* ====================media query of contact us page============== */
 @media only screen and (max-width:1094px){
