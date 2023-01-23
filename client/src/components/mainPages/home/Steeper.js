@@ -328,7 +328,7 @@ export default function Steeper({ type, setType, ty }) {
                            >
                               Individual broker
                            </button>
-                           <button  onClick={tabAnother1}>admin</button>
+                           <button style={{display:'none'}}  onClick={tabAnother1}>admin</button>
                         </div>
 
                         <div id="myForm" className="dance">
@@ -415,7 +415,7 @@ export default function Steeper({ type, setType, ty }) {
                                     </>
                                  )}
 
-                                 {
+                                 {/* {
                         tabIndex === 3 && (
                           <>
                           <div className="top-form">
@@ -441,7 +441,7 @@ export default function Steeper({ type, setType, ty }) {
                          
                           </>
                         )
-                      }
+                      } */}
 
                               </div>
                            </div>

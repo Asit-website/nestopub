@@ -569,7 +569,8 @@ input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
 
 /* Properties CSS */
 .broker-property12{
-    width: 80%;
+    /* width: 80%; */
+    width: 100%;
     padding: 2rem 1.5rem;
     transition: all 0.3s;
 }
@@ -657,7 +658,9 @@ input[type=search]::-ms-reveal { display: none; width : 0; height: 0; }
     border-radius : 10px;
     margin-right : 10px;
 }
-
+.sp-title1{
+    margin: 20px 15px;
+}
 .city-icon{
     height : 30px;
     width : 30px;

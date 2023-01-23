@@ -63,6 +63,12 @@ const Sidebar = () => {
                        <Link to="/brokerProfile/support"><p className={window.location.pathname === '/brokerProfile/support' ? 'sidebar-active ml-4' : 'ml-4'}>Raise request for Loan support</p></Link>
                     </div>
                 </div>
+                <div className="broker-home111 broker-home111a mb-7 cursor-pointer">
+                    <div className="flex">
+                        <img src="/static/images/Path11546.png" alt="" />
+                        <Link to="/brokerProfile/propertySaved"><p className={window.location.pathname === '/brokerProfile/propertySaved' ? 'sidebar-active ml-4' : 'ml-4'}>Saved Properties</p></Link>
+                    </div>
+                </div>
 
                 <Help />
             </div>

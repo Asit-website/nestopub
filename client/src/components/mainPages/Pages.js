@@ -75,7 +75,7 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route path="/properties" element={<Propertyies setAuthFlag={setAuthFlag}/>}/>
         <Route path="/detail/:id" element={<DetailsProperty setAuthFlag={setAuthFlag} />}/>
 
-        <Route path="/propertySaved" element={<SavedProperty/>}/>
+        <Route path="/brokerProfile/propertySaved" element={<SavedProperty/>}/>
         <Route path="*" element={<Notfound setAuthFlag={setAuthFlag} />} />
       </Routes>
     </>
