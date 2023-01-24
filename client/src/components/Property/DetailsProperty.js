@@ -171,11 +171,12 @@ if(detailProperty.length===0) return null;
 
                                 <div className='sdescCard flex'>
                                     <div className='sdescCardImg'>
-                                        <img src={sImgBuilding}/>
+                                        <img src={detailProperty.images[0]}/>
                                     </div>
                                     <div className='sdescCardDetail'>
-                                        <p className='sdescCardTitle'>Gaur siddhartham</p>
-                                        <p className='sdescCardDesc'>3 BHK | Built in 1995</p>
+                                    
+                                        <p className='sdescCardTitle'>{detailProperty.propertyContent}</p>
+                                        <p className='sdescCardDesc'>{detailProperty.bhk} | Built in 1995</p>
                                     </div>
                                 </div>
 

@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ListBullets from '../../../src/images/ListBullets.png'
-import car from '../../images/Car.png'
-import bathtub from '../../images/Bathtub.png'
 import zoomout from '../../images/ArrowsOut.png'
-import share from '../../images/ShareNetwork.png'
-import wishlist from '../../images/Heart.png'
-import addProperty from '../../images/Plus.png'
 import LoadMoreProperty from './LoadMoreProperty'
 import MapPin from '../../../src/images/MapPin.png'
 import { GlobalState } from '../../GlobalState'
@@ -30,6 +25,7 @@ const Propertyies = ({ setAuthFlag }) => {
         type: "",
         price: ""
     });
+
 
     useEffect(() => {
         // console.log(category);

@@ -41,7 +41,7 @@ const SavedProperty = () => {
     <div className="broker-home">
         <div className="flex">
         <Sidebar />
-        <div className="flex ml-3">
+        <div className="flex ml-3 flex-wrap">
 
                     {
                         saved.map(((val, index) => {
