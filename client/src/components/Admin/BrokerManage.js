@@ -32,16 +32,19 @@ const BrokerManage = ({ setAuthFlag }) => {
   const DeleteProfile = async (id) => {
     try {
       const res = await axios.delete(`/api/deleteBroker/${id}`);
-
-      navigate("/dashboard/manageBrok");
-      let t = document.getElementById("fit");
-      t.style.display = "block";
-      t.innerText = `${res.data.msg}`;
-      t.innerHTML = `<div class="flertji"><i class="fa-solid fa-circle-check"></i><p>${res.data.msg}</p></div>`;
-      setTimeout(() => {
-        t.style.display = "none";
-      }, 5000);
-      setCallback(!callback);
+      if(window.confirm("do you want to delete this")){
+        navigate("/dashboard/manageBrok");
+        let t = document.getElementById("fit");
+        t.style.display = "block";
+        t.innerText = `${res.data.msg}`;
+        t.innerHTML = `<div class="flertji"><i class="fa-solid fa-circle-check"></i><p>${res.data.msg}</p></div>`;
+        setTimeout(() => {
+          t.style.display = "none";
+        }, 5000); 
+        setCallback(!callback); 
+      }
+      
+     
     } catch (error) {
       alert(error.response.data.msg);
     }

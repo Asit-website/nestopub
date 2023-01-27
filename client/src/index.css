@@ -1006,6 +1006,9 @@ footer {
   border-radius: 10px;
   margin: 20px auto;
 }
+.prop-view{
+  visibility: hidden;
+}
 .popup-container1 {
   max-width: 500px;
   width: 100%;

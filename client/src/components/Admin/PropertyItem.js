@@ -11,11 +11,16 @@ import axios from 'axios';
 const PropertyItem = ({val,token,callback,setCallback}) => {
     const deleteProperty = async() =>{
         try {
+          
             const res = await axios.delete(`/api/deleteProperty/${val._id}`,{
                 headers: { Authorization: token },
              });
-             alert(res.data.msg);
-             setCallback(!callback);
+
+             if(window.confirm("do you want to delete")){
+                alert(res.data.msg);
+                setCallback(!callback);
+             }
+             
         } 
         
         catch (error) {

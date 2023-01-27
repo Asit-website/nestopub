@@ -18,7 +18,7 @@ const ManageProperties1 = () => {
    useEffect(() => {
     // console.log(category);
     getProperties(category, sortBy);
-}, [page, category, sortBy]);
+}, [page, category, sortBy,callback]);
 
 const getProperties = async (category, sortBy) => {
     const data = await state.getProperties(category, sortBy);
