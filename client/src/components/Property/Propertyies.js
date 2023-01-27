@@ -66,7 +66,7 @@ const Propertyies = ({ setAuthFlag }) => {
 
                 </div>
                 <div className="view-property">
-                    <button>View Property</button>
+                    <button className='prop-view'>View Property</button>
                     {/* <div className='serach-by'>
               <div className='locations'></div>
           </div> */}
