@@ -150,7 +150,7 @@ const propertyCtrl = {
       //   updateObj.ownerImages = ownerImages;
       // }
 
-      await Property.findOneAndUpdate({ _id: req.params.id }, updateObj);
+      await Property.findOneAndUpdate({ _id: req.params.id }, {$set:updateObj},{new:true});
       res.json({ msg: "Property Update successfully" });
     }
 

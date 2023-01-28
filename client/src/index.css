@@ -2731,5 +2731,15 @@ input::-ms-reveal,
  }
 }
 
-@media only screen and (max-width:990px){
+@media only screen and (max-width:475px){
+  .steeper-button1{
+    flex-direction: column;
+    align-items: center;
+  }
+  .steeper-button1 .broking{
+    border-radius: 5px;
+  }
+  .steeper-button1 .broker-individual{
+    border-radius: 5px;
+  }
 }
