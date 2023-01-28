@@ -1,26 +1,28 @@
-import React from 'react'
+import React,{useState} from 'react';
 import car from '../../images/Car.png'
 import bathtub from '../../images/Bathtub.png'
 import zoomout from '../../images/ArrowsOut.png'
-import brokerimg from '../../images/brokerpng.png'
 import share from '../../images/ShareNetwork.png'
 import wishlist from '../../images/Heart.png'
-import addProperty from '../../images/Plus.png'
 import axios from 'axios';
+import ShareModal from '../Property/ShareModal'
+import { BASE_URL } from '../../utils/config';
 
 const PropertyItem = ({val,token,callback,setCallback}) => {
+    const [isShare,setIsShare] = useState(false);
     const deleteProperty = async() =>{
         try {
           
-            const res = await axios.delete(`/api/deleteProperty/${val._id}`,{
-                headers: { Authorization: token },
-             });
-
-             if(window.confirm("do you want to delete")){
-                alert(res.data.msg);
-                setCallback(!callback);
-             }
-             
+            if(window.confirm("do you want to delete this property")){
+                const res = await axios.delete(`/api/deleteProperty/${val._id}`,{
+                    headers: { Authorization: token },
+                 });
+    
+                 
+                    alert(res.data.msg);
+                    setCallback(!callback);
+            }
+               
         } 
         
         catch (error) {
@@ -59,20 +61,24 @@ const PropertyItem = ({val,token,callback,setCallback}) => {
                                                     <p>{JSON.parse(val.user).name}</p>    
                                                 </div>
                                                 <div className='sp-actions flex'>
-                                                    <div className='flex action-box'>
+                                                    <div onClick={()=> setIsShare(true)} className='flex action-box'>
                                                         <img src={share} />
                                                     </div>
                                                     <div className='flex action-box'>
                                                         <img src={wishlist} />
                                                     </div>
-                                                    <div className='flex action-box'>
+                                                    {/* <div className='flex action-box'>
                                                         <img src={addProperty} />
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                {
+                                    isShare && isShare && <ShareModal setIsShare={setIsShare} url = {`${BASE_URL}/detail/${val._id}`}/>
+                                }
      </>
   )
 }

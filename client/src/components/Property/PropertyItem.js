@@ -43,20 +43,20 @@ const PropertyItem = ({val,savedProperty}) => {
                                                         <p>{JSON.parse(val.user).name}</p>
                                                     </div>
                                                     <div className='sp-actions flex'>
-                                                        <div onClick={()=> setIsShare(true) } className='flex action-box'>
+                                                        <div onClick={()=> setIsShare(true) } className='flex action-box cursor-pointer'>
                                                             <img src={share} />
-                                                        </div>
-                                                        <div className='flex action-box'>
-                                                            <img src={wishlist} />
                                                         </div>
                                                         <div onClick={()=> {
                                                             savedProperty(val);
                                                         //    isLogged &&
                                                         //    navigate("/propertySaved");
 
-                                                        }}  className='flex action-box'>
-                                                            <img src={addProperty} />
+                                                        }} className='flex action-box cursor-pointer'>
+                                                            <img src={wishlist} />
                                                         </div>
+                                                        {/* <div    className='flex action-box cursor-pointer'>
+                                                            <img src={addProperty} />
+                                                        </div> */}
                                                     </div>
                                                 </div>
                                             </div>
