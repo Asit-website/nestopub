@@ -30,14 +30,15 @@ const getProperties = async (category, sortBy) => {
     const deleteAllProperty = async() =>{
         try {
            
-            const res = await axios.delete('/api/deleteProperty',{
-                headers: { Authorization: token }
-            });
-          if(window.confirm("do you want to delete All products")){
-            alert(res.data.msg);
-            setCallback(!callback);
-          }
-          
+            if(window.confirm("do you want to delete all")){
+                const res = await axios.delete('/api/deleteProperty',{
+                    headers: { Authorization: token }
+                });
+             
+                alert(res.data.msg);
+                setCallback(!callback);
+            
+            }
         } 
         
         catch (error) {

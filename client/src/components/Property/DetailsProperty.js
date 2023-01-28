@@ -5,19 +5,14 @@ import { GlobalState } from '../../GlobalState';
 import car from '../../images/Car.png'
 import bathtub from '../../images/Bathtub.png'
 import zoomout from '../../images/ArrowsOut.png'
-import brokerimg from '../../images/brokerpng.png'
 import share from '../../images/ShareNetwork.png'
 import wishlist from '../../images/Heart.png'
-import addProperty from '../../images/Plus.png'
-import propLimg from '../../images/propLimg.png'
-import propSimg from '../../images/propSimg.png'
 import sImgBroker from '../../images/sdescImgbroker.png'
-import sImgBuilding from '../../images/sdescImgbuilding.png'
 import bookmarkIcon from '../../images/bookmark_added.png'
 import shareIcon from '../../images/ios_share.png'
 import calenderIcon from '../../images/calenderIcon.png'
-import { Sidebar } from 'react-pro-sidebar';
-// import { json } from 'body-parser';
+import ShareModal from './ShareModal';
+import { BASE_URL } from '../../utils/config';
 const DetailsProperty = ({setAuthFlag}) => {
   useEffect(() => {
     setAuthFlag(false);
@@ -33,14 +28,14 @@ const [result,setResult] = state.result;
 const [category, setCategory] = useState("all");
 const [sortBy, setSortBy] = useState("");
 
+const [isShare,setIsShare] = useState(false);
+
 useEffect(() => {
-    // console.log(category);
     getProperties(category, sortBy);
 }, [page, category, sortBy]);
 
 const getProperties = async (category, sortBy) => {
     const data = await state.getProperties(category, sortBy);
-    // console.log(data);
     setProperty(data.property);
     setResult(data.result);
 };
@@ -85,10 +80,10 @@ if(detailProperty.length===0) return null;
                                                 <img src={detailProperty.images[0]}/>
                                             </div>
                                             <div className='propSImg' onClick={imageHandle1}>
-                                                <img src={propSimg}/>
+                                                <img src={detailProperty.images[1]}/>
                                             </div>
                                             <div className='propSImg' onClick={imageHandle2}>
-                                                <img src={propLimg}/>
+                                                <img src={detailProperty.images[2]}/>
                                             </div>
                                         </div>
                                         <div className='verticalPropImg'>
@@ -97,10 +92,10 @@ if(detailProperty.length===0) return null;
                                                   <img src={detailProperty.images[0]} alt="" />
                                                 </div>
                                              : (propertyImg == 1) ? <div className='propLImg'>
-                                             <img src={propSimg}/>
+                                             <img src={detailProperty.images[1]}/>
                                              </div> :
                                              <div className='propLImg'>
-                                             <img src={propLimg}/>
+                                             <img src={detailProperty.images[2]}/>
                                              </div>
                                             }
                                             
@@ -240,15 +235,15 @@ if(detailProperty.length===0) return null;
                                                         <p>{JSON.parse(val.user).name}</p>
                                             </div>
                                             <div className='sp-actions flex'>
-                                                <div className='flex action-box'>
+                                                <div onClick={()=> setIsShare(true)} className='flex action-box cursor-pointer'>
                                                     <img src={share}/>
                                                 </div>
-                                                <div className='flex action-box'>
+                                                <div onClick={()=> savedProperty(val)} className='flex action-box cursor-pointer'>
                                                     <img src={wishlist}/>
                                                 </div>
-                                                <div onClick={()=> savedProperty(val)} className='flex action-box'>
+                                                {/* <div  className='flex action-box'>
                                                     <img src={addProperty}/>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -459,6 +454,10 @@ if(detailProperty.length===0) return null;
                     </div>
                 </div>
         </div>
+
+        {
+            isShare && <ShareModal setIsShare={setIsShare} url = {`${BASE_URL}/detail/${detailProperty._id}`}/>
+        }
     </>
   )
 }
