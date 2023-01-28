@@ -40,7 +40,7 @@ router.post('/registerProperty', multiUpload,auth,authAdmin,authBuilder,property
 router.get('/getProperty', propertyCtrl.getProperty);
 router.delete('/deleteProperty/:id', auth, authAdmin, propertyCtrl.deleteProperty);
 router.delete('/deleteProperty',auth,authAdmin, propertyCtrl.deletePropertyAll);
-router.patch('/editProperty/:id', propertyCtrl.editProperty);
+router.patch('/editProperty/:id', auth,authAdmin,multiUpload,authBuilder, propertyCtrl.editProperty);
 
 
 module.exports = router;

@@ -161,6 +161,47 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const editProperty = async({id,content, price, category, location, area, description, parking, images, bedroom, guest, bathroom,bhk}) => {
+      
+    try {
+      console.log(images);
+      let formdata = new FormData();
+      formdata.append('propertyContent', content);
+      formdata.append('propertyPrice', price);
+      formdata.append('category', category);
+      formdata.append('location', location);
+      formdata.append('propertyArea', area);
+      formdata.append('propertyDescription', description);
+      formdata.append('parking', parking);
+      // formdata.append('images',JSON.stringify(images));
+      if (images.length > 0) {
+        for (let i of images) {
+          formdata.append('images', i);
+        }
+      }
+      // formdata.append('images',images);
+      formdata.append('bedroom', bedroom);
+      formdata.append('Guest', guest);
+      formdata.append('bathRoom', bathroom);
+      formdata.append('bhk',bhk);
+
+
+      const response = await fetch(`http://localhost:5000/api/editProperty/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Authorization": token
+        },
+        body: formdata
+      });
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error.message);
+    }
+
+  }
+
   const registerBroker = async ({ firmName, authorizedName, city, mobile, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, individualName, city1, mobile1, name, phone, images }) => {
     try {
       console.log(images);
@@ -224,7 +265,8 @@ export const DataProvider = ({ children }) => {
     setHeaderFlag,
     headerFlag,
     page:[page,setPage],
-    result:[result,setResult]
+    result:[result,setResult],
+    editProperty
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;

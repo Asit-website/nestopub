@@ -181,10 +181,10 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
                      <>
                         <form onSubmit={loginSubmit} className='firmas'>
                            <div className="input-form">
-                              <input value={user.firmName} onChange={inputChange} name='firmName' type="text" placeholder='Name' />
+                              <input value={user.firmName} onChange={inputChange} name='firmName' type="text" placeholder='Name' required />
                            </div>
                            <div className="input-form">
-                              <input value={user.mobile} onChange={inputChange} name='mobile' type="text" placeholder='Email / Phone No.' />
+                              <input value={user.mobile} onChange={inputChange} name='mobile' type="text" placeholder='Email / Phone No.' required />
                            </div>
                            <div className="input-form">
                               {/* <input type="text" placeholder='Password' /> */}
@@ -201,10 +201,10 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
                      <>
                         <form onSubmit={loginSubmit1} className='firmas'>
                            <div className="input-form">
-                              <input value={user1.individualName} onChange={inputChange1} name='individualName' type="text" placeholder='Name' />
+                              <input value={user1.individualName} onChange={inputChange1} name='individualName' type="text" placeholder='Name' required />
                            </div>
                            <div className="input-form">
-                              <input value={user1.mobile1} onChange={inputChange1} name='mobile1' type="text" placeholder='Email / Phone No.' />
+                              <input value={user1.mobile1} onChange={inputChange1} name='mobile1' type="text" placeholder='Email / Phone No.' required />
                            </div>
                            <div className="input-form">
                               {/* <input type="text" placeholder='Password' /> */}
@@ -221,10 +221,10 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
                      <>
                         <form onSubmit={loginSubmit2} className='firmas'>
                            <div className="input-form">
-                              <input value={user2.name} onChange={inputChange2} name='name' type="text" placeholder='Name' />
+                              <input value={user2.name} onChange={inputChange2} name='name' type="text" placeholder='Name' required />
                            </div>
                            <div className="input-form">
-                              <input value={user2.phone} onChange={inputChange2} name='phone' type="text" placeholder='Email / Phone No.' />
+                              <input value={user2.phone} onChange={inputChange2} name='phone' type="text" placeholder='Email / Phone No.' required />
                            </div>
                            <div className="input-form">
                               {/* <input type="text" placeholder='Password' /> */}
