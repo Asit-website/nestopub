@@ -211,11 +211,11 @@ const authCtrl = {
            const accesstoken = createAccessToken({ id: data._id });
            const refreshtoken = createRefreshToken({ id: data._id });
 
-           res.cookie("refreshtoken", refreshtoken, {
-            httpOnly: true,
-            path: '/api/refresh_token', // user ka token login krne pr milega
-            maxAge: 7 * 24 * 60 * 60 * 1000 //7d
-         });
+         //   res.cookie("refreshtoken", refreshtoken, {
+         //    httpOnly: true,
+         //    path: '/api/refresh_token', 
+         //    maxAge: 7 * 24 * 60 * 60 * 1000 
+         // });
 
          res.json({ msg: "Builder Registered Successfully", accesstoken, user: data });
 
@@ -231,10 +231,10 @@ const authCtrl = {
          const user = await Users.findOne({ builderName: builderName });
          const builderMobile = await Users.findOne({ builderPhone: builderPhone });
          if (!user) {
-            return res.status(400).json({ msg: "Broker Does Not Exist" });
+            return res.status(400).json({ msg: "Builder Does Not Exist" });
          }
          if (!builderMobile) {
-            return res.status(400).json({ msg: "Brokers Mobile does not exist" });
+            return res.status(400).json({ msg: "Builder Mobile does not exist" });
          }
          const accesstoken = createAccessToken({ id: user._id });
          const refreshtoken = createRefreshToken({ id: user._id });

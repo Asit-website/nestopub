@@ -62,7 +62,6 @@ const Contact = ({setAuthFlag}) => {
       builderPhone:"",
       builderEmail:"",
       role:2
-      // role:""
    });
 
    const handleBuilderInput = (e) =>{
