@@ -22,6 +22,7 @@ import ManageProperties1 from "../Admin/ManageProperties1";
 import DetailsProperty from "../Property/DetailsProperty";
 import Support from "../broker/Support";
 import SavedProperty from "../broker/SavedProperty";
+import AddBuilder from "../Admin/AdminBuilder/AddBuilder";
 
 const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop, claimPop, setClaimPop }) => {
   const state = useContext(GlobalState);
@@ -39,7 +40,6 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
     )
   };
   const [cli, setCli] = useState(null);
-
   return (
     <>
       <WebSocketHandler setCli={setCli} />
@@ -70,6 +70,8 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route path="/dashboard/manageProperties" element={isAdmin ? <ManageProperties setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
 
         <Route path="/dashboard/manageProp" element={ isAdmin ? <ManageProperties1 setAuthFlag={setAuthFlag}/> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+
+        <Route path="/dashboard/addBuilder" element={isAdmin ? <AddBuilder setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag}/>}/>
         
         <Route path="/contact" element={<Contact setAuthFlag={setAuthFlag} />} />
         <Route path="/properties" element={<Propertyies setAuthFlag={setAuthFlag}/>}/>

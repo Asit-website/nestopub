@@ -1,7 +1,6 @@
 import React,{useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import { GlobalState } from '../../GlobalState';
-
 import {
     Sidebar,
     Menu,
@@ -23,7 +22,7 @@ const AdminMenu = () => {
                 <MenuItem routerLink={<NavLink to="/dashboard/manageBrok"/>}  className="menu-item">Manage Brokers</MenuItem>
                 <MenuItem routerLink={<NavLink to="/dashboard/manageProperties"/>}  className="menu-item">List Properties</MenuItem>
                 <MenuItem routerLink={<NavLink to="/dashboard/manageProp"/>} className="menu-item"> Manage Properties </MenuItem>
-              <MenuItem className="menu-item"> Documentation </MenuItem>
+              <MenuItem routerLink={<NavLink to="/dashboard/addBuilder"/>} className="menu-item">RegisterBuilder</MenuItem>
               <MenuItem className="menu-item"> Calendar </MenuItem>
             </Menu>
           </Sidebar>
