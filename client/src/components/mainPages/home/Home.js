@@ -26,7 +26,7 @@ const Home = ({setAuthFlag, setPop}) => {
       <div className="joint_us">
         <div className="joint-home">
         <div className="joint-home-heading">
-        <h2>To get access to the premium inventory</h2>
+        <h2>To get access to the premium inventorys</h2>
             <h2>and get opportunity to earn high brokerage.</h2>
            </div>
             <div className="joint-home-para">
