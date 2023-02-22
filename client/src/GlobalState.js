@@ -3,6 +3,7 @@ import BrokerApi from './api/BrokerApi';
 import IndividualApi from './api/IndividualApi';
 import ClientApi from './api/ClientApi';
 import axios from "axios";
+import BuilderApi from './api/BuilderApi';
 export const GlobalState = createContext();
 export const DataProvider = ({ children }) => {
   const [token, setToken] = useState(false);
@@ -12,6 +13,8 @@ export const DataProvider = ({ children }) => {
 
   const [result,setResult] = useState(0);
   const [page,setPage] = useState(1);
+
+  const [callback,setCallback] = useState(false);
 
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstlogin");
@@ -32,7 +35,7 @@ export const DataProvider = ({ children }) => {
 
       refreshToken();
     }
-  }, []);
+  }, [callback]);
 
   const getVisits = async () => {
     try {
@@ -252,6 +255,8 @@ export const DataProvider = ({ children }) => {
     BrokerApi: BrokerApi(token),
     IndividualApi: IndividualApi(),
     ClientApi: ClientApi(token),
+    BuilderApi:BuilderApi(),
+    callback:[callback,setCallback],
     getVisits,
     postVisit,
     editClient,

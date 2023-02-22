@@ -9,7 +9,7 @@ import ShareModal from '../Property/ShareModal'
 import { BASE_URL } from '../../utils/config';
 import { NavLink } from 'react-router-dom';
 
-const PropertyItem = ({val,token,callback,setCallback}) => {
+const PropertyItem = ({val,token,callback,setCallback,setAlert}) => {
     const [isEdit,setIsEdit] = useState(false);
     const [editData,setEditData] = useState({});
 
@@ -24,14 +24,14 @@ const PropertyItem = ({val,token,callback,setCallback}) => {
                  });
     
                  
-                    alert(res.data.msg);
+                    setAlert("error",res.data.msg);
                     setCallback(!callback);
             }
                
         } 
         
         catch (error) {
-             console.log(error.response.data.msg);
+            setAlert("error",error.response.data.msg);
         }
        
     }
@@ -92,12 +92,12 @@ const PropertyItem = ({val,token,callback,setCallback}) => {
                const res = await axios.patch(`/api/editProperty/${val._id}`,{...value},{
                    headers:{Authorization:token}
                })
-               alert(res.data.msg);
+               setAlert("success",res.data.msg);
                setCallback(!callback);
            } 
            
            catch (error) {
-               console.log(error.response.data.msg);
+            setAlert("error",error.response.data.msg);
            }
         }
    }

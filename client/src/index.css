@@ -7,7 +7,6 @@
 body {
   overflow-x: hidden;
 }
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito+Sans&family=Playfair+Display&family=Poppins&family=Roboto&family=Roboto+Slab&display=swap");
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Lexend&family=Oswald:wght@500&family=Poppins:ital,wght@0,400;0,500;0,600;1,500&family=Raleway:wght@400;500;600;700&display=swap');
@@ -1905,6 +1904,29 @@ padding: 20px 0px;
   font-weight: 900;
   color: crimson;
 }
+#file_img1{
+  margin-top: 30px;
+  position: relative;
+}
+#file_img1 img{
+  max-width: 100px;
+  width: 100%;
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+}
+#file_img1 span{
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: 900;
+  color: crimson;
+  position: relative;
+  top: -120px;
+ 
+}
 .brok-img{
   display: block;
   margin: auto;
@@ -2723,6 +2745,37 @@ input::-ms-reveal,
   margin: 0 15px;
   margin-right: 0px !important;
 }
+.builderRegister form{
+  width: 100%;
+}
+.builderRegister form input{
+   width: 80%;
+}
+
+.builderRegister .volor{
+  border: 1px solid #6B7280;
+}
+
+.builderBhai p{
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+.buildrsi h3{
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+.alert-mgh{
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+.alert-bar{
+  z-index: 10000 !important;
+}
 /* =========================property page css end================ */
 /* ====================media query of contact us page============== */
 @media only screen and (max-width:1094px){
@@ -2742,4 +2795,7 @@ input::-ms-reveal,
   .steeper-button1 .broker-individual{
     border-radius: 5px;
   }
+}
+.tiper{
+  font-size: 20px;
 }

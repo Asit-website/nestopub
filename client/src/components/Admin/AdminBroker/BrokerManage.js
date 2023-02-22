@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { GlobalState } from '../../GlobalState';
-import AdminMenu from './AdminMenu'
+import { GlobalState } from '../../../GlobalState';
+import AdminMenu from '../AdminMenu'
 import BrokerJi from './BrokerJi';
 import LoadMoreBroker from './LoadMoreBroker';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const BrokerManage = ({ setAuthFlag }) => {
+const BrokerManage = ({ setAuthFlag,setAlert }) => {
   useEffect(() => {
     setAuthFlag(false);
   }, []);
@@ -17,7 +17,7 @@ const BrokerManage = ({ setAuthFlag }) => {
   const [callback, setCallback] = state.IndividualApi.callback;
   const [isAdmin] = state.BrokerApi.isAdmin;
 
-  const navigate = useNavigate();
+
 
   const [isCheck, setIsCheck] = useState(false);
 
@@ -33,20 +33,13 @@ const BrokerManage = ({ setAuthFlag }) => {
     try {
       const res = await axios.delete(`/api/deleteBroker/${id}`);
       if(window.confirm("do you want to delete this")){
-        navigate("/dashboard/manageBrok");
-        let t = document.getElementById("fit");
-        t.style.display = "block";
-        t.innerText = `${res.data.msg}`;
-        t.innerHTML = `<div class="flertji"><i class="fa-solid fa-circle-check"></i><p>${res.data.msg}</p></div>`;
-        setTimeout(() => {
-          t.style.display = "none";
-        }, 5000); 
+        setAlert("error", res.data.msg);
         setCallback(!callback); 
       }
       
      
     } catch (error) {
-      alert(error.response.data.msg);
+        setAlert("error",error.response.data.msg);
     }
   };
 

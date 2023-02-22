@@ -1,10 +1,8 @@
 const router = require("express").Router();
-const auth = require("../middleware/auth")
 const builderCtrl = require("../controller/builderCtrl");
 
-router.post("/registerBuilder", builderCtrl.builderRegister);
-router.get("/inBuilder", auth, builderCtrl.getBuilder);
-router.get('/logouts', builderCtrl.logout);
+router.get('/getBuilder',builderCtrl.getBuilder);
+router.delete('/deleteBuilder/:id',builderCtrl.deleteBuilder);
+router.patch('/editBuilder/:id',builderCtrl.editBuilder);
 
 module.exports = router;
-

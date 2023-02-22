@@ -5,13 +5,12 @@ import axios from "axios";
 import { Alert } from "@mui/material";
 import Bankdetails from "./Bankdetails";
 import ClamPop from "./ClamPop/ClamPop";
-const MyProfile = ({ setAuthFlag, claimPop, setClaimPop }) => {
+const MyProfile = ({ setAuthFlag, claimPop, setClaimPop,setAlert }) => {
    useEffect(() => {
       setAuthFlag(true);
    }, []);
 
    const [show, setShow] = useState(false);
-   const [show1, setShow1] = useState(false);
    const state = useContext(GlobalState);
    const [user] = state.BrokerApi.user;
 
@@ -65,19 +64,13 @@ const MyProfile = ({ setAuthFlag, claimPop, setClaimPop }) => {
             const res = await axios.patch(`/api/editBroker/${user._id}`, {
                ...details, images
             });
-            console.log(res.data.data);
             localStorage.setItem('nestoBroker', JSON.stringify(res.data.data));
             state.setHeaderFlag(!state.headerFlag);
-            document.getElementById("success4").style.display = "block";
-            const fis = document.getElementById("fes2");
-            fis.innerText = `${res.data.msg}`;
+            setAlert("success",res.data.msg);
             setCallback(!callback);
-            setTimeout(() => {
-               document.getElementById("success4").style.display = "none";
-            }, 2000);
          }
          catch (error) {
-            alert(error.response.data.msg);
+            setAlert("error",error.response.data.msg);
          }
       }
 
@@ -96,10 +89,11 @@ const MyProfile = ({ setAuthFlag, claimPop, setClaimPop }) => {
          formData.append('file', file);
          const res = await axios.post('/api/upload', formData)
          setImages(res.data);
+         setAlert("success",res.data.msg);
       }
 
       catch (error) {
-         alert(error.response.data.msg);
+         setAlert("error",error.response.data.msg);
       }
    }
 
@@ -111,7 +105,7 @@ const MyProfile = ({ setAuthFlag, claimPop, setClaimPop }) => {
          );
          setImages(false);
       } catch (error) {
-         alert(error.response.data.msg);
+         setAlert("error",error.response.data.msg);
       }
    };
 
@@ -119,33 +113,17 @@ const MyProfile = ({ setAuthFlag, claimPop, setClaimPop }) => {
    const logoutUser = async () => {
       await axios.get("/api/logout");
       localStorage.removeItem("firstlogin");
-      document.getElementById("success4").style.display = "block";
-      const fis = document.getElementById("fes2");
-      fis.innerText = "logout successfully";
-      setTimeout(() => {
-         window.location.href = "/";
-         document.getElementById("success4").style.display = "none";
-      }, 2000);
+      window.location.href="/";
+      setAlert("success","logout succfully");
    };
 
    const showStyle = {
       top: show ? "0" : "-100%",
    };
 
-   const showStyle1 = {
-      display: show1 ? "block" : "none"
-   }
-
-
    return (
       <>
          <div className="broker-home">
-            <div className="success-message mrji" id="success4">
-               <Alert id="fes2" severity="success"></Alert>
-            </div>
-            <div id="fuccess4" className="fuccess-msg">
-               <Alert className="tis2" severity="error"></Alert>
-            </div>
             <div className="broker-home1 flex">
                <Sidebar />
                <div className="broker-home12 flex">
@@ -435,7 +413,7 @@ const MyProfile = ({ setAuthFlag, claimPop, setClaimPop }) => {
                   </button>
                 </div>
                 </div> */}
-                        <Bankdetails />
+                        <Bankdetails setAlert={setAlert} />
                      </div>
 
 

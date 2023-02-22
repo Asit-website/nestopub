@@ -4,7 +4,7 @@ import LoadMoreProperty from '../Property/LoadMoreProperty';
 import AdminMenu from './AdminMenu';
 import axios from 'axios';
 import PropertyItem from '../Admin/PropertyItem';
-const ManageProperties1 = () => {
+const ManageProperties1 = ({setAlert}) => {
     const [property, setProperty] = useState([]);
     const state = useContext(GlobalState);
    const [isAdmin] = state.BrokerApi.isAdmin;
@@ -15,20 +15,12 @@ const ManageProperties1 = () => {
    const [category, setCategory] = useState("all");
     const [sortBy, setSortBy] = useState("");
 
-    // const [isEdit,setIsEdit] = useState(false);
-    // const [editData,setEditData] = useState({});
-
-    // const [popAdmin,setPopAdmin] = useState(false);
-
-
    useEffect(() => {
-    // console.log(category);
     getProperties(category, sortBy);
 }, [page, category, sortBy,callback]);
 
 const getProperties = async (category, sortBy) => {
     const data = await state.getProperties(category, sortBy);
-    // console.log(data);
     setProperty(data.property);
     setResult(data.result);
 };
@@ -41,85 +33,17 @@ const getProperties = async (category, sortBy) => {
                     headers: { Authorization: token }
                 });
              
-                alert(res.data.msg);
+                setAlert("error",res.data.msg);
                 setCallback(!callback);
             
             }
         } 
         
         catch (error) {
-             console.log(error.response.data.msg);
+             setAlert("error",error.response.data.msg);
         }
         
     }
-
-
-//     const [value, setValue] = useState({
-//         propertyContent: '',
-//         propertyPrice: '',
-//         category: '',
-//         location: '',
-//         propertyArea: '',
-//         propertyDescription: '',
-//         parking: '',
-//         images: '',
-//         bedroom: '',
-//         Guest: '',
-//         bathRoom: '',
-//         bhk:''
-//     });
-
-//     useEffect(()=>{
-//       if(isEdit){
-//           console.log(editData);
-//           setValue({
-//             id:editData._id,
-//             propertyContent:editData.propertyContent,
-//             propertyPrice:editData.propertyPrice,
-//             category:editData.category,
-//             location:editData.location,
-//             propertyArea:editData.propertyArea,
-//             propertyDescription:editData.propertyDescription,
-//             parking:editData.parking,
-//             images:editData.images,
-//             bedroom:editData.bedroom,
-//             Guest:editData.Guest,
-//             bathRoom:editData.bathRoom,
-//             bhk:editData.bhk
-//           })
-//       }
-//     },[editData])
-
-  
-
-//     const handleChange = (e) => {
-//         if (e.target.name === 'images') {
-//             setValue({ ...value, [e.target.name]: e.target.files });
-//         }
-//         else {
-//             setValue({ ...value, [e.target.name]: e.target.value });
-//         }
-//     };
-
-   
-
-//     const handleEdit = async() =>{
-//         if(isEdit){
-//            try {
-//                const res = await axios.patch(`/api/editProperty/${property._id}`,{...value},{
-//                    headers:{Authorization:token}
-//                })
-//                console.log(res.data.msg);
-//                console.log(value);
-//                console.log(property._id);
-//            } 
-           
-//            catch (error) {
-//                console.log(error.response.data.msg);
-//            }
-//         }
-//    }
-
   return (
      <>
 <AdminMenu/>
@@ -129,7 +53,7 @@ const getProperties = async (category, sortBy) => {
                       property.map(((val) => {
                             return (
                                 <>
-                                <PropertyItem  key={val._id} val={val} token={token} callback={callback} setCallback={setCallback}   />
+                                <PropertyItem  key={val._id} val={val} token={token} callback={callback} setCallback={setCallback} setAlert={setAlert}  />
                                 </>
                             )
                         }))

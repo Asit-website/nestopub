@@ -12,7 +12,7 @@ import { Alert } from "@mui/material";
 
 const steps = ["Create Account", "Mobile,Email OTP Verification", "profile"];
 
-export default function Steeper({ type, setType, ty }) {
+export default function Steeper({ setPop, setType, ty,setAlert }) {
 
    const navigate = useNavigate();
    const [details, setDetails] = useState({
@@ -34,11 +34,9 @@ export default function Steeper({ type, setType, ty }) {
    // const [details, setDetails] = useState({});
 
    const state = useContext(GlobalState);
+   const [callback,setCallback] = state.callback;
    const [images, setImages] = useState(false);
-   const [isAdmin] = state.BrokerApi.isAdmin;
    const [tabIndex, setTabIndex] = useState(1);
-   // const [isActive, setIsActive] = useState(false);
-
    var css = {
       background: "#EBF7FF",
       border: "1.5px solid #0678C4",
@@ -132,6 +130,7 @@ export default function Steeper({ type, setType, ty }) {
        formData.append('file', file);
        const res = await axios.post('/api/upload', formData)
        setImages(res.data);
+       setAlert("success",res.data.msg);
      }
 
      catch (error) {
@@ -162,18 +161,14 @@ export default function Steeper({ type, setType, ty }) {
        let resp = await axios.post("/api/registerBroker", { ...details, images });
        localStorage.setItem('nestoBroker', JSON.stringify(resp.data.user));
        localStorage.setItem("firstlogin", true);
-       window.location.href = "/brokerProfile/dashboard";
-
-       let t = document.getElementById("git");
-       t.style.display = "block"
-       t.innerText = `${resp.data.msg}`;
-       setTimeout(() => {
-         t.style.display = "none";
-       }, 5000);
+       navigate("/brokerProfile/dashboard");
+       setAlert("success",resp.data.msg);
+       setCallback(!callback);
+       setPop(false);
      }
 
      catch (error) {
-       alert(error.response.data.msg)
+       setAlert("error",error.response.data.msg);
      }
    };
 
@@ -516,11 +511,8 @@ export default function Steeper({ type, setType, ty }) {
                      activeStep === 2 && (
                         <div className="wrapper">
                            <div className="shadow">
-                              <h2 className="step123">Mobile Verification</h2>
+                              <h2 className="step123">Upload Profile</h2>
                            </div>
-                           <p className="wrap-para">
-                              Lorem ipsum, in graphical and textual context, refers to filler text that is placed in a document or visual
-                           </p>
                            <div id="myForm" className="dance">
                               <div className="form">
                                  <div className="top-form">

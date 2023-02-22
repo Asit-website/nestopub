@@ -52,7 +52,7 @@ const brokerCtrl = {
         try {
             const features = new APIfeature(Users.find().where({ role: 0 }), req.query)
                 .pagination();
-            const broker = await features.query;
+                 const broker = await features.query;
             res.json({
                 status: "success",
                 result: broker.length,

@@ -1,5 +1,5 @@
-import React from "react";
-import BtnRender from "./BtnRender";
+import React, { useContext } from "react";
+import BtnRender from "./BtnRender"; 
 const BrokerJi = ({ broker,DeleteProfile,isAdmin,handleCheck}) => {
   return (
     <div>
@@ -12,7 +12,7 @@ const BrokerJi = ({ broker,DeleteProfile,isAdmin,handleCheck}) => {
           <>
             <div className="broking-faram">
               <h2>Broking Firm</h2>
-              <img src={broker.images.url} alt="" />
+              <img src={broker.images?.url} alt="images" />
               <p>
                 <span>FirmName</span>: {broker.firmName}
               </p>

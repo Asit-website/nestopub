@@ -6,7 +6,7 @@ import ResetPassword from './ResetPassword';
 import axios from "axios";
 import { GlobalState } from '../../../GlobalState';
 
-const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
+const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop,setAlert }) => {
    useEffect(() => {
       setAuthFlag(false);
    }, []);
@@ -27,11 +27,10 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
    })
 
    const state = useContext(GlobalState);
-   const [isAdmin] = state.BrokerApi.isAdmin;
-   const [token] = state.token;
    const [tabIndex, setTabIndex] = useState(1);
 
    const navigate = useNavigate();
+   const [callback,setCallback] = state.callback;
 
    const inputChange = (e) => {
       const { name, value } = e.target;
@@ -113,14 +112,14 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
       e.preventDefault();
       try {
          const res = await axios.post('/api/loginBroker', { ...user });
-         // console.log(res.data.user);
          localStorage.setItem('nestoBroker', JSON.stringify(res.data.user));
          localStorage.setItem("firstlogin", true);
-         window.location.href = "/brokerProfile/dashboard";
-         alert(res.data.msg);
+         navigate("/brokerProfile/dashboard");
+         setAlert("success",res.data.msg);
+         setCallback(!callback);
       }
       catch (error) {
-         alert(error.response.data.msg)
+         setAlert("error",error.response.data.msg);
       }
    };
 
@@ -130,11 +129,12 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
          const res = await axios.post('/api/individual', { ...user1 });
          localStorage.setItem('nestoBroker', JSON.stringify(res.data.user));
          localStorage.setItem("firstlogin", true);
-         window.location.href = "/brokerProfile/dashboard"
-         alert(res.data.msg);
+         navigate("/brokerProfile/dashboard");
+         setAlert("success",res.data.msg);
+         setCallback(!callback);
       }
       catch (error) {
-         alert(error.response.data.msg)
+         setAlert("error",error.response.data.msg);
       }
    };
 
@@ -144,11 +144,12 @@ const Login = ({ setAuthFlag, resetPop, setResetPop, stepPop, setStepPop }) => {
          const res = await axios.post('/api/loginAdmin', { ...user2 });
          localStorage.setItem('nestoBroker', JSON.stringify(res.data.user));
          localStorage.setItem("firstlogin", true);
-         window.location.href = "/dashboard";
-         alert(res.data.msg);
+         navigate("/dashboard");
+         setAlert("success",res.data.msg);
+         setCallback(!callback);
       }
       catch (error) {
-         alert(error.response.data.msg);
+         setAlert("error",error.response.data.msg);
       }
    };
 
