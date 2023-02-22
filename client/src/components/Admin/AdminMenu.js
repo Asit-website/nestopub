@@ -19,15 +19,18 @@ const AdminMenu = () => {
          <ProSidebarProvider>
           <Sidebar className="menuside">
             <Menu className="menuside">
-                <MenuItem routerLink={<NavLink to="/dashboard/manageBrok"/>}  className="menu-item">Manage Brokers</MenuItem>
-                <MenuItem routerLink={<NavLink to="/dashboard/manageProperties"/>}  className="menu-item">List Properties</MenuItem>
-                <MenuItem routerLink={<NavLink to="/dashboard/manageProp"/>} className="menu-item"> Manage Properties </MenuItem>
-              <MenuItem routerLink={<NavLink to="/dashboard/addBuilder"/>} className="menu-item">RegisterBuilder</MenuItem>
-              <MenuItem className="menu-item"> Calendar </MenuItem>
+               <NavLink className={`${window.location.pathname==='/dashboard/manageBrok' ? "item-o" : "menu-item"}`} to="/dashboard/manageBrok"><MenuItem   className={`${window.location.pathname==="/dashboard/manageBrok" ? "item-o" : "menu-item"}`}>Manage Brokers</MenuItem></NavLink>
+               <NavLink className={`${window.location.pathname==="/dashboard/manageProperties" ? "item-o" : "menu-item"}`} to="/dashboard/manageProperties"><MenuItem className={`${window.location.pathname==="/dashboard/manageProperties" ? "item-o" : "menu-item"}`}>List Properties</MenuItem></NavLink>
+               <NavLink className={`${window.location.pathname==="/dashboard/manageProp" ? "item-o" : "menu-item"}`} to="/dashboard/manageProp"><MenuItem className={`${window.location.pathname==="/dashboard/manageProp" ? "item-o" : "menu-item"}`}> Manage Properties </MenuItem></NavLink>
+
+             <NavLink className={`${window.location.pathname==="/dashboard/addBuilder" ? "item-o" : "menu-item"}`} to="/dashboard/addBuilder"><MenuItem className={`${window.location.pathname==="/dashboard/addBuilder" ? "item-o" : "menu-item"}`}>RegisterBuilder</MenuItem></NavLink>
+
+             <NavLink className={`${window.location.pathname==="/dashboard/getBuilder" ? "item-o" : "menu-item"}`}  to="/dashboard/getBuilder"><MenuItem className={`${window.location.pathname==="/dashboard/getBuilder" ? "item-o" : "menu-item"}`}>Manage Builders</MenuItem></NavLink>
             </Menu>
           </Sidebar>
         </ProSidebarProvider>
     </div>
+    
     </>
   )
 }

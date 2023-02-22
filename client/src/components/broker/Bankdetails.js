@@ -1,19 +1,14 @@
 import React,{useContext,useState,useEffect} from 'react'
 import { GlobalState } from '../../GlobalState';
 import axios from 'axios';
-const Bankdetails = () => {
-
-    const [show, setShow] = useState(false);
+const Bankdetails = ({setAlert}) => {
   const [show1,setShow1] = useState(false);
   const state = useContext(GlobalState);
   const [user] = state.BrokerApi.user;
-  
   const [callback, setCallback] = state.BrokerApi.callback;
   const [editData,setEditData] = useState({});
   const [isEdit,setIsEdit] = useState(false);
-  const [images,setImages] = useState(false);
   const [cancelCheque, setCancelCheque] = useState(false);
-  const [uploadedImage1,setUploadedImage1] = useState('');
   const [uploadedImage2, setUploadedImage2] = useState('');
   const [details, setDetails] = useState({
     bankAcountName:"",
@@ -53,16 +48,12 @@ const Bankdetails = () => {
             const res = await axios.patch(`/api/editBroker/${user._id}`, {
               ...details,cancelCheque
             });
-            document.getElementById("success4").style.display = "block";
-            const fis = document.getElementById("fes2");
-            fis.innerText = `${res.data.msg}`;
+            setAlert("success",res.data.msg);
             setCallback(!callback);
-            setTimeout(() => {
-              document.getElementById("success4").style.display = "none";
-            }, 2000);
+           
           } 
           catch (error) {
-            alert(error.response.data.msg);
+            setAlert("error",error.response.data.msg);
           }
     }
    
@@ -83,10 +74,11 @@ const Bankdetails = () => {
          formData.append('file',file);
          const res = await axios.post('/api/upload',formData)
          setCancelCheque(res.data);
+         setAlert("success",res.data.msg);
     }
     
     catch (error) {
-      alert(error.response.data.msg);
+      setAlert("error",error.response.data.msg);
     }
  }
 
@@ -98,7 +90,7 @@ const Bankdetails = () => {
     );
     setCancelCheque(false); 
   } catch (error) {
-    alert(error.response.data.msg);
+    setAlert("error",error.response.data.msg);
   }
 };
 

@@ -32,7 +32,7 @@ router.post('/upload', upload, async (req, res) => {
         var locaFilePath = req.file.path;
         var result = await uploadToCloudinary(locaFilePath);
         // console.log(result);
-        res.json({ url: result.url, public_id: result.public_id });
+        res.json({ url: result.url, public_id: result.public_id,msg:"Image Upload Successfully" });
     }
     catch (err) {
         return res.status(500).json({ msg: err.message })

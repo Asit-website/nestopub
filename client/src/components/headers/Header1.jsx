@@ -6,33 +6,22 @@ import axios from "axios";
 import { GlobalState } from "../../GlobalState";
 import SearchClient from "../ClientsPop/SearchClient";
 
-const Header1 = ({ pop, setPop }) => {
+const Header1 = ({ pop, setPop,setAlert }) => {
   const state = useContext(GlobalState);
-  const [isLogged] = state.BrokerApi.isLogged;
-  const [isAdmin] = state.BrokerApi.isAdmin;
   const [user] = state.BrokerApi.user;
-  const navigate = useNavigate()
-  // const user=state.user1;
-  // const [user, setUser] = useState({});
-  // useEffect(()=>{
-    
-  //   setUser(JSON.parse(localStorage.getItem('nestoBroker')));
-  // },[state.headerFlag]);
-
-  const [broker] = state.IndividualApi.broker;
-
-  // console.log(user);
-
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const closeMenu = () => setClick(false);
   const [navColor, setNavColor] = useState(false);
   const [same, setSame] = useState("popup-container");
 
+  const navigate = useNavigate();
+
   const logoutUser = async () => {
     await axios.get("/api/logout");
     localStorage.removeItem("firstlogin");
-    window.location.href = "/";
+    window.location.href="/";
+    setAlert("success","logout succfully");
   };
 
   // ============admin router===============

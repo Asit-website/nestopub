@@ -6,7 +6,7 @@ import Notfound from "./Notfound";
 import BrokerProfile from "../broker/BrokerProfile";
 import { GlobalState } from "../../GlobalState";
 import AdminDashBoard from "../Admin/AdminDashBoard";
-import BrokerManage from "../Admin/BrokerManage";
+import BrokerManage from "../Admin/AdminBroker/BrokerManage";
 import CustomerManagement from "../broker/CustomerManagement";
 import BrokerProperty from "../broker/BrokerProperty";
 import VisitManagement from "../broker/VisitManagement";
@@ -23,10 +23,12 @@ import DetailsProperty from "../Property/DetailsProperty";
 import Support from "../broker/Support";
 import SavedProperty from "../broker/SavedProperty";
 import AddBuilder from "../Admin/AdminBuilder/AddBuilder";
+import GetBuilder from "../Admin/AdminBuilder/getBuilder";
 
-const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop, claimPop, setClaimPop }) => {
+const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop, claimPop, setClaimPop,setAlert }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
+  const [user] = state.BrokerApi.user;
   let isLogged1=state.isLogged1;
   if(isLogged)
   {
@@ -47,16 +49,14 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route
           path="/"
           element={
-            <Home setAuthFlag={setAuthFlag} setPop={setPop} />
+            <Home setAuthFlag={setAuthFlag} setPop={setPop}  />
           }
         />
-        <Route path="/login" element={<Login setAuthFlag={setAuthFlag} resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} />} />
+        <Route path="/login" element={<Login setAuthFlag={setAuthFlag} resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} setAlert={setAlert} />} />
         <Route path="/brokerProfile/visitManagement" element={isLogged ? <VisitManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />
         <Route path="/brokerProfile/paymentHistory" element={isLogged ? <PaymentHistory setAuthFlag={setAuthFlag} /> : adminstartor()} />
-        <Route path="/brokerProfile/myProfile" element={isLogged ? <MyProfile setAuthFlag={setAuthFlag} claimPop={claimPop} setClaimPop={setClaimPop} /> : adminstartor()} />
+        <Route path="/brokerProfile/myProfile" element={isLogged ? <MyProfile setAuthFlag={setAuthFlag} claimPop={claimPop} setClaimPop={setClaimPop} setAlert={setAlert} /> : adminstartor()} />
         <Route path="/brokerProfile/chat" element={isLogged ? <BrokerChat cli={cli} setAuthFlag={setAuthFlag} /> : adminstartor()} />
-
-        {/* <Route path="/brokerProfile/dashboard" element={isLogged ? <BrokerProfile setAuthFlag={setAuthFlag} /> : adminstartor()} /> */}
 
         <Route path="/brokerProfile/dashboard" element={isLogged1 ? <BrokerProfile setAuthFlag={setAuthFlag} /> : adminstartor()} />
 
@@ -65,15 +65,19 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
         <Route path="/brokerProfile/support" element={<Support/>}/>
         <Route path="/brokerProfile/propertyDetails/:id" element={isLogged ? <BrokerPropertyDetails setAuthFlag={setAuthFlag} /> : adminstartor()} />
 
+
+        {/* ===========================admin============================================= */}
         <Route path="/dashboard" element={isAdmin ? <AdminDashBoard setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
-        <Route path="/dashboard/manageBrok" element={isAdmin ? <BrokerManage setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
-        <Route path="/dashboard/manageProperties" element={isAdmin ? <ManageProperties setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
+        <Route path="/dashboard/manageBrok" element={isAdmin ? <BrokerManage setAuthFlag={setAuthFlag} setAlert={setAlert} /> : <Notfound setAuthFlag={setAuthFlag} />} />
+        <Route path="/dashboard/manageProperties" element={isAdmin ? <ManageProperties setAuthFlag={setAuthFlag} setAlert={setAlert}  /> : <Notfound setAuthFlag={setAuthFlag} />} />
 
-        <Route path="/dashboard/manageProp" element={ isAdmin ? <ManageProperties1 setAuthFlag={setAuthFlag}/> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+        <Route path="/dashboard/manageProp" element={ isAdmin ? <ManageProperties1 setAuthFlag={setAuthFlag} setAlert={setAlert}/> : <Notfound setAuthFlag={setAuthFlag}/>}/>
 
-        <Route path="/dashboard/addBuilder" element={isAdmin ? <AddBuilder setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+        <Route path="/dashboard/addBuilder" element={isAdmin ? <AddBuilder setAlert={setAlert} setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+        <Route path="/dashboard/getBuilder" element={isAdmin ? <GetBuilder setAlert={setAlert} setAuthFlag={setAuthFlag}/> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+        {/* ========================end admin========================================= */}
         
-        <Route path="/contact" element={<Contact setAuthFlag={setAuthFlag} />} />
+        <Route path="/contact" element={<Contact setAlert={setAlert} setAuthFlag={setAuthFlag} />} />
         <Route path="/properties" element={<Propertyies setAuthFlag={setAuthFlag}/>}/>
         <Route path="/detail/:id" element={<DetailsProperty setAuthFlag={setAuthFlag} />}/>
 

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import logo from "../../images/logo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import HomePop from "../mainPages/home/HomePop";
 import axios from "axios";
 import { GlobalState } from "../../GlobalState";
-const Header = ({ pop, setPop }) => {
+const Header = ({ pop, setPop,setAlert }) => {
   const state = useContext(GlobalState);
   const [isLogged] = state.BrokerApi.isLogged;
   const [isAdmin] = state.BrokerApi.isAdmin;
@@ -17,10 +17,13 @@ const Header = ({ pop, setPop }) => {
   const [navColor, setNavColor] = useState(false);
   const [same, setSame] = useState("popup-container");
 
+  const navigate = useNavigate();
+
   const logoutUser = async () => {
     await axios.get("/api/logout");
     localStorage.removeItem("firstlogin");
     window.location.href = "/";
+    setAlert("success","logout succfully");
   };
   
 
@@ -115,6 +118,7 @@ const Header = ({ pop, setPop }) => {
                     </li>
                   </NavLink>
                 )}
+               
               </>
             ) : (
               <li className="nav-item nav-item1">
@@ -126,7 +130,7 @@ const Header = ({ pop, setPop }) => {
           </ul>
         </nav>
       </div>
-      {pop && <HomePop type={same} setType={setSame} setPop={setPop} />}
+      {pop && <HomePop type={same} setType={setSame} setPop={setPop} setAlert={setAlert} />}
     </>
   );
 };

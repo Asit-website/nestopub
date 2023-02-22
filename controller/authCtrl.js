@@ -200,10 +200,10 @@ const authCtrl = {
 
    builderRegister: async (req,res) =>{
        try {
-           const {builderName,builderPhone,builderEmail,role} = req.body;
+           const {builderName,builderPhone,builderEmail,images,role} = req.body;
 
            const newBuilder = new Users({
-              builderName,builderPhone,builderEmail,role
+              builderName,builderPhone,builderEmail,images,role
            })
 
            const data = await newBuilder.save();

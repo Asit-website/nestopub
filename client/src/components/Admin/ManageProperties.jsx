@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { GlobalState } from '../../GlobalState';
 import AdminMenu from './AdminMenu';
 import { useNavigate } from 'react-router-dom';
-const ManageProperties = () => {
+const ManageProperties = ({setAlert}) => {
     const context = useContext(GlobalState);
     const [value, setValue] = useState({
         content: '',
@@ -34,10 +34,8 @@ const ManageProperties = () => {
         e.preventDefault();
         console.log(value);
         let ans = await context.postProperty(value);
-        alert("list a Property");
+        setAlert("success",ans.msg);
         navigate("/dashboard/manageProp");
-        // console.log(ans.data);
-        // console.log(ans.data.images);
     };
 
     return (

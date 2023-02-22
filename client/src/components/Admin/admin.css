@@ -13,6 +13,17 @@
     font-family: "Bold";
     font-size: 30px;
 }
+.item-o{
+    background-color: rgb(249, 244, 244);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-family: "Semi Bold";
+    font-size: 18px;
+  }
+  .senu{
+    font-family: "Semi Bold";
+    font-size: 24px
+  }
 .load button{
     background-color: #0371c0;
     font-size: 14.5px;
@@ -38,7 +49,10 @@
 .menu-item{
     color: #ffffff;
     font-family: "Semi Bold";
-    font-size: 16px;
+    font-size: 18px;
+}
+.menu-item:hover{
+    background-color: #c10100 !important;
 }
 .admin-menu{
     background-color: #c10100;

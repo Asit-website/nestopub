@@ -1,6 +1,6 @@
 import React from 'react'
 import Stepper from './Steeper';
-const HomePop = ({setPop,type,setType}) => {
+const HomePop = ({setPop,type,setType,setAlert}) => {
   let ty = "popup-id"
   const changeFun = () =>{
       let tyr = document.getElementById(ty);
@@ -13,7 +13,7 @@ const HomePop = ({setPop,type,setType}) => {
     <div className='home-pop'>
         <i onClick={changeFun} className="fa-solid fa-xmark"></i>
         <div id={ty} className={type}>
-           <Stepper ty={ty}  setType={setType}/>
+           <Stepper setPop={setPop} ty={ty}  setType={setType} setAlert={setAlert}/>
         </div>
     </div>
   )
