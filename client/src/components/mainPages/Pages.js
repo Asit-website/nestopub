@@ -53,16 +53,16 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
           }
         />
         <Route path="/login" element={<Login setAuthFlag={setAuthFlag} resetPop={resetPop} setResetPop={setResetPop} stepPop={stepPop} setStepPop={setStepPop} setAlert={setAlert} />} />
-        <Route path="/brokerProfile/visitManagement" element={isLogged ? <VisitManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />
-        <Route path="/brokerProfile/paymentHistory" element={isLogged ? <PaymentHistory setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/visitManagement" element={isLogged ? <VisitManagement setAlert={setAlert} setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/paymentHistory" element={isLogged ? <PaymentHistory setAuthFlag={setAuthFlag} setAlert={setAlert} /> : adminstartor()} />
         <Route path="/brokerProfile/myProfile" element={isLogged ? <MyProfile setAuthFlag={setAuthFlag} claimPop={claimPop} setClaimPop={setClaimPop} setAlert={setAlert} /> : adminstartor()} />
-        <Route path="/brokerProfile/chat" element={isLogged ? <BrokerChat cli={cli} setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/chat" element={isLogged ? <BrokerChat cli={cli} setAuthFlag={setAuthFlag} setAlert={setAlert} /> : adminstartor()} />
 
-        <Route path="/brokerProfile/dashboard" element={isLogged1 ? <BrokerProfile setAuthFlag={setAuthFlag} /> : adminstartor()} />
+        <Route path="/brokerProfile/dashboard" element={isLogged1 ? <BrokerProfile setAuthFlag={setAuthFlag} setAlert={setAlert} /> : adminstartor()} />
 
-        <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement setAuthFlag={setAuthFlag} /> : adminstartor()} />
-        <Route path="/brokerProfile/brokerProperty" element={isLogged ? <BrokerProperty setAuthFlag={setAuthFlag} /> : adminstartor()} />
-        <Route path="/brokerProfile/support" element={<Support/>}/>
+        <Route path="/brokerProfile/customerManagement" element={isLogged ? <CustomerManagement setAuthFlag={setAuthFlag} setAlert={setAlert} /> : adminstartor()} />
+        <Route path="/brokerProfile/brokerProperty" element={isLogged ? <BrokerProperty setAuthFlag={setAuthFlag} setAlert={setAlert} /> : adminstartor()} />
+        <Route path="/brokerProfile/support" element={ isLogged ? <Support setAlert={setAlert} setAuthFlag={setAuthFlag}/> : adminstartor()}/>
         <Route path="/brokerProfile/propertyDetails/:id" element={isLogged ? <BrokerPropertyDetails setAuthFlag={setAuthFlag} /> : adminstartor()} />
 
 
