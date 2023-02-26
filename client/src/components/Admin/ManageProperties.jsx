@@ -40,8 +40,10 @@ const ManageProperties = ({setAlert}) => {
 
     return (
         <>
+        <div className="w-full">
+        <div className="flex w-full">
             <AdminMenu />
-            <div className="admin-properties px-28 my-5">
+            <div className="admin-properties px-28 my-5 w-full">
                 <h4 className='my-4 text-xl'>List a Property</h4>
                 <form onSubmit={handleSubmit}>
                     <div className="relative z-0 w-full mb-6 group">
@@ -111,6 +113,8 @@ const ManageProperties = ({setAlert}) => {
                     </div>
                     <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                 </form>
+            </div>
+            </div>
             </div>
         </>
     )

@@ -62,9 +62,12 @@ const BrokerManage = ({ setAuthFlag,setAlert }) => {
 
   return (
     <>
+    <div className="w-full">
+    <div className="flex w-full">
       <AdminMenu />
-      <NavLink to="/dashboard"><h2 className='main'>Go to the Main Dashboard</h2></NavLink>
-      <h2 className='broker-text'>Brokers</h2>
+      <div className='w-full mt-6'>
+      <NavLink to="/dashboard"><h2 className='main text-3xl'>Go to the Main Dashboard</h2></NavLink>
+      <h2 className='broker-text text-2xl'>Brokers</h2>
       {
         isAdmin &&
         <div className="delete-all">
@@ -85,7 +88,9 @@ const BrokerManage = ({ setAuthFlag,setAlert }) => {
           })
         }
       </div>
-
+      </div>
+      </div>
+</div>
       <LoadMoreBroker />
       {
         broker.length === 0 && <h2 className='no-broker'>No Broker To Display</h2>

@@ -13,8 +13,10 @@ const AdminMenu = () => {
  const [user] = state.BrokerApi.user;
   return (
     <>
-    <h2 className='admin-text'>Admin DashBoard</h2>
-    <h3 className='text-center text-lg'><span>Welcome</span>: {user.name}</h3>
+    <div>
+    {/* <h2 className='admin-text text-center'>Admin DashBoard</h2>
+    <h3 className='text-center text-lg'><span>Welcome</span>: {user.name}</h3> */}
+    </div>
     <div className='admin-menu'>
          <ProSidebarProvider>
           <Sidebar className="menuside">
@@ -30,7 +32,6 @@ const AdminMenu = () => {
           </Sidebar>
         </ProSidebarProvider>
     </div>
-    
     </>
   )
 }

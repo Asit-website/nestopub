@@ -83,10 +83,13 @@ const AddBuilder = ({setAuthFlag,setAlert}) => {
      }
   return (
      <>
+      <div className="w-full">
+      <div className="flex w-full">
        <AdminMenu/>
-        <div  className="builderRegister mt-4  text-center">
-      
-        <form onSubmit={handleBuilder}>
+
+        <div  className="builderRegister mt-4  text-center w-full">
+          <h2 className=' text-3xl mt-4'>Add Builder</h2>
+        <form className='mt-6' onSubmit={handleBuilder}>
            <input type="text" placeholder='name' value={builderDetails.builderName}
            onChange={handleBuilderInput} name="builderName" required />
            <br />
@@ -114,6 +117,8 @@ const AddBuilder = ({setAuthFlag,setAlert}) => {
             <br />
             <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Register</button>
         </form>
+    </div>
+    </div>
     </div>
      </>
   )
