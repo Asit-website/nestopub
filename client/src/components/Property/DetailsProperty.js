@@ -13,43 +13,42 @@ import shareIcon from '../../images/ios_share.png'
 import calenderIcon from '../../images/calenderIcon.png'
 import ShareModal from './ShareModal';
 import { BASE_URL } from '../../utils/config';
-const DetailsProperty = ({setAuthFlag}) => {
-  useEffect(() => {
-    setAuthFlag(false);
-}, []);
-const param = useParams();
-const [property, setProperty] = useState([]);
-const [detailProperty,setDetailProperty] = useState([]);
+const DetailsProperty = ({ setAuthFlag }) => {
+    const { id } = useParams();
+    const state = useContext(GlobalState);
+    const [property, setProperty] = useState([]);
+    const [detailProperty, setDetailProperty] = useState([]);
+    const [page] = state.page;
+    const savedProperty = state.BrokerApi.savedProperty;
+    const [category, setCategory] = useState("all");
+    const [sortBy, setSortBy] = useState("");
+    const [isShare, setIsShare] = useState(false);
 
-const state = useContext(GlobalState);
-const [page] = state.page;
-const savedProperty = state.BrokerApi.savedProperty;
-const [result,setResult] = state.result;
-const [category, setCategory] = useState("all");
-const [sortBy, setSortBy] = useState("");
+    useEffect(() => {
+        setAuthFlag(false);
+    }, []);
 
-const [isShare,setIsShare] = useState(false);
+    useEffect(() => {
+        getProperty();
+    }, [id]);
 
-useEffect(() => {
-    getProperties(category, sortBy);
-}, [page, category, sortBy]);
-
-const getProperties = async (category, sortBy) => {
-    const data = await state.getProperties(category, sortBy);
-    setProperty(data.property);
-    setResult(data.result);
-};
+    const getProperty = async () => {
+        const data = await state.getPropertyById(id);
+        console.log(data);
+        // setProperty(data.data);
+        setDetailProperty(data.data);
+    };
 
 
-useEffect(()=>{
-  if(param.id){
-      property.forEach(prop=>{
-         if(prop._id === param.id) setDetailProperty(prop)
-      })
-  }
-},[param.id,property]);
+    useEffect(() => {
+        // if (param.id) {
+        //     property.forEach(prop => {
+        //         if (prop._id === param.id) setDetailProperty(prop)
+        //     })
+        // }
+    }, [id]);
 
-const [propertyImg, setPropertyImg] = useState(0);
+    const [propertyImg, setPropertyImg] = useState(0);
 
     const imageHandle0 = () => {
         setPropertyImg(0);
@@ -64,72 +63,72 @@ const [propertyImg, setPropertyImg] = useState(0);
     }
 
 
-if(detailProperty.length===0) return null;
+    if (detailProperty.length === 0) return null;
 
-  return (
-    <>
-        <div className='broker-home'>
+    return (
+        <>
+            <div className='broker-home'>
                 <div className="broker-home1 flex">
-                   {/* <Sidebar/> */}
+                    {/* <Sidebar/> */}
                     <div className='broker-property12'>
                         <div className='flex'>
                             <div className='broker-property121 border-10'>
-                                    <div className='propImgs flex'>
-                                        <div className='verticalPropImg'>
-                                            <div className='propSImg' onClick={imageHandle0}>
-                                                <img src={detailProperty.images[0]}/>
-                                            </div>
-                                            <div className='propSImg' onClick={imageHandle1}>
-                                                <img src={detailProperty.images[1]}/>
-                                            </div>
-                                            <div className='propSImg' onClick={imageHandle2}>
-                                                <img src={detailProperty.images[2]}/>
-                                            </div>
+                                <div className='propImgs flex'>
+                                    <div className='verticalPropImg'>
+                                        <div className='propSImg' onClick={imageHandle0}>
+                                            <img src={detailProperty.images[0]} />
                                         </div>
-                                        <div className='verticalPropImg'>
-                                            {propertyImg == 0 ? 
+                                        <div className='propSImg' onClick={imageHandle1}>
+                                            <img src={detailProperty.images[1]} />
+                                        </div>
+                                        <div className='propSImg' onClick={imageHandle2}>
+                                            <img src={detailProperty.images[2]} />
+                                        </div>
+                                    </div>
+                                    <div className='verticalPropImg'>
+                                        {propertyImg == 0 ?
+                                            <div className='propLImg'>
+                                                <img src={detailProperty.images[0]} alt="" />
+                                            </div>
+                                            : (propertyImg == 1) ? <div className='propLImg'>
+                                                <img src={detailProperty.images[1]} />
+                                            </div> :
                                                 <div className='propLImg'>
-                                                  <img src={detailProperty.images[0]} alt="" />
+                                                    <img src={detailProperty.images[2]} />
                                                 </div>
-                                             : (propertyImg == 1) ? <div className='propLImg'>
-                                             <img src={detailProperty.images[1]}/>
-                                             </div> :
-                                             <div className='propLImg'>
-                                             <img src={detailProperty.images[2]}/>
-                                             </div>
-                                            }
-                                            
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div className='propDesc'>
+                                    <div className='propTitle'>
+                                        <p>{detailProperty.propertyContent}</p>
+                                    </div>
+                                    <div className='propDetails flex'>
+                                        <div className='flex'>
+                                            <img src={car} />
+                                            <p>{detailProperty.parking}</p>
+                                        </div>
+                                        <div className='flex'>
+                                            <img src={bathtub} />
+                                            <p>{detailProperty.bathRoom}</p>
+                                        </div>
+                                        <div className='flex'>
+                                            <img src={zoomout} />
+                                            <p>{detailProperty.propertyArea}</p>
                                         </div>
                                     </div>
 
-                                    <div className='propDesc'>
-                                        <div className='propTitle'>
-                                            <p>{detailProperty.propertyContent}</p>
-                                        </div>
-                                        <div className='propDetails flex'>
-                                            <div className='flex'>
-                                                <img src={car}/>
-                                                <p>{detailProperty.parking}</p>
-                                            </div>
-                                            <div className='flex'>
-                                                <img src={bathtub}/>
-                                                <p>{detailProperty.bathRoom}</p>
-                                            </div>
-                                            <div className='flex'>
-                                                <img src={zoomout}/>
-                                                <p>{detailProperty.propertyArea}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className='propTitle'>
-                                            <p>Details</p>
-                                        </div>
-
-                                        <div className='propBlog'>
-                                            <p>{detailProperty.propertyDescription}</p>
-                                            
-                                        </div>
+                                    <div className='propTitle'>
+                                        <p>Details</p>
                                     </div>
+
+                                    <div className='propBlog'>
+                                        <p>{detailProperty.propertyDescription}</p>
+
+                                    </div>
+                                </div>
                             </div>
                             <div className='broker-property122'>
                                 <div className='priceCard'>
@@ -152,7 +151,7 @@ if(detailProperty.length===0) return null;
 
                                 <div className='sdescCard flex'>
                                     <div className='sdescCardImg'>
-                                        <img src={sImgBroker}/>
+                                        <img src={sImgBroker} />
                                     </div>
                                     <div className='sdescCardDetail'>
                                         <p className='sdescCardTitle'>Lisa Marady</p>
@@ -166,10 +165,10 @@ if(detailProperty.length===0) return null;
 
                                 <div className='sdescCard flex'>
                                     <div className='sdescCardImg'>
-                                        <img src={detailProperty.images[0]}/>
+                                        <img src={detailProperty.images[0]} />
                                     </div>
                                     <div className='sdescCardDetail'>
-                                    
+
                                         <p className='sdescCardTitle'>{detailProperty.propertyContent}</p>
                                         <p className='sdescCardDesc'>{detailProperty.bhk} | Built in 1995</p>
                                     </div>
@@ -177,7 +176,7 @@ if(detailProperty.length===0) return null;
 
                                 <div className='scheduleTourSec'>
                                     <div className='sTTitle flex'>
-                                        <img src={calenderIcon}/>
+                                        <img src={calenderIcon} />
                                         <p>Sehedule a Tour</p>
                                     </div>
 
@@ -193,11 +192,11 @@ if(detailProperty.length===0) return null;
 
                                 <div className='buttons flex'>
                                     <a className='blue-button flex'>
-                                        <img src={bookmarkIcon}/>
+                                        <img src={bookmarkIcon} />
                                         <p>Save</p>
                                     </a>
                                     <a className='white-button flex'>
-                                        <img src={shareIcon}/>
+                                        <img src={shareIcon} />
                                         <p>Share</p>
                                     </a>
                                 </div>
@@ -206,50 +205,50 @@ if(detailProperty.length===0) return null;
                         <div className='similar-properties'>
                             <p className='sp-title sp-title1'>Similar Properties</p>
                             <div className='similar-properties-cards flex'>
-                            {
-                                property.map(val=>{
-                                    return val.bhk === detailProperty.bhk  ?  <div className='similar-properties-card similar-properties-card2 ' style={{width:'25%'}}>
-                                    <div className='sp-card-img'>
-                                        <img src={val.images[0]} alt="" />
-                                    </div>
-                                    <div className='sp-card-detail'>
-                                        <p className='sp-card-text'>{val.propertyContent}</p>
-                                        <p className='sp-card-price'>&#8377; {val.propertyPrice}</p>
-                                        <div className='property-props flex'>
-                                            <div className='property-prop flex'>
-                                                <img src={car}/>
-                                                <p>{val.parking}</p>
+                                {
+                                    property.map(val => {
+                                        return val.bhk === detailProperty.bhk ? <div className='similar-properties-card similar-properties-card2 ' style={{ width: '25%' }}>
+                                            <div className='sp-card-img'>
+                                                <img src={val.images[0]} alt="" />
                                             </div>
-                                            <div className='property-prop  flex'>
-                                                <img src={bathtub}/>
-                                                <p>{val.bathRoom}</p>
-                                            </div>
-                                            <div className='property-prop  flex'>
-                                                <img src={zoomout}/>
-                                                <p>{val.propertyArea} ft</p>
-                                            </div>
-                                        </div>
-                                        <div className='sp-broker-sec flex'>
-                                            <div className='sp-broker-img flex'>
-                                            <img src={JSON.parse(val.user).images.url} />
+                                            <div className='sp-card-detail'>
+                                                <p className='sp-card-text'>{val.propertyContent}</p>
+                                                <p className='sp-card-price'>&#8377; {val.propertyPrice}</p>
+                                                <div className='property-props flex'>
+                                                    <div className='property-prop flex'>
+                                                        <img src={car} />
+                                                        <p>{val.parking}</p>
+                                                    </div>
+                                                    <div className='property-prop  flex'>
+                                                        <img src={bathtub} />
+                                                        <p>{val.bathRoom}</p>
+                                                    </div>
+                                                    <div className='property-prop  flex'>
+                                                        <img src={zoomout} />
+                                                        <p>{val.propertyArea} ft</p>
+                                                    </div>
+                                                </div>
+                                                <div className='sp-broker-sec flex'>
+                                                    <div className='sp-broker-img flex'>
+                                                        <img src={JSON.parse(val.user).images.url} />
                                                         <p>{JSON.parse(val.user).name}</p>
-                                            </div>
-                                            <div className='sp-actions flex'>
-                                                <div onClick={()=> setIsShare(true)} className='flex action-box cursor-pointer'>
-                                                    <img src={share}/>
-                                                </div>
-                                                <div onClick={()=> savedProperty(val)} className='flex action-box cursor-pointer'>
-                                                    <img src={wishlist}/>
-                                                </div>
-                                                {/* <div  className='flex action-box'>
+                                                    </div>
+                                                    <div className='sp-actions flex'>
+                                                        <div onClick={() => setIsShare(true)} className='flex action-box cursor-pointer'>
+                                                            <img src={share} />
+                                                        </div>
+                                                        <div onClick={() => savedProperty(val)} className='flex action-box cursor-pointer'>
+                                                            <img src={wishlist} />
+                                                        </div>
+                                                        {/* <div  className='flex action-box'>
                                                     <img src={addProperty}/>
                                                 </div> */}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div> : null
-                                })
-                            }
+                                        </div> : null
+                                    })
+                                }
                                 {/* <div className='similar-properties-card similar-properties-card2'>
                                     <div className='sp-card-img'></div>
                                     <div className='sp-card-detail'>
@@ -450,16 +449,16 @@ if(detailProperty.length===0) return null;
 
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
-        </div>
+            </div>
 
-        {
-            isShare && <ShareModal setIsShare={setIsShare} url = {`${BASE_URL}/detail/${detailProperty._id}`}/>
-        }
-    </>
-  )
+            {
+                isShare && <ShareModal setIsShare={setIsShare} url={`${BASE_URL}/detail/${detailProperty._id}`} />
+            }
+        </>
+    )
 }
 
 export default DetailsProperty

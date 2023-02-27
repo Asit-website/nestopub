@@ -1,42 +1,61 @@
-import React, { useContext, useEffect, useState } from 'react'
-import ListBullets from '../../../src/images/ListBullets.png'
-import zoomout from '../../images/ArrowsOut.png'
-import LoadMoreProperty from './LoadMoreProperty'
-import MapPin from '../../../src/images/MapPin.png'
-import { GlobalState } from '../../GlobalState'
-import { NavLink, useNavigate } from 'react-router-dom'
-import PropertyItem from './PropertyItem'
+import React, { useContext, useEffect, useState } from 'react';
+import ListBullets from '../../../src/images/ListBullets.png';
+import zoomout from '../../images/ArrowsOut.png';
+import LoadMoreProperty from './LoadMoreProperty';
+import MapPin from '../../../src/images/MapPin.png';
+import { GlobalState } from '../../GlobalState';
+import { NavLink, useNavigate } from 'react-router-dom';
+import PropertyItem from './PropertyItem';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
 
 const Propertyies = ({ setAuthFlag }) => {
-    const [property, setProperty] = useState([]);
-    useEffect(() => {
-        setAuthFlag(false);
-    }, []);
-
+    const navigate = useNavigate();
     const state = useContext(GlobalState);
     const [page] = state.page
     const savedProperty = state.BrokerApi.savedProperty;
     const [result, setResult] = state.result;
-    const [isLogged] = state.BrokerApi.isLogged
+    const [isLogged] = state.BrokerApi.isLogged;
+    const [property, setProperty] = useState([]);
     const [category, setCategory] = useState("all");
     const [sortBy, setSortBy] = useState("");
     const [filter, setFilter] = useState({
         city: "",
         type: "",
-        price: ""
+        // price: ""
     });
+    const [cities, setCities] = useState([]);
+    const [latestCities, setLatestCities] = useState([]);
 
+    useEffect(() => {
+        setAuthFlag(false);
+        getCities();
+    }, []);
 
     useEffect(() => {
         // console.log(category);
-        getProperties(category, sortBy);
+        getProperties(category, sortBy, filter.city);
     }, [page, category, sortBy]);
 
-    const getProperties = async (category, sortBy) => {
-        const data = await state.getProperties(category, sortBy);
-        // console.log(data);
+    const getProperties = async (category, sortBy, city) => {
+        const data = await state.getProperties(category, sortBy, city);
+        console.log(data);
         setProperty(data.property);
         setResult(data.result);
+    };
+
+    const getCities = async () => {
+        let tempCities = [];
+        const data = await state.getProperties("", "", "");
+        // console.log(data);
+        setLatestCities(data.property);
+        for (let i of data.property) {
+            if (!tempCities.includes(i.location)) {
+                tempCities.push(i.location);
+            }
+        }
+        console.log(tempCities);
+        setCities(tempCities);
     };
 
     const handleSortChange = (e) => {
@@ -49,13 +68,17 @@ const Propertyies = ({ setAuthFlag }) => {
     };
 
     const toggleCatgory = (e, category) => {
-        console.log(e.target);
+        // console.log(e.target);
         document.querySelector('.ac').classList.remove('ac');
         e.target.classList.add('ac');
         setCategory(category);
     };
 
-    const navigate = useNavigate();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(filter);
+        getProperties(filter.type, '', filter.city);
+    };
 
     return (
         <>
@@ -82,38 +105,29 @@ const Propertyies = ({ setAuthFlag }) => {
                                         <select name="city" onChange={handleChange} value={filter.city} id="city">
                                             <option value="">Select your city</option>
                                             {
-                                                property.map((val) => {
-                                                    return <option key={val._id} value={val.location}>{val.location}</option>
+                                                cities.map((val, index) => {
+                                                    return <option key={index} value={val}>{val}</option>
                                                 })
                                             }
-
                                         </select>
                                     </th>
-
                                     <td className="px-6 py-4 ">
                                         <h3 className='propji  font-medium text-gray-900  dark:text-white'>Property Type</h3>
-                                        <select name="type" onChange={handleChange} value={filter.city} id="ptype">
+                                        <select name="type" onChange={handleChange} value={filter.type} id="ptype">
                                             <option value="">Select property type</option>
-                                            {/* {
-                                                property.map(val=>{
-                                                    return <option key={val._id}  value={val._id}>{val.category}</option>
-                                                })
-                                            } */}
+                                            <option value="buy">Buy</option>
+                                            <option value="sell">Sell</option>
+                                            <option value="rent">Rent</option>
                                         </select>
                                     </td>
-                                    <td className="px-6 py-4 ">
+                                    {/* <td className="px-6 py-4 ">
                                         <h3 className='price font-medium text-gray-900  dark:text-white'>Price</h3>
                                         <select name="price" onChange={handleChange} value={filter.city} id="price">
                                             <option value="">Select price</option>
-                                            {/* {
-                                                property.map(val=>{
-                                                    return <option key={val._id} value={val._id}>{val.price}</option>
-                                                })
-                                            } */}
                                         </select>
-                                    </td>
+                                    </td> */}
                                     <td className="px-6 py-4 ">
-                                        <button className='btnserach'>Search</button>
+                                        <button onClick={handleSubmit} className='btnserach'>Search</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -157,9 +171,8 @@ const Propertyies = ({ setAuthFlag }) => {
                     {
                         property.map(((val, index) => {
                             return (
-
-                                <PropertyItem val={val} savedProperty={savedProperty}/>
-                            )
+                                <PropertyItem key={index} val={val} savedProperty={savedProperty} />
+                            );
                         }))
                     }
                 </div>
@@ -173,106 +186,36 @@ const Propertyies = ({ setAuthFlag }) => {
                 </div>
                 <div className="fort-card">
                     <div className="hot-card">
-                        <div className="first-hot">
-                            <div className="hot-offer">
-                                <button>Hot offer</button>
-                            </div>
-                            <div className="view-de">
-                                <button>View Detail</button>
-                            </div>
-                            <div className="fat-area">
-                                <div className="hot-area">
-                                    <div className="hot-area1">
-                                        <img src={MapPin} alt="" />
-                                        <p>Delhi</p>
-                                    </div>
-                                    <div className="hot-area2">
-                                        <img src={zoomout} alt="" />
-                                        <p>12000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="second-hot">
-                            <div className="hot-offer">
-                                <button>Hot offer</button>
-                            </div>
-                            <div className="view-de">
-                                <button>View Detail</button>
-                            </div>
-                            <div className="fat-area">
-                                <div className="hot-area">
-                                    <div className="hot-area1">
-                                        <img src={MapPin} alt="" />
-                                        <p>Noida</p>
-                                    </div>
-                                    <div className="hot-area2">
-                                        <img src={zoomout} alt="" />
-                                        <p>12000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="third-hot">
-                            <div className="hot-offer">
-                                <button>Hot offer</button>
-                            </div>
-                            <div className="view-de">
-                                <button>View Detail</button>
-                            </div>
-                            <div className="fat-area">
-                                <div className="hot-area">
-                                    <div className="hot-area1">
-                                        <img src={MapPin} alt="" />
-                                        <p>Gurgau</p>
-                                    </div>
-                                    <div className="hot-area2">
-                                        <img src={zoomout} alt="" />
-                                        <p>12000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="fourth-hot">
-                            <div className="hot-offer">
-                                <button>Hot offer</button>
-                            </div>
-                            <div className="view-de">
-                                <button>View Detail</button>
-                            </div>
-                            <div className="fat-area">
-                                <div className="hot-area">
-                                    <div className="hot-area1">
-                                        <img src={MapPin} alt="" />
-                                        <p>Noida</p>
-                                    </div>
-                                    <div className="hot-area2">
-                                        <img src={zoomout} alt="" />
-                                        <p>12000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="fifth-hot">
-                            <div className="hot-offer">
-                                <button>Hot offer</button>
-                            </div>
-                            <div className="view-de">
-                                <button>View Detail</button>
-                            </div>
-                            <div className="fat-area">
-                                <div className="hot-area">
-                                    <div className="hot-area1">
-                                        <img src={MapPin} alt="" />
-                                        <p>Noida</p>
-                                    </div>
-                                    <div className="hot-area2">
-                                        <img src={zoomout} alt="" />
-                                        <p>12000</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <Splide aria-label="My Favorite Images" options={{
+                            perPage: 5
+                        }}>
+                            {latestCities.map((e, index) => {
+                                return (
+                                    <SplideSlide key={index}>
+                                        <div className="first-hot">
+                                            <div className="hot-offer">
+                                                <button>Hot offer</button>
+                                            </div>
+                                            <div className="view-de">
+                                                <NavLink to={`detail/${e._id}`}>View Detail</NavLink>
+                                            </div>
+                                            <div className="fat-area">
+                                                <div className="hot-area">
+                                                    <div className="hot-area1">
+                                                        <img src={MapPin} alt="" />
+                                                        <p>{e.location}</p>
+                                                    </div>
+                                                    <div className="hot-area2">
+                                                        <img src={zoomout} alt="" />
+                                                        <p>{e.propertyPrice}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </SplideSlide>
+                                );
+                            })}
+                        </Splide>
                     </div>
 
                     {/* <div className="arrows-crausol">
