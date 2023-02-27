@@ -29,6 +29,7 @@ export default function Steeper({ setPop, setType, ty,setAlert }) {
       mobile1: "",
       name: "",
       phone: "",
+      email:"",
       // images: ""
    });
    // const [details, setDetails] = useState({});
@@ -262,13 +263,6 @@ export default function Steeper({ setPop, setType, ty,setAlert }) {
 
    return (
       <Box sx={{ width: "100%" }}>
-         <Alert id="git" style={{ display: "none" }} severity="success">
-            This is a success alert — check it{" "}
-         </Alert>
-         <Alert id="fit" style={{ display: "none" }} severity="error">
-            {" "}
-         </Alert>
-
          <Stepper style={styleUpload} className="stoper" activeStep={activeStep}>
             {steps.map((label, index) => {
                const stepProps = {};
@@ -323,7 +317,7 @@ export default function Steeper({ setPop, setType, ty,setAlert }) {
                            >
                               Individual broker
                            </button>
-                           <button style={{display:'none'}}  onClick={tabAnother1}>admin</button>
+                           <button  style={{display:"none"}}  onClick={tabAnother1}>admin</button>
                         </div>
 
                         <div id="myForm" className="dance">
@@ -429,6 +423,15 @@ export default function Steeper({ setPop, setType, ty,setAlert }) {
                                 placeholder="Phone"
                                 name="phone"
                                 value={details?.phone}
+                                onChange={handleChange}
+                              />
+                            </div>
+                            <div className="inner-form int-form2">
+                              <input
+                                type="email"
+                                placeholder="Email"
+                                name="email"
+                                value={details?.email}
                                 onChange={handleChange}
                               />
                             </div>

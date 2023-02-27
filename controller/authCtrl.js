@@ -6,7 +6,7 @@ const { uploadToCloudinary } = require('../utils/uploadUtil');
 const authCtrl = {
    resgisterBroker: async (req, res) => {
       try {
-         const { firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone,images } = req.body;
+         const { firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone,images,email } = req.body;
 
          // const { images } = req.files;
 
@@ -23,7 +23,7 @@ const authCtrl = {
          // console.log(imageUrlList);
 
          const newBroker = new Users({
-            firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone, images
+            firmName, authorizedName, city, mobile, individualName, city1, mobile1, mobileOtp1, mobileOtp2, mobileOtp3, mobileOtp4, name, phone, images, email
          });
 
          const data = await newBroker.save();

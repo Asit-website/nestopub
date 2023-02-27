@@ -24,6 +24,7 @@ import Support from "../broker/Support";
 import SavedProperty from "../broker/SavedProperty";
 import AddBuilder from "../Admin/AdminBuilder/AddBuilder";
 import GetBuilder from "../Admin/AdminBuilder/getBuilder";
+import AdminProfile from "../Admin/AdminProfile";
 
 const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop, claimPop, setClaimPop, setAlert }) => {
   const state = useContext(GlobalState);
@@ -67,8 +68,11 @@ const Pages = ({ setAuthFlag, setPop, resetPop, setResetPop, stepPop, setStepPop
 
         <Route path="/dashboard/manageProp" element={isAdmin ? <ManageProperties1 setAuthFlag={setAuthFlag} setAlert={setAlert} /> : <Notfound setAuthFlag={setAuthFlag} />} />
 
-        <Route path="/dashboard/addBuilder" element={isAdmin ? <AddBuilder setAlert={setAlert} setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
-        <Route path="/dashboard/getBuilder" element={isAdmin ? <GetBuilder setAlert={setAlert} setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag} />} />
+        <Route path="/dashboard/addBuilder" element={isAdmin ? <AddBuilder setAlert={setAlert} setAuthFlag={setAuthFlag} /> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+        <Route path="/dashboard/getBuilder" element={isAdmin ? <GetBuilder setAlert={setAlert} setAuthFlag={setAuthFlag}/> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+         
+        <Route path="/dashboard/adminProfile" element={isAdmin ? <AdminProfile setAlert={setAlert} setAuthFlag={setAuthFlag}/> : <Notfound setAuthFlag={setAuthFlag}/>}/>
+
         {/* ========================end admin========================================= */}
 
         <Route path="/contact" element={<Contact setAlert={setAlert} setAuthFlag={setAuthFlag} />} />

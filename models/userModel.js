@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema(
       required: false,
       set: d => d === '' ? undefined : d
     },
+    // ==========admin mail===========
     email: {
       type: String,
       required: false,

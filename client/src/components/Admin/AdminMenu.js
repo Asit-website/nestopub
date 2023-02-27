@@ -1,16 +1,22 @@
 import React,{useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import { GlobalState } from '../../GlobalState';
+import axios from 'axios';
 import {
     Sidebar,
     Menu,
     MenuItem,
-    SubMenu,
     ProSidebarProvider,
   } from "react-pro-sidebar";
 const AdminMenu = () => {
  const state = useContext(GlobalState);
  const [user] = state.BrokerApi.user;
+
+ const logoutUser = async () => {
+  await axios.get("/api/logout");
+  localStorage.removeItem("firstlogin");
+  window.location.href = "/";
+};
   return (
     <>
     <div>
@@ -28,6 +34,9 @@ const AdminMenu = () => {
              <NavLink className={`${window.location.pathname==="/dashboard/addBuilder" ? "item-o" : "menu-item"}`} to="/dashboard/addBuilder"><MenuItem className={`${window.location.pathname==="/dashboard/addBuilder" ? "item-o" : "menu-item"}`}>RegisterBuilder</MenuItem></NavLink>
 
              <NavLink className={`${window.location.pathname==="/dashboard/getBuilder" ? "item-o" : "menu-item"}`}  to="/dashboard/getBuilder"><MenuItem className={`${window.location.pathname==="/dashboard/getBuilder" ? "item-o" : "menu-item"}`}>Manage Builders</MenuItem></NavLink>
+
+             <NavLink className={`${window.location.pathname==="/dashboard/adminProfile" ? "item-o" : "menu-item"}`}  to="/dashboard/adminProfile"><MenuItem className={`${window.location.pathname==="/dashboard/adminProfile" ? "item-o" : "menu-item"}`}>MyProfile</MenuItem></NavLink>
+             <NavLink className="menu-item"  to="#!"><MenuItem className="menu-item">SignOut</MenuItem></NavLink>
             </Menu>
           </Sidebar>
         </ProSidebarProvider>
