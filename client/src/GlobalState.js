@@ -108,10 +108,26 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const getProperties = async (category, sortBy) => {
+  const getProperties = async (category, sortBy, city) => {
     try {
-      console.log(category, sortBy);
-      const response = await fetch(`http://localhost:5000/api/getProperty?limit=${page*6}&category=${category}&sortBy=${sortBy}`, {
+      console.log(category, sortBy, city);
+      const response = await fetch(`http://localhost:5000/api/getProperty?limit=${page*6}&category=${category}&sortBy=${sortBy}&city=${city}`, {
+        method: "GET",
+        // headers: {
+        //   "Authorization": token
+        // }
+      });
+      const data = await response.json();
+      setResult(data.result);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPropertyById = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/getProperty/${id}`, {
         method: "GET",
         // headers: {
         //   "Authorization": token
@@ -271,7 +287,8 @@ export const DataProvider = ({ children }) => {
     headerFlag,
     page:[page,setPage],
     result:[result,setResult],
-    editProperty
+    editProperty,
+    getPropertyById
   };
 
   return <GlobalState.Provider value={state}>{children}</GlobalState.Provider>;

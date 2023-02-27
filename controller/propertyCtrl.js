@@ -37,7 +37,6 @@ class APIfeatures {
     this.query = this.query.skip(skip).limit(limit)
     return this;
   }
-
 };
 
 const propertyCtrl = {
@@ -48,38 +47,73 @@ const propertyCtrl = {
 
       // const property = await features.query;
 
-      let limit=req.query.limit;
-      let category=req.query.category;
-      let sortBy=req.query.sortBy;
+      let limit = req.query.limit;
+      let category = req.query.category;
+      let sortBy = req.query.sortBy;
+      let city = req.query.city;
       let property;
 
-      if(sortBy==="")
-      {
-        if(category==="all")
-        {
-          property = await Property.find().limit(limit);
-        }
-        else
-        {
-          property = await Property.find({category}).limit(limit);
-        }
+      let and = [];
+      if (city !== "") {
+        and.push({ location: city });
       }
-      else
-      {
-        if(category==="all")
-        {
-          property = await Property.find().sort({"propertyPrice": sortBy}).limit(limit);
-        }
-        else
-        {
-          property = await Property.find({category}).sort({"propertyPrice": sortBy}).limit(limit);
-        }
+      if (category !== "" && category !== "all") {
+        and.push({ category });
       }
 
+      if (and.length === 0) {
+        and.push({});
+      }
+      if (sortBy !== "") {
+        property = await Property.find({ $and: and }).sort({ "propertyPrice": sortBy }).limit(limit);
+      }
+      else {
+        property = await Property.find({ $and: and }).limit(limit);
+      }
+
+      // if(sortBy==="")
+      // {
+      //   if(category==="all")
+      //   {
+      //     property = await Property.find().limit(limit);
+      //   }
+      //   else
+      //   {
+      //     property = await Property.find({category}).limit(limit);
+      //   }
+      // }
+      // else
+      // {
+      //   if(category==="all")
+      //   {
+      //     property = await Property.find().sort({"propertyPrice": sortBy}).limit(limit);
+      //   }
+      //   else
+      //   {
+      //     property = await Property.find({category}).sort({"propertyPrice": sortBy}).limit(limit);
+      //   }
+      // }
+
       res.json({
-        status:"success",
-        result:property.length,
-        property:property
+        status: "success",
+        result: property.length,
+        property: property
+      });
+    }
+    catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+
+  getPropertyId: async (req, res) => {
+    try {
+      let id = req.params.id;
+      const data = await Property.findById(id);
+
+      res.json({
+        status: "success",
+        result: data.length,
+        data
       });
     }
     catch (error) {
@@ -89,7 +123,7 @@ const propertyCtrl = {
 
   createProperty: async (req, res) => {
     try {
-      const { propertyContent, propertyPrice, category, location, propertyArea, parking, bedroom, Guest, bathRoom, propertyDescription,bhk } = req.body;
+      const { propertyContent, propertyPrice, category, location, propertyArea, parking, bedroom, Guest, bathRoom, propertyDescription, bhk } = req.body;
 
       const { images } = req.files;
 
@@ -139,9 +173,9 @@ const propertyCtrl = {
 
   editProperty: async (req, res) => {
     try {
-      const { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, images, bedroom, Guest, bathRoom, propertyDescription,bhk} = req.body;
+      const { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, images, bedroom, Guest, bathRoom, propertyDescription, bhk } = req.body;
 
-      const updateObj = { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, bedroom, Guest, bathRoom, propertyDescription,bhk }
+      const updateObj = { propertyContent, propertyPrice, category, location, propertyArea, parking, propertyOwners, bedroom, Guest, bathRoom, propertyDescription, bhk }
 
       if (images) {
         updateObj.images = images;
@@ -150,7 +184,7 @@ const propertyCtrl = {
       //   updateObj.ownerImages = ownerImages;
       // }
 
-      await Property.findOneAndUpdate({ _id: req.params.id }, {$set:updateObj},{new:true});
+      await Property.findOneAndUpdate({ _id: req.params.id }, { $set: updateObj }, { new: true });
       res.json({ msg: "Property Update successfully" });
     }
 
