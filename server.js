@@ -1,6 +1,6 @@
 require('dotenv').config();
+require("./db/conn");
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const socketServerRouter = require('./Router/socketServer');
@@ -36,18 +36,6 @@ app.use('/api', require('./Router/categoryRouter'));
 app.use('/chat', require('./Router/chatRouter'));
 app.use("/api",require('./Router/builderRouter'));
 app.use("/api",require('./Router/adminRouter'));
-
-
-const URI = process.env.MONGODB_URL;
-mongoose.connect(URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    console.log("connection successfull");
-}).catch(() => {
-    console.log("connection is not successfull");
-})
-
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
