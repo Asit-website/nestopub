@@ -55,7 +55,18 @@ const propertyCtrl = {
 
       let and = [];
       if (city !== "") {
-        and.push({ location: city });
+        if(city.includes("["))
+        {
+          city=JSON.parse(city);
+          if(city.length>0)
+          {
+            and.push({ location: {$in: city} });
+          }
+        }
+        else
+        {
+          and.push({ location: city });
+        }
       }
       if (category !== "" && category !== "all") {
         and.push({ category });
