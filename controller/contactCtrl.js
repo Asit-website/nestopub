@@ -21,6 +21,17 @@ const contactCtrl = {
       catch (error) {
           return res.status(500).json({msg:error.message});
       }
+  },
+
+  getContact: async (req,res) =>{
+    try {
+       const contact = await Contacts.find();
+       res.json({msg:"good"});
+    } 
+    
+    catch (error) {
+       return res.status(500).json({msg:error.message});
+    }
   }
 }
 
